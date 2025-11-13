@@ -1,0 +1,303 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نموذج إرسال احترافي</title>
+    <style>
+        /* --- Google Fonts (Optional but recommended) --- */
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+        /* --- تصميم عام --- */
+        :root {
+            --primary-color: #4a90e2;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+            --light-gray: #f4f7f9;
+            --dark-gray: #333;
+            --border-color: #dde2e7;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', 'Tahoma', sans-serif;
+            background: linear-gradient(to top right, #e0eafc, #cfdef3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* --- تصميم الحاوية الرئيسية للنموذج --- */
+        .form-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 550px;
+            border: 1px solid #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--primary-color);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--dark-gray);
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        /* --- تصميم حقول الإدخال مع أيقونات --- */
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .input-group .icon {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            color: #aaa;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 14px 45px 14px 15px; /* مساحة للأيقونة */
+            border: 1px solid var(--border-color);
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--dark-gray);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+        }
+
+        /* --- تصميم زر الإرسال ودائرة التحميل --- */
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            background-color: #357abd;
+            transform: translateY(-2px);
+        }
+        
+        .submit-btn:disabled {
+            background-color: #a0c3ec;
+            cursor: not-allowed;
+        }
+        
+        /* دائرة التحميل (البروجرس) */
+        .loader {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        .hidden {
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* --- تصميم رسائل الحالة (نجاح أو خطأ) --- */
+        #status-message {
+            text-align: center;
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+            font-weight: bold;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #status-message.success {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            display: block;
+        }
+
+        #status-message.error {
+            background-color: #f8d7da;
+            color: #842029;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>طلب حل أمتحان ورفعه أونلاين</h1>
+        <form id="telegram-form">
+            <div class="input-group">
+                <label for="studentName">اسم الطالب</label>
+                <input type="text" id="studentName" placeholder="أدخل اسمك " required>
+                <span class="icon">👤</span>
+            </div>
+            <div class="input-group">
+                <label for="college">الكلية</label>
+                <input type="text" id="college" placeholder="مثال: كلية  العلوم" required>
+                <span class="icon">🎓</span>
+            </div>
+            <div class="input-group">
+                <label for="subject">المادة</label>
+                <input type="text" id="subject" placeholder="مثال :  البرمجة الشيئية " required>
+                <span class="icon">📚</span>
+            </div>
+            <div class="input-group">
+                <label for="level">الفرقة / المستوى</label>
+                <input type="text" id="level" placeholder="مثال: الفرقة الثانية" required>
+                <span class="icon">🔢</span>
+            </div>
+            
+            <button type="submit" class="submit-btn" id="submit-button">
+                <span id="button-text">إرسال الرسالة</span>
+                <div class="loader hidden" id="loader"></div>
+            </button>
+        </form>
+        <div id="status-message"></div>
+    </div>
+
+    <script>
+        // --- ابدأ التعديل هنا ---
+        const BOT_TOKEN = '8499684249:AAEEwyYzB5A_t1j4v90lBp3WleQRil0C5IM';
+        const CHAT_ID = '1002158777';
+        // --- انتهى قسم التعديل ---
+
+        const form = document.getElementById('telegram-form');
+        const statusMessage = document.getElementById('status-message');
+        const submitButton = document.getElementById('submit-button');
+        const buttonText = document.getElementById('button-text');
+        const loader = document.getElementById('loader');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // إظهار التحميل وإخفاء النص
+            setLoading(true);
+
+            const studentName = document.getElementById('studentName').value;
+            const college = document.getElementById('college').value;
+            const subject = document.getElementById('subject').value;
+            const level = document.getElementById('level').value;
+
+            if (!studentName || !college || !subject || !level) {
+                showStatusMessage('الرجاء ملء جميع الحقول.', 'error');
+                setLoading(false); // إيقاف التحميل عند وجود خطأ
+                return;
+            }
+            
+            let message = `🔔 *طلب مساعدة جديد*\n\n`;
+            message += `👤 *اسم الطالب:* ${studentName}\n`;
+            message += `🎓 *الكلية:* ${college}\n`;
+            message += `📚 *المادة:* ${subject}\n`;
+            message += `🔢 *المستوى:* ${level}\n`;
+
+            const telegramURL = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            
+            fetch(telegramURL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: message,
+                    parse_mode: 'Markdown'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    showStatusMessage('تم إرسال رسالتك بنجاح! ', 'success');
+                    form.reset();
+                } else {
+                    showStatusMessage(`حدث خطأ: ${data.description}`, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showStatusMessage('حدث خطأ في الاتصال بالشبكة، يرجى المحاولة مرة أخرى.', 'error');
+            })
+            .finally(() => {
+                setLoading(false); // إيقاف التحميل في كل الحالات (نجاح أو فشل)
+            });
+        });
+
+        function setLoading(isLoading) {
+            if (isLoading) {
+                submitButton.disabled = true;
+                buttonText.classList.add('hidden');
+                loader.classList.remove('hidden');
+                statusMessage.className = ''; // إخفاء الرسائل القديمة
+                statusMessage.textContent = '';
+            } else {
+                submitButton.disabled = false;
+                buttonText.classList.remove('hidden');
+                loader.classList.add('hidden');
+            }
+        }
+
+        function showStatusMessage(message, type) {
+            statusMessage.textContent = message;
+            statusMessage.className = type;
+        }
+    </script>
+
+</body>
+</html>

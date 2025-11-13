@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آيات بينات</title>
+    <!-- رابط لجلب الخط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <!-- رابط ملف التصميم -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- شاشة التحميل والأنيميشن -->
+    <div id="loading-overlay">
+        <div class="animation-container">
+            <!-- تم وضع span داخل h1 للتحكم في تأثير التظليل -->
+            <h1 class="brand-title"><span id="brand-name-animation"></span></h1>
+            <div id="heart-animation" class="hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                    <!-- النصف الأيسر من القلب -->
+                    <path class="heart-path left" d="M 50,30 A 20,20 0,0,1 30,50 L 50,70"></path>
+                    <!-- النصف الأيمن من القلب -->
+                    <path class="heart-path right" d="M 50,30 A 20,20 0,0,0 70,50 L 50,70"></path>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- المحتوى الرئيسي للصفحة (مخفي في البداية) -->
+    <div id="main-content" class="hidden">
+        <header>
+            <h1>آياتٌ بيِّناتٍ</h1>
+            <h2>"اللَّهُمَّ صَلِّ وَسَـــلِّمْ وَبَارِكْ على نَبِيِّنَـــا مُحمَّدﷺ"</h2>
+            <p>"<h2>لن يدومَ الهمُّ يا حلوَ المُحيّا <h3>‏لن يظلّ الحزنُ في عينيكَ يحيا <h3>‏إنَّ ربَّكَ فوق حزنِكَ فأصبَر ‏وابتَهِج بالصُّبحِ إذ ما زِلتَ حيّا"</p>
+            <p></p>
+        </header>
+
+        <main class="container">
+            <!-- بطاقة قسم الامتحانات -->
+            <a href="exams/telgram.html" class="card">
+                <div class="card-icon">📝</div>
+                <h2>الامتحانات</h2>
+            </a>
+
+            <!-- بطاقة قسم البودكاست -->
+            <a href="podcast/index.html" class="card">
+                <div class="card-icon">🎙️</div>
+                <h2>البودكاست</h2>
+            </a>
+
+            <!-- بطاقة قسم المنتدى -->
+            <a href="forum/index.html" class="card">
+                <div class="card-icon">💬</div>
+                <h2>المنتدى والمنشورات</h2>
+            </a>
+        </main>
+    </div>
+
+    <!-- رابط ملف الجافاسكريبت -->
+    <script src="script.js"></script>
+</body>
+</html>

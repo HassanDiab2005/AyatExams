@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -8,7 +7,7 @@
     <!-- رابط لجلب الخط -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Readex+Pro:wght@400;600&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <!-- رابط ملف التصميم -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -17,13 +16,10 @@
     <!-- شاشة التحميل والأنيميشن -->
     <div id="loading-overlay">
         <div class="animation-container">
-            <!-- تم وضع span داخل h1 للتحكم في تأثير التظليل -->
             <h1 class="brand-title"><span id="brand-name-animation"></span></h1>
             <div id="heart-animation" class="hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                    <!-- النصف الأيسر من القلب -->
                     <path class="heart-path left" d="M 50,30 A 20,20 0,0,1 30,50 L 50,70"></path>
-                    <!-- النصف الأيمن من القلب -->
                     <path class="heart-path right" d="M 50,30 A 20,20 0,0,0 70,50 L 50,70"></path>
                 </svg>
             </div>
@@ -32,12 +28,19 @@
 
     <!-- المحتوى الرئيسي للصفحة (مخفي في البداية) -->
     <div id="main-content" class="hidden">
-        <header>
-            <h1>آياتٌ بيِّناتٍ</h1>
-            <h4>Hassan Diab</h4>
-            <h2>"اللَّهُمَّ صَلِّ وَسَـــلِّمْ وَبَارِكْ على نَبِيِّنَـــا مُحمَّدﷺ"</h2>
-            <p>"<h2>لن يدومَ الهمُّ يا حلوَ المُحيّا <h3>‏لن يظلّ الحزنُ في عينيكَ يحيا <h3>‏إنَّ ربَّكَ فوق حزنِكَ فأصبَر ‏وابتَهِج بالصُّبحِ إذ ما زِلتَ حيّا"</p>
-            <p></p>
+        <header class="container">
+            <!-- بطاقة المحتوى العلوي -->
+            <div class="header-card">
+                <h1>آياتٌ بيِّناتٍ</h1>
+                <h4>Hassan Diab</h4>
+                <p class="salah">"اللَّهُمَّ صَلِّ وَسَـــلِّمْ وَبَارِكْ على نَبِيِّنَـــا مُحمَّدﷺ"</p>
+                <div class="poem">
+                    <p>"لن يدومَ الهمُّ يا حلوَ المُحيّا</p>
+                    <p>لن يظلّ الحزنُ في عينيكَ يحيا</p>
+                    <p>إنَّ ربَّكَ فوق حزنِكَ فأصبَر</p>
+                    <p>وابتَهِج بالصُّبحِ إذ ما زِلتَ حيّا"</p>
+                </div>
+            </div>
         </header>
 
         <main class="container">
@@ -57,6 +60,12 @@
             <a href="forum/index.html" class="card">
                 <div class="card-icon">💬</div>
                 <h2>المنتدى والمنشورات</h2>
+            </a>
+
+            <!-- بطاقة قسم تليجرام -->
+            <a href="https://t.me/SCI_students" class="card telegram-card"> <!-- يمكنك وضع رابط قناتك هنا بدلاً من # -->
+                <div class="card-icon">✈️</div>
+                <h2>اذهب إلى تليجرام </h2>
             </a>
         </main>
     </div>

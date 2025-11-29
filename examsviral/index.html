@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الامتحانات المتوفرة</title>
+    <!-- خط تجوال -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- مكتبة أيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #f59e0b; /* لون للدعاء */
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-color: #1f2937;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* تنسيق الهيدر المطور */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            padding: 40px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 900;
+        }
+
+        /* تنسيق الدعاء */
+        .prayer-box {
+            background-color: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 800px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .prayer-box h3 {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #fff;
+            font-weight: normal;
+        }
+
+        /* تنسيق صندوق التحدي */
+        .challenge-note {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            border-right: 5px solid #ffc107;
+            text-align: right;
+            display: inline-block;
+            max-width: 90%;
+        }
+
+        /* أدوات التحكم */
+        .controls {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .search-wrapper {
+            flex: 2;
+            min-width: 280px;
+            position: relative;
+        }
+
+        .search-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+
+        .search-wrapper input {
+            padding-left: 40px; /* مكان للأيقونة */
+        }
+
+        .filter-box {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+            background-color: #f9fafb;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary-color);
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        /* البطاقات */
+        .exams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .exam-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
+            border: 1px solid #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exam-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 6px;
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .exam-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+            border-color: transparent;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            background-color: #eff6ff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .exam-info h3 {
+            color: #111827;
+            font-size: 1.15rem;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+
+        .badges {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+        }
+
+        .badge {
+            padding: 4px 10px;
+            border-radius: 6px;
+            background-color: #f3f4f6;
+            color: #4b5563;
+        }
+
+        .btn-open {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-open:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px;
+            color: #9ca3af;
+            background: #fff;
+            border-radius: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1><i class="fas fa-graduation-cap"></i> الامتحانات المتوفرة</h1>
+        
+        <div class="prayer-box">
+            <h3>دعواتكم بعمرةٍ مع من نحب.. فبها ننجو ❤️</h3>
+        </div>
+
+        <div class="challenge-note">
+            <i class="fas fa-lightbulb"></i>
+            <strong>سؤال:</strong> 
+            كيف وضعت الصورة في السؤال   27 في امتحان زولوجي 1 بدون وجود ملف للصورة؟ (تحدي في علم التشفير ) 😉
+        </div>
+    </header>
+
+    <!-- أدوات التحكم -->
+    <div class="controls">
+        <div class="search-wrapper">
+            <input type="text" id="searchInput" placeholder="ابحث عن اسم المادة (مثال: كيمياء، زولوجي)...">
+            <i class="fas fa-search"></i>
+        </div>
+        
+        <div class="filter-box">
+            <select id="facultyFilter">
+                <option value="all">جميع الكليات</option>
+            </select>
+        </div>
+
+        <div class="filter-box">
+            <select id="levelFilter">
+                <option value="all">جميع الفرق الدراسية</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- عرض النتائج -->
+    <div id="examsContainer" class="exams-grid"></div>
+</div>
+
+<script>
+    // ==========================================
+    // 1. البيانات (تم توحيد المسارات لتعمل بشكل صحيح)
+    // ==========================================
+    const examsData = [
+        { 
+            name: "زولوجي 1 (تحدي برمجة)", 
+            faculty: "علوم", 
+            level: "الفرقة الأولى", 
+            // قمت بتصحيح المسار ليكون موحداً
+            file: "1SCI/ZOO.html" 
+        },
+        { 
+            name: "بوتاني 1", 
+            faculty: "علوم", 
+            level: "الفرقة الأولى", 
+            file: "1SCI/Botany1.html" 
+        },
+        { 
+            name: "كيمياء 1 (عام)", 
+            faculty: "علوم", 
+            level: "الفرقة الأولى", 
+            file: "1SCI/chemeic.html" 
+        },
+        { 
+            name: "كيمياء 1 (2021)", 
+            faculty: "علوم", 
+            level: "الفرقة الأولى", 
+            file: "1SCI/chemeic2021.html" 
+        },
+        { 
+            name: "كيمياء 1 (2023)", 
+            faculty: "علوم", 
+            level: "الفرقة الأولى", 
+            // لاحظ كان مكتوب 1SCIE خطأ، وحدتها
+            file: "1SCI/chemeic2023.html" 
+        },
+        { 
+            name: "English 1", 
+            faculty: "علوم", 
+            level: "الفرقة الأولى", 
+            // لاحظ كان مكتوب 1ٍٍSCI خطأ، وحدتها
+            file: "1SCI/english1.html" 
+        },
+        {
+            name: "رياضيات 1 (2024)", 
+            faculty: "علوم", 
+            level: "الفرقة الأولى", 
+            file: "1SCI/math2024.html" 
+        },
+        { 
+            name: "زولوجي 1 (2024)", 
+            faculty: "علوم", 
+            level: "الفرقة الأولى", 
+            file: "1SCI/ZOO2024.html" 
+        },
+        { 
+            name: "زولوجي 1 (2023)", 
+            faculty: "علوم", 
+            level: "الفرقة الأولى", 
+            file: "1SCI/ZOO2023.html" 
+        },
+        { 
+            name: "زولوجي 1 (2023 - ترم ثاني)", 
+            faculty: "علوم", 
+            level: "الفرقة الأولى", 
+            file: "1SCI/ZOO2023SECONDTerm.html" 
+        }
+    ];
+
+    const container = document.getElementById('examsContainer');
+    const searchInput = document.getElementById('searchInput');
+    const facultyFilter = document.getElementById('facultyFilter');
+    const levelFilter = document.getElementById('levelFilter');
+
+    // دالة لتطبيع النصوص العربية (إهمال الفرق بين أ إ آ ا) لتحسين البحث
+    function normalizeArabic(text) {
+        return text.replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
+    }
+
+    function populateFilters() {
+        const faculties = [...new Set(examsData.map(item => item.faculty))];
+        faculties.forEach(fac => {
+            const option = document.createElement('option');
+            option.value = fac;
+            option.textContent = fac;
+            facultyFilter.appendChild(option);
+        });
+
+        const levels = [...new Set(examsData.map(item => item.level))];
+        levels.sort();
+        levels.forEach(lvl => {
+            const option = document.createElement('option');
+            option.value = lvl;
+            option.textContent = lvl;
+            levelFilter.appendChild(option);
+        });
+    }
+
+    function displayExams(data) {
+        container.innerHTML = '';
+
+        if (data.length === 0) {
+            container.innerHTML = `
+                <div class="no-results">
+                    <i class="fas fa-folder-open" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                    <p>لا توجد امتحانات تطابق بحثك</p>
+                </div>`;
+            return;
+        }
+
+        data.forEach(exam => {
+            const card = document.createElement('div');
+            card.className = 'exam-card';
+            
+            // تحديد أيقونة بناء على نوع المادة (اختياري)
+            let iconClass = 'fa-file-lines';
+            if(exam.name.includes('كيمياء')) iconClass = 'fa-flask';
+            if(exam.name.includes('زولوجي') || exam.name.includes('بوتاني')) iconClass = 'fa-leaf';
+            if(exam.name.includes('رياضيات')) iconClass = 'fa-calculator';
+            if(exam.name.includes('English')) iconClass = 'fa-language';
+
+            card.innerHTML = `
+                <div class="card-header">
+                    <div class="icon-box">
+                        <i class="fas ${iconClass}"></i>
+                    </div>
+                    <div class="exam-info">
+                        <h3>${exam.name}</h3>
+                        <div class="badges">
+                            <span class="badge"><i class="fas fa-university"></i> ${exam.faculty}</span>
+                            <span class="badge"><i class="fas fa-user-graduate"></i> ${exam.level}</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="${exam.file}" target="_blank" class="btn-open">
+                    فتح الامتحان <i class="fas fa-arrow-left"></i>
+                </a>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function filterData() {
+        const rawSearchText = searchInput.value.toLowerCase();
+        const searchText = normalizeArabic(rawSearchText); // استخدام البحث الذكي
+        const selectedFaculty = facultyFilter.value;
+        const selectedLevel = levelFilter.value;
+
+        const filtered = examsData.filter(exam => {
+            const normalizedName = normalizeArabic(exam.name.toLowerCase());
+            
+            const matchName = normalizedName.includes(searchText);
+            const matchFaculty = selectedFaculty === 'all' || exam.faculty === selectedFaculty;
+            const matchLevel = selectedLevel === 'all' || exam.level === selectedLevel;
+
+            return matchName && matchFaculty && matchLevel;
+        });
+
+        displayExams(filtered);
+    }
+
+    searchInput.addEventListener('input', filterData);
+    facultyFilter.addEventListener('change', filterData);
+    levelFilter.addEventListener('change', filterData);
+
+    populateFilters();
+    displayExams(examsData);
+
+</script>
+
+</body>
+</html>

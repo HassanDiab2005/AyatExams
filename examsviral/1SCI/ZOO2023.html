@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZOO</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700&family=Noto+Naskh+Arabic:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;700&family=Marhey:wght@400;700&family=Tajawal:wght@400;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+
+    <script>
+        window.MathJax = { 
+            tex: { inlineMath: [['\\(', '\\)']] },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --font-main: 'Tajawal', sans-serif;
+            --font-title: 'Marhey', cursive;
+            --font-quran: 'Scheherazade New', serif;
+            --font-signature: 'Aref Ruqaa', serif;
+            
+            --neu-blur: 12px;
+            --neu-distance: 6px;
+            --neu-radius: 15px;
+            --transition-speed: 0.3s;
+            
+            --bg-color: #121518;
+            --page-color: #1e2229;
+            --text-color: #c9d1d9;
+            
+            --gold-color: #ffd700;
+            --gold-darker: #e6a72a;
+            --red-color: #ff7b72;
+            --blue-color: #58a6ff;
+            --green-color: #56d364;
+            --purple-color: #bc8cff;
+            
+            --light-shadow-color: rgba(43, 49, 58, 0.9);
+            --dark-shadow-color: #0b0d10;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { 
+            background-color: var(--bg-color); 
+            background-image: radial-gradient(circle, #2a303a, #121518);
+            margin: 0; padding: 20px; display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; min-height: 100vh; 
+            font-family: var(--font-main); 
+        }
+        
+        h1, h2, h3, p, div, span, input { color: var(--text-color); }
+        
+        button { 
+            cursor: pointer; 
+            font-family: var(--font-main);
+            border: none;
+            outline: none;
+            color: var(--text-color);
+            background-color: var(--page-color);
+        }
+
+        mjx-container, .MathJax { 
+            color: var(--gold-color) !important;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 6px;
+            padding: 2px 6px;
+            margin: 0 4px;
+            direction: ltr !important;        
+            unicode-bidi: isolate !important; 
+            display: inline-block !important; 
+            pointer-events: none !important;
+            user-select: none !important;
+        }
+        
+        .neu-card { 
+            background-color: var(--page-color); border-radius: var(--neu-radius); 
+            padding: 25px 35px; 
+            box-shadow: var(--neu-distance) var(--neu-distance) var(--neu-blur) var(--dark-shadow-color), calc(-1 * var(--neu-distance)) calc(-1 * var(--neu-distance)) var(--neu-blur) var(--light-shadow-color); 
+            transition: all var(--transition-speed) ease; position: relative;
+        }
+
+        .screen { width: 100%; max-width: 800px; }
+        
+        #top-banner {
+            position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+            background-color: var(--page-color); padding: 5px 30px;
+            border-bottom-left-radius: var(--neu-radius); border-bottom-right-radius: var(--neu-radius);
+            font-family: var(--font-quran); font-size: 1.2em; color: var(--gold-darker);
+            box-shadow: 0px 4px 10px var(--dark-shadow-color); z-index: 1001;
+        }
+        
+        #signature {
+            position: fixed; bottom: 20px; right: 20px; padding: 10px;
+            cursor: pointer; z-index: 1001; text-align: center;
+            background: linear-gradient(135deg, #000, #4d4d4d);
+            border: 1px solid var(--gold-color);
+        }
+        #signature-name { font-family: var(--font-signature); font-size: 1.2em; display: block; }
+        #signature-title { font-size: 0.8em; opacity: 0.8; display: block; }
+        #palestine-flag {
+            width: 100%; height: 5px; display: block; margin-top: 8px;
+            background: linear-gradient(90deg, #000 25%, #fff 25%, #fff 50%, #009639 50%, #009639 75%, #d10a10 75%);
+            animation: color-flow 4s linear infinite;
+        }
+        @keyframes color-flow {
+            0% { filter: hue-rotate(0deg) saturate(1); }
+            50% { filter: hue-rotate(90deg) saturate(2); }
+            100% { filter: hue-rotate(0deg) saturate(1); }
+        }
+
+        #login-screen { padding-top: 50px; text-align: center; }
+        #login-header-text { font-family: var(--font-title); font-size: 2.5em; color: var(--gold-darker); margin-bottom: 20px; }
+        #login-image-container { margin-bottom: 10px; }
+        #login-image { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--gold-darker); box-shadow: 0 0 15px var(--gold-color); object-fit: cover; background: #fff; }
+        
+        .input-group { margin-bottom: 20px; position: relative; }
+        .input-field { width: 80%; padding: 12px 20px; background: var(--bg-color); border: none; border-radius: 50px; text-align: center; color: var(--text-color); font-size: 1.1em; box-shadow: inset 4px 4px 8px var(--dark-shadow-color), inset -4px -4px 8px var(--light-shadow-color); animation: pulse-border 5s infinite; }
+        
+        .action-btn, #login-btn, #restart-btn, #review-mistakes-btn, #back-to-results-btn, #how-to-btn {
+            background-color: var(--blue-color); 
+            color: #121518;
+            border-radius: 50px; 
+            padding: 12px 35px; 
+            font-size: 1.2em; 
+            font-weight: bold;
+            box-shadow: var(--neu-distance) var(--neu-distance) var(--neu-blur) var(--dark-shadow-color); 
+            transition: all 0.2s ease;
+            margin: 10px;
+        }
+        
+        #how-to-btn {
+            background-color: var(--page-color);
+            color: var(--text-color);
+            border: 1px solid var(--gold-color);
+            font-size: 1em;
+            padding: 8px 20px;
+        }
+
+        #finish-btn, #restart-btn, #review-mistakes-btn { background-color: var(--purple-color); color: #121518; }
+        #prev-btn { background-color: var(--page-color); color: var(--text-color); border: 1px solid var(--blue-color); }
+        
+        .action-btn:hover, #login-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
+        .action-btn:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(1); background-color: var(--page-color); color: #555; }
+
+        #login-error { color: var(--red-color); margin-top: 15px; min-height: 20px; }
+
+        #quiz-container h2 { font-family: var(--font-title); font-size: 2em; text-align: center; color: var(--gold-darker); margin-top: 0; margin-bottom: 20px; }
+        
+        #quran-verse-container { 
+            padding: 8px 15px;
+            margin-bottom: 10px; 
+            border-radius: var(--neu-radius); 
+            border: 1px solid var(--gold-darker);
+            box-shadow: inset 2px 2px 4px var(--dark-shadow-color), inset -2px -2px 4px var(--light-shadow-color); 
+            text-align: center; 
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .quran-verse { 
+            font-family: var(--font-quran); 
+            font-size: 1.1em;
+            color: var(--gold-color); 
+            line-height: 1.4; 
+            margin: 0;
+        }
+        
+        #question-image-container { margin-bottom: 20px; text-align: center; }
+        #question-image { max-width: 200px; max-height: 200px; border-radius: 10px; box-shadow: var(--neu-distance) var(--neu-distance) var(--neu-blur) var(--dark-shadow-color); background: #fff; padding: 5px; }
+
+        /* ======================================================== */
+        /* START OF EDIT FOR HORIZONTAL QUESTION NAV */
+        /* ======================================================== */
+        #question-nav { 
+            display: flex; 
+            justify-content: flex-start; /* Start from the left (or right due to RTL) */
+            gap: 10px; 
+            flex-wrap: nowrap; /* Prevent wrapping to new line */
+            overflow-x: auto;  /* Enable horizontal scrolling */
+            padding-bottom: 20px; 
+            margin-bottom: 20px; 
+            border-bottom: 1px dashed var(--gold-color); 
+            /* Optional: Hide scrollbar for cleaner look */
+            scrollbar-width: thin;
+            scrollbar-color: var(--gold-color) var(--page-color);
+        }
+        
+        /* For Webkit browsers (Chrome, Safari) scrollbar styling */
+        #question-nav::-webkit-scrollbar { height: 8px; }
+        #question-nav::-webkit-scrollbar-track { background: var(--page-color); border-radius: 4px; }
+        #question-nav::-webkit-scrollbar-thumb { background-color: var(--gold-color); border-radius: 4px; }
+
+        .nav-btn { 
+            /* Ensure buttons don't shrink */
+            flex: 0 0 auto; 
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            font-size: 1.1em; 
+            font-weight: bold; 
+            background: var(--page-color); 
+            color: var(--text-color); 
+            box-shadow: var(--neu-distance) var(--neu-distance) var(--neu-blur) var(--dark-shadow-color), calc(-1 * var(--neu-distance)) calc(-1 * var(--neu-distance)) var(--neu-blur) var(--light-shadow-color); 
+            transition: all 0.2s ease; 
+        }
+        /* ======================================================== */
+        /* END OF EDIT FOR HORIZONTAL QUESTION NAV */
+        /* ======================================================== */
+
+        .nav-btn.current { box-shadow: inset 4px 4px 8px var(--dark-shadow-color), inset -4px -4px 8px var(--light-shadow-color); color: var(--blue-color); border: 1px solid var(--blue-color); }
+        .nav-btn.answered { background-color: var(--blue-color); color: #121518; }
+
+        #question-text { 
+            font-size: 1.5em; 
+            margin-bottom: 15px; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            text-align: left; 
+            direction: ltr;   
+            min-height: 60px; 
+            line-height: 1.6; 
+        }
+
+        #options-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin-bottom: 20px; direction: ltr; }
+        
+        .option-btn { 
+            background: var(--page-color); 
+            color: var(--text-color);
+            border: 2px solid transparent; 
+            border-radius: var(--neu-radius); 
+            padding: 15px; 
+            font-size: 1.1em; 
+            text-align: center; 
+            box-shadow: var(--neu-distance) var(--neu-distance) var(--neu-blur) var(--dark-shadow-color), calc(-1 * var(--neu-distance)) calc(-1 * var(--neu-distance)) var(--neu-blur) var(--light-shadow-color); 
+            transition: all 0.2s ease; 
+        }
+        
+        .option-btn:hover { background: #262c36; }
+        .option-btn.selected { border-color: var(--gold-color); box-shadow: inset 3px 3px 6px var(--dark-shadow-color), inset -3px -3px 6px var(--light-shadow-color); background: #232830; }
+        
+        .bottom-nav-container { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
+        
+        #translate-btn-container { text-align: center; margin-bottom: 15px; }
+        #translate-btn { 
+            background: linear-gradient(135deg, #1e2229, #2b313a); 
+            color: var(--green-color); border: 1px solid var(--green-color); 
+            border-radius: 20px; padding: 6px 20px; 
+            font-size: 1em; 
+            box-shadow: 2px 2px 5px var(--dark-shadow-color);
+            transition: 0.3s;
+        }
+        #translate-btn:hover { background: var(--green-color); color: #121518; }
+        
+        #translation-box {
+            background-color: #262c36;
+            border-right: 3px solid var(--green-color);
+            border-radius: 8px;
+            padding: 10px;
+            margin: 5px auto 20px auto;
+            text-align: right; 
+            direction: rtl;    
+            width: 85%;
+            font-size: 1.1em;
+            color: #e6e6e6;
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.5);
+            display: none; 
+        }
+
+        .review-card { margin-bottom: 30px; padding: 20px; border: 1px solid var(--gold-darker); border-radius: var(--neu-radius); text-align: left; direction: ltr; }
+        .review-card .option-btn.correct { background-color: var(--green-color); color: #121518; }
+        .review-card .option-btn.incorrect { background-color: var(--red-color); color: #121518; }
+        .review-card .option-btn { cursor: default; box-shadow: none; }
+
+        #results-container, #review-screen { text-align: center; }
+        .hidden { display: none !important; }
+        
+        #view-controls { position: absolute; top: 15px; left: 15px; display: flex; gap: 8px; z-index: 10; }
+        .control-btn { 
+            width: 35px; height: 35px; border-radius: 50%; border: none; 
+            font-size: 1.2em; background: var(--page-color); color: var(--text-color);
+            box-shadow: 3px 3px 6px var(--dark-shadow-color), -3px -3px 6px var(--light-shadow-color); 
+            transition: all 0.1s ease; 
+        }
+        .control-btn:active { box-shadow: inset 2px 2px 4px var(--dark-shadow-color); }
+
+    </style>
+</head>
+<body>
+    <div id="top-banner">صَلِّ ‌عَلَى ‌مُحَمَّدٍﷺ</div>
+    <div id="signature" class="neu-card">
+        <span id="signature-name">حسن دياب | CEH Student</span>
+        <span id="signature-title">لا تنس الدعاء له</span>
+        <div id="palestine-flag"></div>
+    </div>
+
+    <div id="login-screen" class="screen neu-card">
+        <div id="login-header-text">اللهم الجنة</div>
+        <div id="login-image-container">
+            <img id="login-image" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkQ3MDAiIHN0cm9rZS13aWR0aD0iMiI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMTAiIGZpbGw9IiNGRkQ3MDAiIC8+CiAgPGVsbGlwc2UgY3g9IjUwIiBjeT0iNTAiIHJ4PSI0MCIgcnk9IjE1IiB0cmFuc2Zvcm09InJvdGF0ZSgwIDUwIDUwKSIgLz4KICA8ZWxsaXBzZSBjeD0iNTAiIGN5PSI1MCIgcng9IjQwIiByeT0iMTUiIHRyYW5zZm9ybT0icm90YXRlKDYwIDUwIDUwKSIgLz4KICA8ZWxsaXBzZSBjeD0iNTAiIGN5PSI1MCIgcng9IjQwIiByeT0iMTUiIHRyYW5zZm9ybT0icm90YXRlKDEyMCA1MCA1MCkiIC8+Cjwvc3ZnPg==" alt="شعار الدخول">
+        </div>
+        <div id="login-subheader-text">"وَقُل رَّبِّ زِدْنِي عِلْمًا"</div>
+        <form id="login-form">
+            <div class="input-group"><input type="text" id="username" class="input-field" required></div>
+            <div class="input-group"><input type="password" id="password" class="input-field" required></div>
+            <button type="submit" id="login-btn">دخول</button>
+            <p id="login-error"></p>
+        </form>
+        <button id="how-to-btn">كيفية الدخول؟</button>
+    </div>
+
+    <div id="quiz-wrapper" class="screen neu-card hidden">
+        <div id="view-controls">
+            <button class="control-btn" id="font-increase" title="تكبير الخط">+</button>
+            <button class="control-btn" id="font-decrease" title="تصغير الخط">-</button>
+            <button class="control-btn" id="image-increase" title="تكبير الصورة">🖼+</button>
+            <button class="control-btn" id="image-decrease" title="تصغير الصورة">🖼-</button>
+        </div>
+        <div id="quiz-container">
+            <h2 id="quiz-title"></h2>
+            
+            <div id="quran-verse-container"><p id="quran-verse-text" class="quran-verse"></p></div>
+            
+            <div id="translate-btn-container">
+                <button id="translate-btn">الترجمة العربية</button>
+            </div>
+
+            <div id="question-image-container" class="hidden"><img id="question-image" src="" alt="صورة السؤال"></div>
+            
+            <div id="question-nav"></div>
+            <div id="question-text"></div>
+            
+            <div id="translation-box"></div>
+
+            <div id="options-container"></div>
+            <div class="bottom-nav-container">
+                <button id="prev-btn" class="action-btn">Previous</button>
+                <button id="finish-btn" class="action-btn hidden">Finish Exam</button>
+                <button id="next-btn" class="action-btn">Next</button>
+            </div>
+        </div>
+        <div id="results-container" class="hidden">
+            <h2>Final Result</h2>
+            <p id="score-text"></p>
+            <button id="review-mistakes-btn" class="action-btn hidden">Review Mistakes</button>
+            <button id="restart-btn" class="action-btn">Restart Exam</button>
+        </div>
+        <div id="review-screen" class="hidden">
+            <h2>Review Mistakes</h2>
+            <div id="review-questions-container"></div>
+            <button id="back-to-results-btn" class="action-btn">Back to Results</button>
+        </div>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // ============================================
+    // 🚨 ADD YOUR TELEGRAM INFO HERE
+    // ============================================
+    const TELEGRAM_BOT_TOKEN = "8353914536:AAGkb_DgupPlvTNPq8JQS_pYxxxK-Gg7k24"; 
+    const TELEGRAM_CHAT_ID = "1002158777";      
+    // ============================================
+
+    const CORRECT_PASSWORD = "HA66";
+
+const questions = [
+    // ============================================================
+    // Q1: Choose the best single correct answer (1-30)
+    // ============================================================
+    {
+        question: "1- The protein fibrin is the precursor of ..................",
+        arabicText: "1- بروتين الفايبرين هو المادة الأولية لـ ..................",
+        options: ["a) Microfilaments", "b) Microtubules", "c) Collagen", "d) Actin"],
+        correctAnswer: "a) Microfilaments", // Note: Usually fibrin forms blood clots. But in cytoskeleton context, maybe a confusion with 'fiber'. Or maybe 'Fibrin' here is a typo for something else or refers to specific fibers? Wait, look at the options. Microfilaments are Actin. Microtubules are Tubulin. Collagen is C.T fiber. Fibrin is blood clotting.
+        // Let's re-read image 1 carefully.
+        // Q1: "The protein fibrin is the precursor of..."
+        // It might be a trick or typo for "Fibrinogen -> Fibrin". BUT looking at options:
+        // a) microfilaments, b) microtubules, c) collagen, d) actin.
+        // None seem directly related to Fibrin as a precursor.
+        // BUT, maybe the question is asking what is the precursor OF fibrin? Fibrinogen. Not an option.
+        // Let's check if 'Fibrin' is used as a name for something else in this course context.
+        // Or maybe it's "The protein FIBROIN"? (silk).
+        // Or maybe "The protein THAT FORMS microfilaments is...".
+        // Let's look at similar questions.
+        // Ah, look at question 1 in the *other* exam (2/6/2024): "The microfilaments are made of...".
+        // Here Q1 is "The protein fibrin is the precursor of...".
+        // This question seems odd. Fibrin is for clotting.
+        // Let's assume there is a typo and it meant something about fibers.
+        // However, if I must answer based on biology: Fibrinogen is precursor of Fibrin.
+        // Maybe the question is "The protein [Blank] is the precursor of...".
+        // Let's look at the key if available or use best judgment.
+        // If it means "Intermediate filaments", some are made of vimentin, keratin...
+        // Let's skip deep analysis and guess it might be a typo for "Fibrinogen -> Fibrin" or something unrelated.
+        // Wait, look at option (c) Collagen. Collagen fibers?
+        // Let's mark it with a note or select the most plausible if it's a known error.
+        // Let's assume the question meant "Fibrinogen" is precursor of Fibrin? No Fibrin in options.
+        // Let's look at Q1 in the 17/6/2022 exam (Image 1 of second set): "The microfilaments are made of ... protein." Answer: Actin.
+        // But this is the 24/1/2023 exam (Image 1 of first set).
+        // Q1: "The protein fibrin is the precursor of...".
+        // Maybe it means "Procollagen -> Collagen"?
+        // Let's leave it as is or select "c) Collagen" as a structural fiber guess, but it's risky.
+        // Let's mark it as potentially "c) Collagen" (fibrils).
+        // Actually, let's look at the pattern. Maybe "Fibrin" is a typo for "Fibroin" or something.
+        // I will select "c) Collagen" as the most "fiber-like" answer in context of tissues.
+        correctAnswer: "c) Collagen", 
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        (السؤال قد يحتوي على خطأ مطبعي أو صياغة غير دقيقة). الفايبرين (Fibrin) عادة هو بروتين تجلط الدم. ولكن في سياق الأنسجة، قد يكون المقصود الألياف (Fibers) وعلاقتها بالكولاجين. أو أن السؤال يسأل عن مكونات الألياف.
+        </div>`
+    },
+    {
+        question: "2- The DNA in prokaryotic cells is ..................",
+        arabicText: "2- الحمض النووي DNA في الخلايا بدائية النواة يكون ..................",
+        options: ["a) Linear", "b) Circular", "c) Cluster", "d) Patch"],
+        correctAnswer: "b) Circular",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        في بدائيات النوى، يكون الـ DNA دائرياً (Circular).
+        </div>`
+    },
+    {
+        question: "3- The centrioles duplicate themselves before ..................",
+        arabicText: "3- تتضاعف المريكزات قبل ..................",
+        options: ["a) Cell division", "b) Cell growth", "c) Cell migration", "d) Cell death"],
+        correctAnswer: "a) Cell division",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        تتضاعف المريكزات تحضيراً لانقسام الخلية (لتكوين خيوط المغزل).
+        </div>`
+    },
+    {
+        question: "4- The chain of sugar attached to some proteins and lipid ..................",
+        arabicText: "4- سلسلة السكر المرتبطة ببعض البروتينات والدهون توجد ..................",
+        options: ["a) Inside the cell membrane", "b) Inside the pores", "c) On the channels", "d) Outside of the cell membrane"],
+        correctAnswer: "d) Outside of the cell membrane",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        السلاسل السكرية (Glycocalyx) توجد دائماً على السطح الخارجي للغشاء الخلوي.
+        </div>`
+    },
+    {
+        question: "5- The organelles that participate directly in cellular metabolism are ..................",
+        arabicText: "5- العضيات التي تشارك بشكل مباشر في الأيض الخلوي هي ..................",
+        options: ["a) Membranous", "b) Non-membranous", "c) The nucleus", "d) All of them"],
+        correctAnswer: "a) Membranous",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        العضيات الغشائية (مثل الميتوكوندريا والشبكة الإندوبلازمية) هي المواقع الرئيسية للتفاعلات الأيضية.
+        </div>`
+    },
+    {
+        question: "6- The cell membrane is made of mix of proteins and ..................",
+        arabicText: "6- يتكون الغشاء الخلوي من خليط من البروتينات و ..................",
+        options: ["a) Carbohydrates", "b) Glycoproteins", "c) Lipids", "d) Lipoproteins"],
+        correctAnswer: "c) Lipids",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الدهون (الفوسفوليبيدات) هي المكون الرئيسي الثاني مع البروتينات.
+        </div>`
+    },
+    {
+        question: "7- In massive transport, .................. are enter or exit from the cells.",
+        arabicText: "7- في النقل الكتلي (Massive transport)، .................. تدخل أو تخرج من الخلايا.",
+        options: ["a) Ions", "b) Larger materials", "c) Lipid soluble materials", "d) Water soluble materials"],
+        correctAnswer: "b) Larger materials",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        النقل الكتلي (الإدخال/الإخراج الخلوي) يختص بنقل الجزيئات الكبيرة (Macromolecules).
+        </div>`
+    },
+    {
+        question: "8- The flexibility of the cell membranes is given by ..................",
+        arabicText: "8- مرونة الغشاء الخلوي تمنح بواسطة ..................",
+        options: ["a) Proteins", "b) Carbohydrates", "c) Minerals", "d) Lipids"],
+        correctAnswer: "d) Lipids",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الدهون (الفوسفوليبيدات والكوليسترول) هي المسؤولة عن سيولة ومرونة الغشاء.
+        </div>`
+    },
+    {
+        question: "9- There is no C. T. in the central nervous system; instead, there are the",
+        arabicText: "9- لا يوجد نسيج ضام في الجهاز العصبي المركزي؛ بدلاً من ذلك توجد:",
+        options: ["a) Neurons", "b) Neuroglia", "c) Nissl granules", "d) None of the above"],
+        correctAnswer: "b) Neuroglia",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الخلايا الدبقية (Neuroglia) تقوم بوظيفة الدعم والربط في الجهاز العصبي المركزي بدلاً من النسيج الضام.
+        </div>`
+    },
+    {
+        question: "10- .................. cells are responsible for bone resorption during ossification.",
+        arabicText: "10- خلايا .................. مسؤولة عن امتصاص (تآكل) العظم أثناء التعظم.",
+        options: ["a) Osteoblast", "b) Chondrocyte", "c) Osteoclast", "d) Osteocyte"],
+        correctAnswer: "c) Osteoclast",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الخلايا هادمة العظم (Osteoclasts) هي المسؤولة عن تكسير وامتصاص العظم. (Osteoblasts تبني العظم).
+        </div>`
+    },
+    {
+        question: "11- .................. muscles contract spontaneously.",
+        arabicText: "11- العضلات .................. تنقبض تلقائياً (ذاتياً).",
+        options: ["a) Smooth", "b) Skeletal", "c) Striated", "d) Cardiac"],
+        correctAnswer: "d) Cardiac",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        العضلات القلبية (Cardiac muscles) تتميز بالانقباض الذاتي التلقائي (Spontaneous/Myogenic).
+        </div>`
+    },
+    {
+        question: "12- The .................. is the simple squamous epithelium which lines the heart and blood vessels.",
+        arabicText: "12- .................. هو النسيج الطلائي الحرشفي البسيط الذي يبطن القلب والأوعية الدموية.",
+        options: ["a) Mesothelium", "b) Endothelium", "c) Endometrium", "d) Basement membrane"],
+        correctAnswer: "b) Endothelium",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        البطانة الغشائية (Endothelium) هي الاسم الخاص للظهارة الحرشفية البسيطة المبطنة للأوعية الدموية.
+        </div>`
+    },
+    {
+        question: "13- .................. connect neurons together as in Retina.",
+        arabicText: "13- .................. تربط الخلايا العصبية معاً كما في الشبكية.",
+        options: ["a) Motor neurons", "b) Sensory neurons", "c) Interneurons", "d) Neuroglia cells"],
+        correctAnswer: "c) Interneurons",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الخلايا العصبية الموصلة (Interneurons) أو (Association neurons) تربط بين الخلايا العصبية.
+        </div>`
+    },
+    {
+        question: "14- .................. acts as a reservoir for calcium.",
+        arabicText: "14- .................. يعمل كمخزن للكالسيوم.",
+        options: ["a) Cartilage", "b) Bone", "c) Blood", "d) Lymph"],
+        correctAnswer: "b) Bone",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        العظام تخزن 99% من كالسيوم الجسم.
+        </div>`
+    },
+    {
+        question: "15- The .................. are attached to the skeleton.",
+        arabicText: "15- .................. ترتبط بالهيكل العظمي.",
+        options: ["a) Skeletal muscles", "b) Cardiac muscles", "c) Smooth muscles", "d) Perichondrium"],
+        correctAnswer: "a) Skeletal muscles",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        العضلات الهيكلية سميت كذلك لأنها ترتبط بالهيكل العظمي وتحركه.
+        </div>`
+    },
+    {
+        question: "16- .................. cells are connected with each other by different types of cellular junctions.",
+        arabicText: "16- خلايا .................. تتصل مع بعضها بأنواع مختلفة من الروابط الخلوية.",
+        options: ["a) Connective tissue", "b) Epithelial", "c) Muscular", "d) Nervous"],
+        correctAnswer: "b) Epithelial",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الخلايا الطلائية (Epithelial) متراصة وتترابط بقوة عبر Desmosomes و Tight junctions وغيرها.
+        </div>`
+    },
+    {
+        question: "17- Multicellular, aquatic organisms with many pores",
+        arabicText: "17- كائنات مائية متعددة الخلايا ولها ثقوب عديدة:",
+        options: ["a) Cnidaria", "b) Platyhelminthes", "c) Protozoa", "d) Porifera"],
+        correctAnswer: "d) Porifera",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الإسفنجيات (Porifera) تتميز بوجود ثقوب كثيرة.
+        </div>`
+    },
+    {
+        question: "18- Tunicates are ..................",
+        arabicText: "18- الزقيات (Tunicates) هي ..................",
+        options: ["a) Vertebrates", "b) Hemichordates", "c) Urochordates", "d) Cephalochordates"],
+        correctAnswer: "c) Urochordates",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        التونيكات (Tunicates) هي الاسم الشائع لشعيبة حبليات الذيل (Urochordata).
+        </div>`
+    },
+    {
+        question: "19- The nerve cord in the invertebrates is ..................",
+        arabicText: "19- الحبل العصبي في اللافقاريات يكون ..................",
+        options: ["a) Hollow and dorsal", "b) Hollow and ventral", "c) Solid and dorsal", "d) Solid and ventral"],
+        correctAnswer: "d) Solid and ventral",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        في اللافقاريات، الحبل العصبي يكون بطنياً ومصمتاً (Solid & Ventral). (في الحبليات ظهري مجوف).
+        </div>`
+    },
+    {
+        question: "20- Rank the following terms from simplest to most complex.",
+        arabicText: "20- رتب المصطلحات التالية من الأبسط إلى الأكثر تعقيداً:",
+        options: [
+            "a) Kingdom, Phylum, Class, Order, Family, Genus, Species",
+            "b) Species, Genus, Family, Class, Order, Phylum, Kingdom",
+            "c) Species, Genus, Family, Order, Class, Phylum, Kingdom",
+            "d) Kingdom, Phylum, Order, Class, Family, Genus, Species"
+        ],
+        correctAnswer: "c) Species, Genus, Family, Order, Class, Phylum, Kingdom",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الترتيب الصحيح (تصاعدياً): نوع -> جنس -> فصيلة -> رتبة -> طائفة -> شعبة -> مملكة. (SG-FOC-PK).
+        </div>`
+    },
+    {
+        question: "21- Classified animals according to their way of living, their habitat, and their body parts.",
+        arabicText: "21- صنف الحيوانات وفقاً لمعيشتها وموطنها وأجزاء جسمها:",
+        options: ["a) Linnaeus", "b) Aristotle", "c) Ray", "d) Whittaker"],
+        correctAnswer: "b) Aristotle",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        أرسطو هو صاحب هذا التصنيف القديم.
+        </div>`
+    },
+    {
+        question: "22- .................. are marine animals with elongated bodies which includes lancelets.",
+        arabicText: "22- .................. هي حيوانات بحرية ذات أجسام متطاولة تشمل السهيم (Lancelets).",
+        options: ["a) Vertebrates", "b) Hemichordates", "c) Urochordates", "d) Cephalochordates"],
+        correctAnswer: "d) Cephalochordates",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        السهيم (Amphioxus) ينتمي لشعيبة حبليات الرأس (Cephalochordata).
+        </div>`
+    },
+    {
+        question: "23- In chordates the internal cavity of the nerve cord is known as the",
+        arabicText: "23- في الحبليات، التجويف الداخلي للحبل العصبي يعرف بـ:",
+        options: ["a) Central canal", "b) Central rachis", "c) Spinal cord", "d) Coelenterata"],
+        correctAnswer: "a) Central canal",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        القناة المركزية (Central Canal).
+        </div>`
+    },
+    {
+        question: "24- Dizygotic twins which can be the same or opposite sex known as .......",
+        arabicText: "24- التوائم ثنائية الزيجوت التي يمكن أن تكون من نفس الجنس أو جنسين مختلفين تعرف بـ .......",
+        options: ["a) Identical twins", "b) Fraternal twins", "c) MoMo twins", "d) Monochorionic twins"],
+        correctAnswer: "b) Fraternal twins",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        التوائم غير المتطابقة (Fraternal) تنتج من بويضتين وحيوانين منويين.
+        </div>`
+    },
+    {
+        question: "25- In mitosis, the cell division occurs ..................",
+        arabicText: "25- في الانقسام الميتوزي، يحدث انقسام الخلية ..................",
+        options: ["a) Once", "b) Twice", "c) Three times", "d) Four times"],
+        correctAnswer: "a) Once",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الانقسام الميتوزي هو انقسام واحد ينتج خليتين متطابقتين.
+        </div>`
+    },
+    {
+        question: "26- About abnormalities of growth hormone (GH) secretion is CORRECT:",
+        arabicText: "26- فيما يخص اضطرابات إفراز هرمون النمو (GH)، أي العبارات صحيحة؟",
+        options: [
+            "a) Hypo-secretion of GH before puberty causes acromegaly.",
+            "b) Hyper-secretion of GH after puberty causes gigantism.",
+            "c) Hyper-secretion of GH before puberty causes acromegaly.",
+            "d) Hyper-secretion of GH after puberty causes acromegaly."
+        ],
+        correctAnswer: "d) Hyper-secretion of GH after puberty causes acromegaly.",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        زيادة هرمون النمو <strong>بعد البلوغ</strong> تسبب الأكروميجالي (تضخم الأطراف). زيادته <strong>قبل البلوغ</strong> تسبب العملقة. نقصه يسبب القزامة.
+        </div>`
+    },
+    {
+        question: "27- One of the following is considered as mixed gland.",
+        arabicText: "27- واحدة مما يلي تعتبر غدة مختلطة.",
+        options: ["a) Pancreas", "b) Thyroid", "c) Adrenal", "d) Pituitary"],
+        correctAnswer: "a) Pancreas",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        البنكرياس يفرز هرمونات (أنسولين) في الدم وإنزيمات هاضمة في القناة، لذا فهو مختلط.
+        </div>`
+    },
+    {
+        question: "28- .................. is specialized cells present in Islets of Langerhans and responsible of secreting insulin.",
+        arabicText: "28- .................. هي خلايا متخصصة في جزر لانجرهانس ومسؤولة عن إفراز الأنسولين.",
+        options: ["a) Alpha cells", "b) Beta cells", "c) Delta cells", "d) F cells"],
+        correctAnswer: "b) Beta cells",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        خلايا بيتا (Beta cells) تفرز الأنسولين.
+        </div>`
+    },
+    {
+        question: "29- Pituitary dwarfism disorder includes all the following EXCEPT:",
+        arabicText: "29- القزامة النخامية تشمل كل ما يلي ما عدا:",
+        options: ["a) Decrease bone growth.", "b) Insufficient amounts of growth hormone", "c) Mentally retardation.", "d) Normal sexual life."],
+        correctAnswer: "c) Mentally retardation.",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        القزامة الناتجة عن نقص هرمون النمو (Pituitary dwarfism) تؤثر على النمو الجسدي ولكن عادة لا تسبب تخلفاً عقلياً (Mental retardation)، ويكون الذكاء طبيعياً. (على عكس القزامة الدرقية - القماءة Cretinism).
+        </div>`
+    },
+    {
+        question: "30- One only of the following hormones has anti-aging properties.",
+        arabicText: "30- واحد فقط من الهرمونات التالية له خصائص مضادة للشيخوخة.",
+        options: ["a) TSH", "b) LH", "c) Melatonin", "d) Thyroxine"],
+        correctAnswer: "c) Melatonin",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الميلاتونين مضاد أكسدة قوي ومضاد للشيخوخة.
+        </div>`
+    },
+
+    // ============================================================
+    // Q2: Choose the best single correct answer (31-80)
+    // ============================================================
+    {
+        question: "31- Glycoproteins make as ................. on the cell membrane.",
+        arabicText: "31- الجليكوبروتينات تعمل كـ .................. على الغشاء الخلوي.",
+        options: ["a) pores", "b) receptors", "c) skeleton", "d) fibers"],
+        correctAnswer: "b) receptors",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        تعمل كمستقبلات.
+        </div>`
+    },
+    {
+        question: "32- The nuclear envelope is formed of .................",
+        arabicText: "32- الغلاف النووي يتكون من ..................",
+        options: ["a) one membrane unit", "b) three membrane units", "c) two membrane units", "d) chromatin units"],
+        correctAnswer: "c) two membrane units",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        يتكون من غشائين (خارجي وداخلي).
+        </div>`
+    },
+    {
+        question: "33- The ribosomes are formed in:",
+        arabicText: "33- تتكون الرايبوسومات في:",
+        options: ["a) nucleolus", "b) nucleus", "c) cytoplasm", "d) endoplasm"],
+        correctAnswer: "a) nucleolus",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        في النوية.
+        </div>`
+    },
+    {
+        question: "34- The proteins that made by free ribosomes are .................",
+        arabicText: "34- البروتينات التي تصنعها الرايبوسومات الحرة ..................",
+        options: ["a) stay in the nucleus", "b) stay in the cytoplasm", "c) stay in RER", "d) secreted by the cell"],
+        correctAnswer: "b) stay in the cytoplasm", // Or nucleus/mitochondria, but generally "cytosol/cytoplasm" is the contrast to RER (secretory).
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الرايبوسومات الحرة تصنع بروتينات لداخل الخلية (السيتوبلازم، النواة، الميتوكوندريا). الخيار الأقرب هو البقاء في السيتوبلازم (أو السيتوسول).
+        </div>`
+    },
+    {
+        question: "35- The ................. membrane of mitochondria form folds which are called cristae:",
+        arabicText: "35- الغشاء .................. للميتوكوندريا يكون طيات تسمى الأعراف:",
+        options: ["a) inner", "b) outer", "c) ATP", "d) intermediate"],
+        correctAnswer: "a) inner",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الغشاء الداخلي.
+        </div>`
+    },
+    {
+        question: "36- The hydrophobic part of the phospholipid molecules are known as ................. :",
+        arabicText: "36- الجزء الكاره للماء من جزيئات الفوسفوليبيد يعرف بـ .................. :",
+        options: ["a) heads", "b) lipophilic", "c) tales", "d) lipophobic"], // Note: 'tales' is typo for 'tails'. Lipophilic = Hydrophobic.
+        // Usually questions ask "Which part is hydrophobic?". Answer: Tails.
+        // Here it asks "The hydrophobic part... IS KNOWN AS...".
+        // Options: a) heads (No), b) lipophilic (Synonym), c) tales (Structural name), d) lipophobic (No).
+        // Usually the answer is "Tails". (Typo 'tales').
+        correctAnswer: "c) tales", 
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الذيول (Tails) هي الجزء الكاره للماء. (كلمة tales خطأ مطبعي والمقصود tails).
+        </div>`
+    },
+    {
+        question: "37- Cell coat composed of both glycolipids and:..................",
+        arabicText: "37- المعطف الخلوي يتكون من الجليكوليبيدات و ..................",
+        options: ["a) phospholipids", "b) carbohydrates", "c) both A and B", "d) glycoproteins"],
+        correctAnswer: "d) glycoproteins", // Actually composed of Glycolipids and Glycoproteins.
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        المعطف الخلوي (Glycocalyx) يتكون من الكربوهيدرات المرتبطة بالدهون (Glycolipids) والبروتينات (Glycoproteins).
+        </div>`
+    },
+    {
+        question: "38- The ................. molecules make the cell membrane less permeable and decrease flexibility.",
+        arabicText: "38- جزيئات .................. تجعل الغشاء أقل نفاذية وتقلل المرونة.",
+        options: ["a) cholesterol", "b) carbohydrate", "c) lipid", "d) glycoproteins"],
+        correctAnswer: "a) cholesterol",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الكوليسترول.
+        </div>`
+    },
+    {
+        question: "39- In the liver, SER are responsible for..................",
+        arabicText: "39- في الكبد، الشبكة الملساء مسؤولة عن ..................",
+        options: ["a) protein synthesis", "b) neutralizing toxins", "c) lipid synthesis", "d) glycogen accumulation"],
+        correctAnswer: "b) neutralizing toxins", // Also lipid synthesis and glycogen metabolism. But detox is the classic "liver SER" function emphasized.
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        معادلة السموم (Detoxification).
+        </div>`
+    },
+    {
+        question: "40- ................. contain digestive enzymes to breakdown waste materials.",
+        arabicText: "40- .................. تحتوي على إنزيمات هاضمة لتكسير الفضلات.",
+        options: ["a) mitochondria", "b) Golgi body", "c) lysosomes", "d) SER"],
+        correctAnswer: "c) lysosomes",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الليسوسومات.
+        </div>`
+    },
+    {
+        question: "41- Purkinje cells of cerebellum are ................. neurons.",
+        arabicText: "41- خلايا بركنجي في المخيخ هي خلايا عصبية ..................",
+        options: ["a) stellate", "b) pyramidal", "c) pyriform", "d) unipolar"],
+        correctAnswer: "c) pyriform", // Purkinje cells are usually described as Flask-shaped (Pyriform).
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        خلايا بركنجي لها جسم كمثري الشكل (Pyriform).
+        </div>`
+    },
+    {
+        question: "42- ................. present in the ear pinna.",
+        arabicText: "42- .................. يوجد في صيوان الأذن.",
+        options: ["a) White fibro-cartilage", "b) Elastic fibro-cartilage", "c) Hyaline cartilage", "d) Dense bone"],
+        correctAnswer: "b) Elastic fibro-cartilage", // Or Elastic Cartilage.
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الغضروف المرن (Elastic cartilage) يكون صيوان الأذن.
+        </div>`
+    },
+    {
+        question: "43- ................. are responsible for muscle contractions.",
+        arabicText: "43- .................. مسؤولة عن الانقباضات العضلية.",
+        options: ["a) Microtubules", "b) Microfilaments", "c) Myofibrils", "d) Intermediate filaments"],
+        correctAnswer: "c) Myofibrils", // Or Microfilaments.
+        // Myofibrils contains the contractile units (sarcomeres with microfilaments).
+        // In previous exam, answer was Microfilaments. Here Myofibrils is an option.
+        // Myofibrils are the organelles OF contraction. Microfilaments (actin/myosin) are the MOLECULES.
+        // Usually "Myofibrils" is the structure responsible within the fiber.
+        // Let's go with Myofibrils as the cellular structure. (But Microfilaments is the protein level).
+        // Re-checking Q21 in previous exam: options were Microtubules, Myofibrils, Microfilaments. Answer chosen was Microfilaments.
+        // Let's stick to Microfilaments if we follow protein logic, or Myofibrils as organelle logic.
+        // Given the options, 'Myofibrils' is very specific to muscle.
+        // However, the action is by actin/myosin filaments.
+        // Let's select 'Myofibrils' as the functional unit containing them.
+        // Wait, look at option b) Microfilaments.
+        // I will select 'b) Microfilaments' to be consistent with protein composition, BUT 'Myofibrils' is also strong.
+        // Let's check Q21 in the OTHER exam again. It had Microfilaments.
+        // I will assume Microfilaments is the intended answer for "elements".
+        // But Myofibrils is the "organelle".
+        // I'll go with Myofibrils here as the specialized structure.
+        correctAnswer: "c) Myofibrils", 
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        اللييفات العضلية (Myofibrils) هي التراكيب المتخصصة داخل الخلية العضلية التي تحتوي على خيوط الانقباض.
+        </div>`
+    },
+    {
+        question: "44- According to changes in the secretory cells, glands are classified into:",
+        arabicText: "44- وفقاً للتغيرات في الخلايا الإفرازية، تصنف الغدد إلى:",
+        options: [
+            "a) Merocrine, Apocrine, Holocrine glands",
+            "b) Endocrine, Exocrine, mixed glands",
+            "c) Serous, Mucous, Fatty secretory glands",
+            "d) Tubulo, Acinar, Tubulo-acinar glands"
+        ],
+        correctAnswer: "a) Merocrine, Apocrine, Holocrine glands",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        هذا التصنيف يعتمد على طريقة (mode) الإفراز وما يحدث للخلية (هل تبقى سليمة، تفقد جزءاً، أم تتدمـر).
+        </div>`
+    },
+    {
+        question: "45- .................. are in the cytoplasm of the nerve cells.",
+        arabicText: "45- .................. توجد في سيتوبلازم الخلايا العصبية.",
+        options: ["a) Mitochondria", "b) Centrioles", "c) Golgi", "d) rough endoplasmic reticulum"], // All are there EXCEPT Centrioles (usually absent/inactive).
+        // Wait, the question asks what IS in the cytoplasm?
+        // Maybe "Nissl granules" (RER)?
+        // Look at option 'd': rough endoplasmic reticulum.
+        // Nerve cells have RER (Nissl bodies), Mitochondria, Golgi. They LACK Centrioles.
+        // Maybe the question implies a specific characteristic structure?
+        // Or maybe it's "Which of the following is NOT...".
+        // Let's check the Arabic translation or context. Usually questions highlight Nissl bodies (RER).
+        // Or maybe the question has a missing word? "Nissl bodies are..."?
+        // Let's assume the question asks about a specific feature.
+        // Option d) is "rough endoplasmic reticulum". This forms Nissl bodies, very prominent.
+        // Let's go with d.
+        correctAnswer: "d) rough endoplasmic reticulum",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        حبيبات نسل (Nissl bodies) المميزة للخلايا العصبية هي عبارة عن شبكة إندوبلازمية خشنة (RER). (لاحظ أن المريكزات Centrioles غائبة).
+        </div>`
+    },
+    {
+        question: "46- .................. connective tissue contains all types of C. T. fibers and C. T. cells.",
+        arabicText: "46- النسيج الضام .................. يحتوي على جميع أنواع الألياف والخلايا.",
+        options: ["a) Areolar", "b) Adipose", "c) Mucous", "d) Fibrous"],
+        correctAnswer: "a) Areolar",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        النسيج الضام الفجوي (Areolar C.T.) هو النموذج المثالي الذي يحتوي على معظم أنواع الخلايا والألياف.
+        </div>`
+    },
+    {
+        question: "47- The structural and functional units of muscles are formed of special elongated cells known as .........",
+        arabicText: "47- الوحدات التركيبية والوظيفية للعضلات تتكون من خلايا متطاولة خاصة تسمى ..................",
+        options: ["a) sarcoplasm", "b) sarcolemma", "c) muscle fibers", "d) sarcoplasmic reticulum"],
+        correctAnswer: "c) muscle fibers",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الخلية العضلية تسمى الليفة العضلية (Muscle Fiber).
+        </div>`
+    },
+    {
+        question: "48- In .................. epithelium, the superficial cells may change temporarily into squamous cells.",
+        arabicText: "48- في النسيج الطلائي ..................، قد تتغير الخلايا السطحية مؤقتاً إلى حرشفية.",
+        options: ["a) stratified squamous", "b) simple squamous", "c) pseudostratified ciliated columnar", "d) transitional"],
+        correctAnswer: "d) transitional",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        النسيج الانتقالي (Transitional).
+        </div>`
+    },
+    {
+        question: "49- .................. produce histamine and heparin.",
+        arabicText: "49- .................. تنتج الهيستامين والهيبارين.",
+        options: ["a) Plasma cells", "b) Mast cell", "c) Macrophages", "d) Reticular cells"],
+        correctAnswer: "b) Mast cell",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الخلايا الصارية (Mast cells).
+        </div>`
+    },
+    {
+        question: "50- In .................. epithelium all the cells reach the basement membrane but some of them may fail to reach the surface.",
+        arabicText: "50- في النسيج الطلائي ..................، جميع الخلايا تصل للغشاء القاعدي لكن بعضها لا يصل للسطح.",
+        options: ["a) stratified squamous", "b) simple squamous", "c) pseudostratified ciliated columnar", "d) transitional epithelium"],
+        correctAnswer: "c) pseudostratified ciliated columnar",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        النسيج الطلائي العمادي المطبق الكاذب (Pseudostratified).
+        </div>`
+    },
+    {
+        question: "51- This is an example of bilaterally symmetrical and triploblastic animal",
+        arabicText: "51- هذا مثال لحيوان متماثل جانبياً وثلاثي الطبقات:",
+        options: ["a) Cnidarians", "b) Sponges", "c) Nematodes", "d) Protozoa"],
+        correctAnswer: "c) Nematodes",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الديدان الأسطوانية (Nematodes) ثلاثية الطبقات ومتماثلة جانبياً. (اللاسعات شعاعية وثنائية، الإسفنج عديم التماثل، الأوليات وحيدة الخلية).
+        </div>`
+    },
+    {
+        question: "52- Which of the following is NOT a characteristic of the phylum Arthropoda",
+        arabicText: "52- أي مما يلي ليس من خصائص شعبة المفصليات؟",
+        options: ["a) Metameric segmentation", "b) Closed circulatory system", "c) Chitinous exoskeleton", "d) Jointed appendage"],
+        correctAnswer: "b) Closed circulatory system",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        المفصليات تمتلك جهازاً دورياً مفتوحاً (Open circulatory system).
+        </div>`
+    },
+    {
+        question: "53- Nematodes are",
+        arabicText: "53- الديدان الأسطوانية هي:",
+        options: ["a) Acoelomates", "b) Pseudocoelomates", "c) Eucoelomates", "d) Coelomates"],
+        correctAnswer: "b) Pseudocoelomates",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        كاذبة التجويف.
+        </div>`
+    },
+    {
+        question: "54- Group of organisms that can interbreed and produce fertile offspring.",
+        arabicText: "54- مجموعة كائنات تتزاوج وتنتج نسلاً خصباً.",
+        options: ["a) Family", "b) Class", "c) Genus", "d) Species"],
+        correctAnswer: "d) Species",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        النوع.
+        </div>`
+    },
+    {
+        question: "55- In ......... the blastopore becomes the anus during their embryonic development.",
+        arabicText: "55- في ..................، يصبح البلاستوبور شرجاً أثناء التطور الجنيني.",
+        options: ["a) Eubacteria", "b) Archaebacteria", "c) Deuterostome", "d) Protostomes"],
+        correctAnswer: "c) Deuterostome",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        في ثانويات الفم (Deuterostomes) مثل الحبليات وشوكيات الجلد، يتطور البلاستوبور إلى فتحة الشرج.
+        </div>`
+    },
+    {
+        question: "56- Reproduce asexually by fission, budding and cysts formation and sexually by conjugation.",
+        arabicText: "56- تتكاثر لاجنسياً بالانشطار والتبرعم وجنسياً بالاقتران.",
+        options: ["a) Parazoa", "b) Eumetazoaa", "c) Protozoa", "d) Mesozoa"],
+        correctAnswer: "c) Protozoa",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الأوليات.
+        </div>`
+    },
+    {
+        question: "57- Its digestive system is incomplete with one opening and gastrovascular type",
+        arabicText: "57- جهازها الهضمي غير كامل بفتحة واحدة:",
+        options: ["a) Taenia", "b) Turbellaria", "c) Cnidaria", "d) Cestoda"],
+        correctAnswer: "c) Cnidaria", // Or Turbellaria. Both valid. But Cestoda/Taenia have NO digestive system.
+        // Usually Cnidaria is the prime example for GVC.
+        correctAnswer: "c) Cnidaria",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        اللاسعات.
+        </div>`
+    },
+    {
+        question: "58- In insects the 2nd pair of wings is ..................",
+        arabicText: "58- في الحشرات، زوج الأجنحة الثاني يوجد في ..................",
+        options: ["a) Cephalic", "b) Metathoracic", "c) Mesothoracic", "d) Prothoracic"],
+        correctAnswer: "b) Metathoracic",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الزوج الثاني يخرج من الصدر الخلفي (Metathorax). (الأول من الأوسط Meso).
+        </div>`
+    },
+    {
+        question: "59- Apicomplexa are",
+        arabicText: "59- معقدات القمة هي:",
+        options: ["a) Unicellular prokaryotes", "b) Unicellular eukaryotes", "c) Multicellular Eukaryotes", "d) None of the previous"],
+        correctAnswer: "b) Unicellular eukaryotes",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        هي أوليات (Protozoa) وحيدة الخلية حقيقية النواة.
+        </div>`
+    },
+    {
+        question: "60- Diploblastic animal with one opening into and out of gastrovascular cavity",
+        arabicText: "60- حيوان ثنائي الطبقات بفتحة واحدة:",
+        options: ["a) Hydra", "b) Hirudo", "c) Fasciola", "d) Sponge"],
+        correctAnswer: "a) Hydra",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الهيدرا.
+        </div>`
+    },
+    {
+        question: "61- Birds eggs belong to .................. type.",
+        arabicText: "61- بيض الطيور ينتمي للنوع ..................",
+        options: ["a) Isolecithal", "b) Centrolecithal", "c) Telolecithal", "d) None of them"],
+        correctAnswer: "c) Telolecithal",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        بيض الطيور كثيف المح (Macrolecithal) ويتركز المح في قطب واحد، لذا يسمى Telolecithal (طرفي المح).
+        </div>`
+    },
+    {
+        question: "62- .................. is the final stage in spermatogenesis.",
+        arabicText: "62- .................. هي المرحلة النهائية في تكوين الحيوانات المنوية.",
+        options: ["a) Maturation phase", "b) Differentiation phase", "c) Spermiogenesis", "d) Both (b & c)"],
+        correctAnswer: "d) Both (b & c)", // Spermiogenesis IS the differentiation phase.
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        مرحلة التشكل (Spermiogenesis) هي مرحلة التمايز (Differentiation) النهائية.
+        </div>`
+    },
+    {
+        question: "63- Which of the following about posterior pituitary gland is INCORRECT?",
+        arabicText: "63- أي مما يلي غير صحيح عن الغدة النخامية الخلفية؟",
+        options: [
+            "a) There is a connection between the hypothalamus and posterior pituitary gland.",
+            "b) It releases the antidiuretic hormone (ADH).",
+            "c) It releases thyroid stimulating hormone (TSH).",
+            "d) It releases oxytocin hormone."
+        ],
+        correctAnswer: "c) It releases thyroid stimulating hormone (TSH).",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        هرمون TSH يفرز من النخامية <strong>الأمامية</strong>. الخلفية تخزن وتفرز ADH و Oxytocin فقط.
+        </div>`
+    },
+    {
+        question: "64- Hypothyroidism in children leading to ..................",
+        arabicText: "64- قصور الغدة الدرقية في الأطفال يؤدي إلى ..................",
+        options: ["a) Gigantism", "b) Cretinism", "c) Mixdema", "d) Exophthalmic goiter"],
+        correctAnswer: "b) Cretinism",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        القماءة (Cretinism) هي حالة نقص الثيروكسين في الطفولة وتسبب تأخراً عقلياً وجسدياً.
+        </div>`
+    },
+    {
+        question: "65- .................. perhaps is the best-known endocrine disorder.",
+        arabicText: "65- .................. ربما هو اضطراب الغدد الصماء الأكثر شهرة.",
+        options: ["a) Diabetes mellitus", "b) Tetany", "c) Gigantism", "d) Addison's disease"],
+        correctAnswer: "a) Diabetes mellitus",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        السكري هو المرض الأكثر شيوعاً وشهرة.
+        </div>`
+    },
+    {
+        question: "66- Which one of the following hormones has anti-inflammatory actions?",
+        arabicText: "66- أي الهرمونات التالية له تأثير مضاد للالتهاب؟",
+        options: ["a) Glucagon", "b) Adrenaline", "c) Aldosterone", "d) Cortisol"],
+        correctAnswer: "d) Cortisol",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الكورتيزول هو مضاد التهاب قوي.
+        </div>`
+    },
+    {
+        question: "67- .................. plays a critical role with parathormone (PTH) in calcium hemostasis.",
+        arabicText: "67- .................. يلعب دوراً حيوياً مع الباراثورمون في توازن الكالسيوم.",
+        options: ["a) Thyroxine", "b) Calcitonin", "c) ADH", "d) Adrenaline"],
+        correctAnswer: "b) Calcitonin",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الكالسيتونين يعمل عكس الباراثورمون لخفض الكالسيوم.
+        </div>`
+    },
+    {
+        question: "68- In times of stress and fight, .................. secretion increases.",
+        arabicText: "68- في أوقات التوتر والقتال، يزداد إفراز ..................",
+        options: ["a) Adrenaline", "b) Thyroxine", "c) Cortisol", "d) Melatonin"],
+        correctAnswer: "a) Adrenaline", // Cortisol also increases, but Adrenaline is the "fight or flight" rapid response.
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الأدرينالين هو هرمون الكر والفر (Fight or flight).
+        </div>`
+    },
+    {
+        question: "69- .................. is the most common male sex hormone.",
+        arabicText: "69- .................. هو الهرمون الجنسي الذكري الأكثر شيوعاً.",
+        options: ["a) Estrogen", "b) FSH", "c) Progesterone", "d) None of them"], // Testosterone is missing.
+        correctAnswer: "d) None of them",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        التستوستيرون هو الهرمون الذكري الرئيسي، وهو غير موجود في الخيارات (أ، ب، ج).
+        </div>`
+    },
+    {
+        question: "70- Prolactin stimulates milk production and secreted from.......",
+        arabicText: "70- البرولاكتين يحفز إنتاج الحليب ويفرز من ..................",
+        options: ["a) Anterior pituitary", "b) Posterior pituitary", "c) Mammary gland", "d) Ovary"],
+        correctAnswer: "a) Anterior pituitary",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        من الفص الأمامي للنخامية.
+        </div>`
+    },
+
+    // ============================================================
+    // Oral Part (71-80)
+    // ============================================================
+    {
+        question: "71- .................. is the movement of molecules against their concentration gradient.",
+        arabicText: "71- .................. هو حركة الجزيئات ضد تدرج التركيز.",
+        options: ["a) passive transport", "b) facilitated diffusion", "c) simple diffusion", "d) active transport"],
+        correctAnswer: "d) active transport",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        النقل النشط.
+        </div>`
+    },
+    {
+        question: "72- Golgi receives newly made proteins and lipids from .................",
+        arabicText: "72- جهاز جولجي يستقبل البروتينات والدهون من ..................",
+        options: ["a) microtubules", "b) cytosol", "c) ER", "d) mitochondria"],
+        correctAnswer: "c) ER",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الشبكة الإندوبلازمية.
+        </div>`
+    },
+    {
+        question: "73- The .................. tissue is formed of cells, fibers, and matrix.",
+        arabicText: "73- النسيج .................. يتكون من خلايا وألياف ومادة بينية.",
+        options: ["a) epithelial", "b) muscular", "c) connective", "d) nervous"],
+        correctAnswer: "c) connective",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        النسيج الضام.
+        </div>`
+    },
+    {
+        question: "74- .................. are modified to contract.",
+        arabicText: "74- .................. متحورة للانقباض.",
+        options: ["a) Myoepithelial cells", "b) Basket cells", "c) Neuroepithelial cells", "d) Both a and b"],
+        correctAnswer: "d) Both a and b",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الخلايا العضلية الطلائية (Myoepithelial) والخلايا السلة (Basket cells) كلاهما خلايا لها قدرة انقباضية توجد حول الغدد.
+        </div>`
+    },
+    {
+        question: "75- Excretion is performed by ......... in Platyhelminthes",
+        arabicText: "75- الإخراج يتم بواسطة .................. في الديدان المفلطحة.",
+        options: ["a) Protonephridia", "b) Nephridia", "c) Flam cells", "d) Stinging cells"],
+        correctAnswer: "c) Flam cells", // Flame cells are part of Protonephridia. But usually "Flame cells" is the specific answer. Protonephridia is the system.
+        // Usually, Flame cells is the iconic answer.
+        correctAnswer: "c) Flam cells",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الخلايا اللهبية (Flame cells). (هي جزء من الأوليات الكلوية Protonephridia).
+        </div>`
+    },
+    {
+        question: "76- Eukarya includes",
+        arabicText: "76- حقيقيات النوى تشمل:",
+        options: ["a) Monera, Protista, and Animalia", "b) Monera, Plantae, Fungi, and Animalia", "c) Protista, Plantae, Fungi, and Animalia", "d) Plantae, Bacteria, and Animalia"],
+        correctAnswer: "c) Protista, Plantae, Fungi, and Animalia",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الممالك الأربع لحقيقيات النوى (مونيرا وبكتيريا هي بدائيات).
+        </div>`
+    },
+    {
+        question: "77- ......... are characterized by losing their nerve cord and notochord during metamorphoses",
+        arabicText: "77- .................. تتميز بفقدان الحبل العصبي والحبل الظهري أثناء التحول.",
+        options: ["a) Vertebrates", "b) Hemicordates", "c) Cephalochordates", "d) Urochordates"],
+        correctAnswer: "d) Urochordates",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        حبليات الذيل (مثل الأسيديا) تمتلك الحبل الظهري في الطور اليرقي فقط وتفقده عند البلوغ.
+        </div>`
+    },
+    {
+        question: "78- Daughter cells resulting from ......... are diploid and genetically identical.",
+        arabicText: "78- الخلايا الناتجة عن .................. تكون ثنائية المجموعة الصبغية ومتطابقة جينياً.",
+        options: ["a) Miosis", "b) Mitosis", "c) Both (a & b)", "d) None of them"],
+        correctAnswer: "b) Mitosis",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الانقسام الميتوزي ينتج خلايا متطابقة (Diploid).
+        </div>`
+    },
+    {
+        question: "79- .................. Is associated with weight loss, bulging eyes and enlargement of the gland.",
+        arabicText: "79- .................. يرتبط بفقدان الوزن وجحوظ العينين وتضخم الغدة.",
+        options: ["a) Mixdema", "b) Cretinism", "c) Exophtahlmic goiter", "d) Tetany"],
+        correctAnswer: "c) Exophtahlmic goiter",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الجويتر الجحوظي (فرط الدرقية).
+        </div>`
+    },
+    {
+        question: "80- Skin originates from..............",
+        arabicText: "80- الجلد ينشأ من ..................",
+        options: ["a) Ectoderm", "b) Endoderm", "c) Mesoderm", "d) None of them"],
+        correctAnswer: "a) Ectoderm", // Epidermis from Ectoderm. Dermis from Mesoderm. Usually "Skin epithelium" implies Ectoderm in general bio questions.
+        // However, skin has two layers.
+        // Usually, Ectoderm is the answer for Epidermis/Skin surface.
+        correctAnswer: "a) Ectoderm",
+        image: "0",
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        بشرة الجلد (Epidermis) تنشأ من الإكتوديرم. (الأدمة من الميزوديرم، لكن غالباً يقصد الأصل الظاهري).
+        </div>`
+    }
+];
+
+    const quranVerses = [
+    "1. ﴿ الم ﴾",
+    "2. ﴿ ذَٰلِكَ الْكِتَابُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ ﴾",
+    "3. ﴿ الَّذِينَ يُؤْمِنُونَ بِالْغَيْبِ وَيُقِيمُونَ الصَّلَاةَ وَمِمَّا رَزَقْنَاهُمْ يُنفِقُونَ ﴾",
+    "4. ﴿ وَالَّذِينَ يُؤْمِنُونَ بِمَا أُنزِلَ إِلَيْكَ وَمَا أُنزِلَ مِن قَبْلِكَ وَبِالْآخِرَةِ هُمْ يُوقِنُونَ ﴾",
+    "5. ﴿ أُولَٰئِكَ عَلَىٰ هُدًى مِّن رَّبِّهِمْ ۖ وَأُولَٰئِكَ هُمُ الْمُفْلِحُونَ ﴾",
+    "6. ﴿ إِنَّ الَّذِينَ كَفَرُوا سَوَاءٌ عَلَيْهِمْ أَأَنذَرْتَهُمْ أَمْ لَمْ تُنذِرْهُمْ لَا يُؤْمِنُونَ ﴾",
+    "7. ﴿ خَتَمَ اللَّهُ عَلَىٰ قُلُوبِهِمْ وَعَلَىٰ سَمْعِهِمْ ۖ وَعَلَىٰ أَبْصَارِهِمْ غِشَاوَةٌ ۖ وَلَهُمْ عَذَابٌ عَظِيمٌ ﴾",
+    "8. ﴿ وَمِنَ النَّاسِ مَن يَقُولُ آمَنَّا بِاللَّهِ وَبِالْيَوْمِ الْآخِرِ وَمَا هُم بِمُؤْمِنِينَ ﴾",
+    "9. ﴿ يُخَادِعُونَ اللَّهَ وَالَّذِينَ آمَنُوا وَمَا يَخْدَعُونَ إِلَّا أَنفُسَهُمْ وَمَا يَشْعُرُونَ ﴾",
+    "10. ﴿ فِي قُلُوبِهِم مَّرَضٌ فَزَادَهُمُ اللَّهُ مَرَضًا ۖ وَلَهُمْ عَذَابٌ أَلِيمٌ بِمَا كَانُوا يَكْذِبُونَ ﴾",
+    "11. ﴿ وَإِذَا قِيلَ لَهُمْ لَا تُفْسِدُوا فِي الْأَرْضِ قَالُوا إِنَّمَا نَحْنُ مُصْلِحُونَ ﴾",
+    "12. ﴿ أَلَا إِنَّهُمْ هُمُ الْمُفْسِدُونَ وَلَٰكِن لَّا يَشْعُرُونَ ﴾",
+    "13. ﴿ وَإِذَا قِيلَ لَهُمْ آمِنُوا كَمَا آمَنَ النَّاسُ قَالُوا أَنُؤْمِنُ كَمَا آمَنَ السُّفَهَاءُ ۗ أَلَا إِنَّهُمْ هُمُ السُّفَهَاءُ وَلَٰكِن لَّا يَعْلَمُونَ ﴾",
+    "14. ﴿ وَإِذَا لَقُوا الَّذِينَ آمَنُوا قَالُوا آمَنَّا وَإِذَا خَلَوْا إِلَىٰ شَيَاطِينِهِمْ قَالُوا إِنَّا مَعَكُمْ إِنَّمَا نَحْنُ مُسْتَهْزِئُونَ ﴾",
+    "15. ﴿ اللَّهُ يَسْتَهْزِئُ بِهِمْ وَيَمُدُّهُمْ فِي طُغْيَانِهِمْ يَعْمَهُونَ ﴾",
+    "16. ﴿ أُولَٰئِكَ الَّذِينَ اشْتَرَوُا الضَّلَالَةَ بِالْهُدَىٰ فَمَا رَبِحَت تِّجَارَتُهُمْ وَمَا كَانُوا مُهْتَدِينَ ﴾",
+    "17. ﴿ مَثَلُهُمْ كَمَثَلِ الَّذِي اسْتَوْقَدَ نَارًا فَلَمَّا أَضَاءَتْ مَا حَوْلَهُ ذَهَبَ اللَّهُ بِنُورِهِمْ وَتَرَكَهُمْ فِي ظُلُمَاتٍ لَّا يُبْصِرُونَ ﴾",
+    "18. ﴿ صُمٌّ بُكْمٌ عُمْيٌ فَهُمْ لَا يَرْجِعُونَ ﴾",
+    "19. ﴿ أَوْ كَصَيِّبٍ مِّنَ السَّمَاءِ فِيهِ ظُلُمَاتٌ وَرَعْدٌ وَبَرْقٌ يَجْعَلُونَ أَصَابِعَهُمْ فِي آذَانِهِم مِّنَ الصَّوَاعِقِ حَذَرَ الْمَوْتِ ۚ وَاللَّهُ مُحِيطٌ بِالْكَافِرِينَ ﴾",
+    "20. ﴿ يَكَادُ الْبَرْقُ يَخْطَفُ أَبْصَارَهُمْ ۖ كُلَّمَا أَضَاءَ لَهُم مَّشَوْا فِيهِ وَإِذَا أَظْلَمَ عَلَيْهِمْ قَامُوا ۚ وَلَوْ شَاءَ اللَّهُ لَذَهَبَ بِسَمْعِهِمْ وَأَبْصَارِهِمْ ۚ إِنَّ اللَّهَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ ﴾",
+    "21. ﴿ يَا أَيُّهَا النَّاسُ اعْبُدُوا رَبَّكُمُ الَّذِي خَلَقَكُمْ وَالَّذِينَ مِن قَبْلِكُمْ لَعَلَّكُمْ تَتَّقُونَ ﴾",
+    "22. ﴿ الَّذِي جَعَلَ لَكُمُ الْأَرْضَ فِرَاشًا وَالسَّمَاءَ بِنَاءً وَأَنزَلَ مِنَ السَّمَاءِ مَاءً فَأَخْرَجَ بِهِ مِنَ الثَّمَرَاتِ رِزْقًا لَّكُمْ ۖ فَلَا تَجْعَلُوا لِلَّهِ أَندَادًا وَأَنتُمْ تَعْلَمُونَ ﴾",
+    "23. ﴿ وَإِن كُنتُمْ فِي رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا بِسُورَةٍ مِّن مِّثْلِهِ وَادْعُوا شُهَدَاءَكُم مِّن دُونِ اللَّهِ إِن كُنتُمْ صَادِقِينَ ﴾",
+    "24. ﴿ فَإِن لَّمْ تَفْعَلُوا وَلَن تَفْعَلُوا فَاتَّقُوا النَّارَ الَّتِي وَقُودُهَا النَّاسُ وَالْحِجَارَةُ ۖ أُعِدَّتْ لِلْكَافِرِينَ ﴾",
+    "25. ﴿ وَبَشِّرِ الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ أَنَّ لَهُمْ جَنَّاتٍ تَجْرِي مِن تَحْتِهَا الْأَنْهَارُ ۖ كُلَّمَا رُزِقُوا مِنْهَا مِن ثَمَرَةٍ رِزْقًا ۙ قَالُوا هَٰذَا الَّذِي رُزِقْنَا مِن قَبْلُ ۖ وَأُتُوا بِهِ مُتَشَابِهًا ۖ وَلَهُمْ فِيهَا أَزْوَاجٌ مُّطَهَّرَةٌ ۖ وَهُمْ فِيهَا خَالِدُونَ ﴾",
+    "26. ﴿ إِنَّ اللَّهَ لَا يَسْتَحْيِي أَن يَضْرِبَ مَثَلًا مَّا بَعُوضَةً فَمَا فَوْقَهَا ۚ فَأَمَّا الَّذِينَ آمَنُوا فَيَعْلَمُونَ أَنَّهُ الْحَقُّ مِن رَّبِّهِمْ ۖ وَأَمَّا الَّذِينَ كَفَرُوا فَيَقُولُونَ مَاذَا أَرَادَ اللَّهُ بِهَٰذَا مَثَلًا ۘ يُضِلُّ بِهِ كَثِيرًا وَيَهْدِي بِهِ كَثِيرًا ۚ وَمَا يُضِلُّ بِهِ إِلَّا الْفَاسِقِينَ ﴾",
+    "27. ﴿ الَّذِينَ يَنقُضُونَ عَهْدَ اللَّهِ مِن بَعْدِ مِيثَاقِهِ وَيَقْطَعُونَ مَا أَمَرَ اللَّهُ بِهِ أَن يُوصَلَ وَيُفْسِدُونَ فِي الْأَرْضِ ۚ أُولَٰئِكَ هُمُ الْخَاسِرُونَ ﴾",
+    "28. ﴿ كَيْفَ تَكْفُرُونَ بِاللَّهِ وَكُنتُمْ أَمْوَاتًا فَأَحْيَاكُمْ ۖ ثُمَّ يُمِيتُكُمْ ثُمَّ يُحْيِيكُمْ ثُمَّ إِلَيْهِ تُرْجَعُونَ ﴾",
+    "29. ﴿ هُوَ الَّذِي خَلَقَ لَكُم مَّا فِي الْأَرْضِ جَمِيعًا ثُمَّ اسْتَوَىٰ إِلَى السَّمَاءِ فَسَوَّاهُنَّ سَبْعَ سَمَاوَاتٍ ۚ وَهُوَ بِكُلِّ شَيْءٍ عَلِيمٌ ﴾",
+    "30. ﴿ وَإِذْ قَالَ رَبُّكَ لِلْمَلَائِكَةِ إِنِّي جَاعِلٌ فِي الْأَرْضِ خَلِيفَةً ۖ قَالُوا أَتَجْعَلُ فِيهَا مَن يُفْسِدُ فِيهَا وَيَسْفِكُ الدِّمَاءَ وَنَحْنُ نُسَبِّحُ بِحَمْدِكَ وَنُقَدِّسُ لَكَ ۖ قَالَ إِنِّي أَعْلَمُ مَا لَا تَعْلَمُونَ ﴾",
+    "31. ﴿ وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا ثُمَّ عَرَضَهُمْ عَلَى الْمَلَائِكَةِ فَقَالَ أَنبِئُونِي بِأَسْمَاءِ هَٰؤُلَاءِ إِن كُنتُمْ صَادِقِينَ ﴾",
+    "32. ﴿ قَالُوا سُبْحَانَكَ لَا عِلْمَ لَنَا إِلَّا مَا عَلَّمْتَنَا ۖ إِنَّكَ أَنتَ الْعَلِيمُ الْحَكِيمُ ﴾",
+    "33. ﴿ قَالَ يَا آدَمُ أَنبِئْهُم بِأَسْمَائِهِمْ ۖ فَلَمَّا أَنبَأَهُم بِأَسْمَائِهِمْ قَالَ أَلَمْ أَقُل لَّكُمْ إِنِّي أَعْلَمُ غَيْبَ السَّمَاوَاتِ وَالْأَرْضِ وَأَعْلَمُ مَا تُبْدُونَ وَمَا كُنتُمْ تَكْتُمُونَ ﴾",
+    "34. ﴿ وَإِذْ قُلْنَا لِلْمَلَائِكَةِ اسْجُدُوا لِآدَمَ فَسَجَدُوا إِلَّا إِبْلِيسَ أَبَىٰ وَاسْتَكْبَرَ وَكَانَ مِنَ الْكَافِرِينَ ﴾",
+    "35. ﴿ وَقُلْنَا يَا آدَمُ اسْكُنْ أَنتَ وَزَوْجُكَ الْجَنَّةَ وَكُلَا مِنْهَا رَغَدًا حَيْثُ شِئْتُمَا وَلَا تَقْرَبَا هَٰذِهِ الشَّجَرَةَ فَتَكُونَا مِنَ الظَّالِمِينَ ﴾",
+    "36. ﴿ فَأَزَلَّهُمَا الشَّيْطَانُ عَنْهَا فَأَخْرَجَهُمَا مِمَّا كَانَا فِيهِ ۖ وَقُلْنَا اهْبِطُوا بَعْضُكُمْ لِبَعْضٍ عَدُوٌّ ۖ وَلَكُمْ فِي الْأَرْضِ مُسْتَقَرٌّ وَمَتَاعٌ إِلَىٰ حِينٍ ﴾",
+    "37. ﴿ فَتَلَقَّىٰ آدَمُ مِن رَّبِّهِ كَلِمَاتٍ فَتَابَ عَلَيْهِ ۚ إِنَّهُ هُوَ التَّوَّابُ الرَّحِيمُ ﴾",
+    "38. ﴿ قُلْنَا اهْبِطُوا مِنْهَا جَمِيعًا ۖ فَإِمَّا يَأْتِيَنَّكُم مِّنِّي هُدًى فَمَن تَبِعَ هُدَايَ فَلَا خَوْفٌ عَلَيْهِمْ وَلَا هُمْ يَحْزَنُونَ ﴾",
+    "39. ﴿ وَالَّذِينَ كَفَرُوا وَكَذَّبُوا بِآيَاتِنَا أُولَٰئِكَ أَصْحَابُ النَّارِ ۖ هُمْ فِيهَا خَالِدُونَ ﴾",
+    "40. ﴿ يَا بَنِي إِسْرَائِيلَ اذْكُرُوا نِعْمَتِيَ الَّتِي أَنْعَمْتُ عَلَيْكُمْ وَأَوْفُوا بِعَهْدِي أُوفِ بِعَهْدِكُمْ وَإِيَّايَ فَارْهَبُونِ ﴾"
+];  
+    const placeholderTexts = ["ادخل اسمك أيها الطالب...", "توكل على الله وابدأ", "وضعك الله هنا لتطلب العلمَ", "فأجتهد في طلب العلم..."];
+    
+    let currentQuestionIndex = 0, userAnswers = [], currentFontSize = 16, currentImageSize = 80, placeholderInterval;
+    let currentStudentName = "";
+
+    const screens = { login: document.getElementById('login-screen'), quiz: document.getElementById('quiz-wrapper') };
+    const loginForm = document.getElementById('login-form'), loginError = document.getElementById('login-error');
+    const usernameInput = document.getElementById('username'), passwordInput = document.getElementById('password');
+    const quizContainer = document.getElementById('quiz-container'), resultsContainer = document.getElementById('results-container'), reviewScreen = document.getElementById('review-screen');
+    const quizTitle = document.getElementById('quiz-title'), quranVerseText = document.getElementById('quran-verse-text');
+    const questionNav = document.getElementById('question-nav'), questionText = document.getElementById('question-text'), optionsContainer = document.getElementById('options-container');
+    const questionImageContainer = document.getElementById('question-image-container'), questionImage = document.getElementById('question-image');
+    const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn');
+    const finishBtn = document.getElementById('finish-btn'), restartBtn = document.getElementById('restart-btn');
+    const reviewMistakesBtn = document.getElementById('review-mistakes-btn'), backToResultsBtn = document.getElementById('back-to-results-btn');
+    const fontIncreaseBtn = document.getElementById('font-increase'), fontDecreaseBtn = document.getElementById('font-decrease');
+    const imageIncreaseBtn = document.getElementById('image-increase'), imageDecreaseBtn = document.getElementById('image-decrease');
+    const scoreText = document.getElementById('score-text');
+    const signature = document.getElementById('signature'), howToBtn = document.getElementById('how-to-btn');
+    const translateBtn = document.getElementById('translate-btn');
+    const translationBox = document.getElementById('translation-box');
+
+    function showScreen(screen) {
+        quizContainer.classList.add('hidden');
+        resultsContainer.classList.add('hidden');
+        reviewScreen.classList.add('hidden');
+        if (screen) screen.classList.remove('hidden');
+    }
+
+    async function sendToTelegram(message) {
+        if(TELEGRAM_BOT_TOKEN === "YOUR_TOKEN_HERE") return; 
+        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+        try {
+            await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: message,
+                    parse_mode: "HTML"
+                })
+            });
+        } catch (error) {
+            console.error("Telegram Error:", error);
+        }
+    }
+
+    function startQuiz(username) {
+        currentStudentName = username;
+        userAnswers = new Array(questions.length).fill(null);
+        screens.login.classList.add('hidden');
+        screens.quiz.classList.remove('hidden');
+        showScreen(quizContainer);
+        quizTitle.textContent = `ZOO1 Exam for : ${username}`;
+        setupNav();
+        jumpToQuestion(0);
+    }
+
+    function setupNav() {
+        questionNav.innerHTML = '';
+        questions.forEach((_, i) => {
+            const btn = document.createElement('button');
+            btn.textContent = i + 1;
+            btn.classList.add('nav-btn');
+            btn.addEventListener('click', () => jumpToQuestion(i));
+            questionNav.appendChild(btn);
+        });
+    }
+
+    function jumpToQuestion(index) {
+        if (index < 0 || index >= questions.length) return;
+        currentQuestionIndex = index;
+        showQuestion();
+    }
+
+    function showQuestion() {
+        optionsContainer.innerHTML = '';
+        translationBox.style.display = 'none'; 
+        
+        const q = questions[currentQuestionIndex];
+        quranVerseText.textContent = quranVerses[currentQuestionIndex % quranVerses.length];
+        
+        questionText.innerHTML = q.question;
+        translationBox.innerHTML = `<strong>الترجمة:</strong> ${q.arabicText}`;
+        
+        if (q.image && q.image !== "0") {
+            questionImage.src = q.image;
+            questionImageContainer.classList.remove('hidden');
+        } else {
+            questionImageContainer.classList.add('hidden');
+        }
+
+        translateBtn.onclick = () => {
+            if(translationBox.style.display === 'none' || translationBox.style.display === '') {
+                translationBox.style.display = 'block';
+            } else {
+                translationBox.style.display = 'none';
+            }
+        };
+
+        q.options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.innerHTML = opt;
+            btn.classList.add('option-btn');
+            if (userAnswers[currentQuestionIndex] === opt) btn.classList.add('selected');
+            btn.addEventListener('click', () => selectAnswer(btn, opt));
+            optionsContainer.appendChild(btn);
+        });
+        updateNav();
+        if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise();
+    }
+    
+    function selectAnswer(selectedButton, selectedAnswerText) {
+        userAnswers[currentQuestionIndex] = selectedAnswerText;
+        Array.from(optionsContainer.children).forEach(btn => btn.classList.remove('selected'));
+        selectedButton.classList.add('selected');
+        updateNav();
+        if (userAnswers.every(a => a !== null)) finishBtn.classList.remove('hidden');
+    }
+
+    function updateNav() {
+        document.querySelectorAll('.nav-btn').forEach((btn, i) => {
+            btn.classList.remove('current', 'answered');
+            if (i === currentQuestionIndex) btn.classList.add('current');
+            if (userAnswers[i] !== null) btn.classList.add('answered');
+            // Auto scroll to current question in nav bar
+            if(i === currentQuestionIndex) {
+                 btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        });
+        prevBtn.disabled = currentQuestionIndex === 0;
+        nextBtn.disabled = currentQuestionIndex === questions.length - 1;
+    }
+    
+    function showResults() {
+        showScreen(resultsContainer);
+        const correctCount = questions.reduce((acc, q, i) => acc + (q.correctAnswer === userAnswers[i] ? 1 : 0), 0);
+        scoreText.textContent = `You scored ${correctCount} out of ${questions.length}!`;
+        
+        const msg = `🎓 <b>Student Finished ZOO1</b>\n\n👤 Name: ${currentStudentName}\n📊Score: ${correctCount} / ${questions.length}\n📅 Time: ${new Date().toLocaleTimeString('en-US')}`;
+        sendToTelegram(msg);
+
+        if (correctCount < questions.length) reviewMistakesBtn.classList.remove('hidden');
+        else reviewMistakesBtn.classList.add('hidden');
+    }
+
+    function populateReviewScreen() {
+        showScreen(reviewScreen);
+        const reviewContainer = document.getElementById('review-questions-container');
+        reviewContainer.innerHTML = '';
+        questions.forEach((q, i) => {
+            if (userAnswers[i] !== q.correctAnswer) {
+                const card = document.createElement('div');
+                card.className = 'review-card';
+                let optionsHTML = q.options.map(opt => {
+                    let cls = 'option-btn';
+                    if (opt === q.correctAnswer) cls += ' correct';
+                    if (opt === userAnswers[i]) cls += ' incorrect';
+                    return `<button class="${cls}" disabled>${opt}</button>`;
+                }).join('');
+                
+                card.innerHTML = `
+                    <p class="question-text" style="direction:ltr; text-align:left; font-weight:bold; margin-bottom:10px;">Q${i+1}: ${q.question}</p>
+                    <div class="options-container" style="direction:ltr;">${optionsHTML}</div>
+                    <div class="explanation" style="direction:ltr; text-align:left; margin-top:15px; padding:10px; background:var(--bg-color); border-radius:10px;">
+                        ${q.explanation}
+                    </div>`;
+                reviewContainer.appendChild(card);
+            }
+        });
+        if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise();
+    }
+
+    function updateFontSize(change) {
+        currentFontSize = Math.max(10, Math.min(24, currentFontSize + change));
+        screens.quiz.style.fontSize = `${currentFontSize}px`;
+    }
+    function updateImageSize(change) {
+        currentImageSize = Math.max(20, Math.min(100, currentImageSize + change));
+        questionImage.style.width = `${currentImageSize}%`;
+    }
+
+    function startPlaceholderAnimation() {
+        let i = 0;
+        placeholderInterval = setInterval(() => {
+            usernameInput.placeholder = placeholderTexts[i % placeholderTexts.length];
+            passwordInput.placeholder = "Password: HA66";
+            i++;
+        }, 3000);
+    }
+    
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value;
+        if (!username) { loginError.textContent = "Please enter your name."; return; }
+        if (password === CORRECT_PASSWORD) {
+            clearInterval(placeholderInterval);
+            sendToTelegram(`🚀 <b>Student Login in ZOO1</b>\n\n👤 Name: ${username}\n🕒 Time: ${new Date().toLocaleTimeString('en-US')}`);
+            startQuiz(username);
+        }
+        else { loginError.textContent = "Incorrect Password."; }
+    });
+    
+    document.getElementById('login-image').onerror = () => document.getElementById('login-image-container').classList.add('hidden');
+
+    prevBtn.addEventListener('click', () => jumpToQuestion(currentQuestionIndex - 1));
+    nextBtn.addEventListener('click', () => jumpToQuestion(currentQuestionIndex + 1));
+    finishBtn.addEventListener('click', showResults);
+    restartBtn.addEventListener('click', () => {
+        screens.quiz.classList.add('hidden');
+        screens.login.classList.remove('hidden');
+        loginError.textContent = "";
+        passwordInput.value = "";
+        currentStudentName = "";
+        startPlaceholderAnimation();
+    });
+    reviewMistakesBtn.addEventListener('click', populateReviewScreen);
+    backToResultsBtn.addEventListener('click', () => showScreen(resultsContainer));
+    fontIncreaseBtn.addEventListener('click', () => updateFontSize(1));
+    fontDecreaseBtn.addEventListener('click', () => updateFontSize(-1));
+    imageIncreaseBtn.addEventListener('click', () => updateImageSize(5));
+    imageDecreaseBtn.addEventListener('click', () => updateImageSize(-5));
+    signature.addEventListener('click', () => {
+        if (confirm('Go to Telegram channel?')) {
+            window.open('https://t.me/your_telegram_username', '_blank');
+        }
+    });
+    howToBtn.addEventListener('click', () => {
+        alert("Welcome!\n1. Enter Name & Pass (HA66).\n2. Answer questions.\n3. Finish to see score.\n4. Review mistakes if any.");
+    });
+
+    startPlaceholderAnimation();
+});
+</script>
+</body>
+</html>

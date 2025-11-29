@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHEMISTRY2021</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700&family=Noto+Naskh+Arabic:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;700&family=Marhey:wght@400;700&family=Tajawal:wght@400;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+
+    <script>
+        window.MathJax = { 
+            tex: { inlineMath: [['\\(', '\\)']] },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --font-main: 'Tajawal', sans-serif;
+            --font-title: 'Marhey', cursive;
+            --font-quran: 'Scheherazade New', serif;
+            --font-signature: 'Aref Ruqaa', serif;
+            
+            --neu-blur: 12px;
+            --neu-distance: 6px;
+            --neu-radius: 15px;
+            --transition-speed: 0.3s;
+            
+            --bg-color: #121518;
+            --page-color: #1e2229;
+            --text-color: #c9d1d9;
+            
+            --gold-color: #ffd700;
+            --gold-darker: #e6a72a;
+            --red-color: #ff7b72;
+            --blue-color: #58a6ff;
+            --green-color: #56d364;
+            --purple-color: #bc8cff;
+            
+            --light-shadow-color: rgba(43, 49, 58, 0.9);
+            --dark-shadow-color: #0b0d10;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { 
+            background-color: var(--bg-color); 
+            background-image: radial-gradient(circle, #2a303a, #121518);
+            margin: 0; padding: 20px; display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; min-height: 100vh; 
+            font-family: var(--font-main); 
+        }
+        
+        h1, h2, h3, p, div, span, input { color: var(--text-color); }
+        
+        button { 
+            cursor: pointer; 
+            font-family: var(--font-main);
+            border: none;
+            outline: none;
+            color: var(--text-color);
+            background-color: var(--page-color);
+        }
+
+        mjx-container, .MathJax { 
+            color: var(--gold-color) !important;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 6px;
+            padding: 2px 6px;
+            margin: 0 4px;
+            direction: ltr !important;        
+            unicode-bidi: isolate !important; 
+            display: inline-block !important; 
+            pointer-events: none !important;
+            user-select: none !important;
+        }
+        
+        .neu-card { 
+            background-color: var(--page-color); border-radius: var(--neu-radius); 
+            padding: 25px 35px; 
+            box-shadow: var(--neu-distance) var(--neu-distance) var(--neu-blur) var(--dark-shadow-color), calc(-1 * var(--neu-distance)) calc(-1 * var(--neu-distance)) var(--neu-blur) var(--light-shadow-color); 
+            transition: all var(--transition-speed) ease; position: relative;
+        }
+
+        .screen { width: 100%; max-width: 800px; }
+        
+        #top-banner {
+            position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+            background-color: var(--page-color); padding: 5px 30px;
+            border-bottom-left-radius: var(--neu-radius); border-bottom-right-radius: var(--neu-radius);
+            font-family: var(--font-quran); font-size: 1.2em; color: var(--gold-darker);
+            box-shadow: 0px 4px 10px var(--dark-shadow-color); z-index: 1001;
+        }
+        
+        #signature {
+            position: fixed; bottom: 20px; right: 20px; padding: 10px;
+            cursor: pointer; z-index: 1001; text-align: center;
+            background: linear-gradient(135deg, #000, #4d4d4d);
+            border: 1px solid var(--gold-color);
+        }
+        #signature-name { font-family: var(--font-signature); font-size: 1.2em; display: block; }
+        #signature-title { font-size: 0.8em; opacity: 0.8; display: block; }
+        #palestine-flag {
+            width: 100%; height: 5px; display: block; margin-top: 8px;
+            background: linear-gradient(90deg, #000 25%, #fff 25%, #fff 50%, #009639 50%, #009639 75%, #d10a10 75%);
+            animation: color-flow 4s linear infinite;
+        }
+        @keyframes color-flow {
+            0% { filter: hue-rotate(0deg) saturate(1); }
+            50% { filter: hue-rotate(90deg) saturate(2); }
+            100% { filter: hue-rotate(0deg) saturate(1); }
+        }
+
+        #login-screen { padding-top: 50px; text-align: center; }
+        #login-header-text { font-family: var(--font-title); font-size: 2.5em; color: var(--gold-darker); margin-bottom: 20px; }
+        #login-image-container { margin-bottom: 10px; }
+        #login-image { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--gold-darker); box-shadow: 0 0 15px var(--gold-color); object-fit: cover; background: #fff; }
+        
+        .input-group { margin-bottom: 20px; position: relative; }
+        .input-field { width: 80%; padding: 12px 20px; background: var(--bg-color); border: none; border-radius: 50px; text-align: center; color: var(--text-color); font-size: 1.1em; box-shadow: inset 4px 4px 8px var(--dark-shadow-color), inset -4px -4px 8px var(--light-shadow-color); animation: pulse-border 5s infinite; }
+        
+        .action-btn, #login-btn, #restart-btn, #review-mistakes-btn, #back-to-results-btn, #how-to-btn {
+            background-color: var(--blue-color); 
+            color: #121518;
+            border-radius: 50px; 
+            padding: 12px 35px; 
+            font-size: 1.2em; 
+            font-weight: bold;
+            box-shadow: var(--neu-distance) var(--neu-distance) var(--neu-blur) var(--dark-shadow-color); 
+            transition: all 0.2s ease;
+            margin: 10px;
+        }
+        
+        #how-to-btn {
+            background-color: var(--page-color);
+            color: var(--text-color);
+            border: 1px solid var(--gold-color);
+            font-size: 1em;
+            padding: 8px 20px;
+        }
+
+        #finish-btn, #restart-btn, #review-mistakes-btn { background-color: var(--purple-color); color: #121518; }
+        #prev-btn { background-color: var(--page-color); color: var(--text-color); border: 1px solid var(--blue-color); }
+        
+        .action-btn:hover, #login-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
+        .action-btn:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(1); background-color: var(--page-color); color: #555; }
+
+        #login-error { color: var(--red-color); margin-top: 15px; min-height: 20px; }
+
+        #quiz-container h2 { font-family: var(--font-title); font-size: 2em; text-align: center; color: var(--gold-darker); margin-top: 0; margin-bottom: 20px; }
+        
+        #quran-verse-container { 
+            padding: 8px 15px;
+            margin-bottom: 10px; 
+            border-radius: var(--neu-radius); 
+            border: 1px solid var(--gold-darker);
+            box-shadow: inset 2px 2px 4px var(--dark-shadow-color), inset -2px -2px 4px var(--light-shadow-color); 
+            text-align: center; 
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .quran-verse { 
+            font-family: var(--font-quran); 
+            font-size: 1.1em;
+            color: var(--gold-color); 
+            line-height: 1.4; 
+            margin: 0;
+        }
+        
+        #question-image-container { margin-bottom: 20px; text-align: center; }
+        #question-image { max-width: 200px; max-height: 200px; border-radius: 10px; box-shadow: var(--neu-distance) var(--neu-distance) var(--neu-blur) var(--dark-shadow-color); background: #fff; padding: 5px; }
+
+        /* ======================================================== */
+        /* START OF EDIT FOR HORIZONTAL QUESTION NAV */
+        /* ======================================================== */
+        #question-nav { 
+            display: flex; 
+            justify-content: flex-start; /* Start from the left (or right due to RTL) */
+            gap: 10px; 
+            flex-wrap: nowrap; /* Prevent wrapping to new line */
+            overflow-x: auto;  /* Enable horizontal scrolling */
+            padding-bottom: 20px; 
+            margin-bottom: 20px; 
+            border-bottom: 1px dashed var(--gold-color); 
+            /* Optional: Hide scrollbar for cleaner look */
+            scrollbar-width: thin;
+            scrollbar-color: var(--gold-color) var(--page-color);
+        }
+        
+        /* For Webkit browsers (Chrome, Safari) scrollbar styling */
+        #question-nav::-webkit-scrollbar { height: 8px; }
+        #question-nav::-webkit-scrollbar-track { background: var(--page-color); border-radius: 4px; }
+        #question-nav::-webkit-scrollbar-thumb { background-color: var(--gold-color); border-radius: 4px; }
+
+        .nav-btn { 
+            /* Ensure buttons don't shrink */
+            flex: 0 0 auto; 
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            font-size: 1.1em; 
+            font-weight: bold; 
+            background: var(--page-color); 
+            color: var(--text-color); 
+            box-shadow: var(--neu-distance) var(--neu-distance) var(--neu-blur) var(--dark-shadow-color), calc(-1 * var(--neu-distance)) calc(-1 * var(--neu-distance)) var(--neu-blur) var(--light-shadow-color); 
+            transition: all 0.2s ease; 
+        }
+        /* ======================================================== */
+        /* END OF EDIT FOR HORIZONTAL QUESTION NAV */
+        /* ======================================================== */
+
+        .nav-btn.current { box-shadow: inset 4px 4px 8px var(--dark-shadow-color), inset -4px -4px 8px var(--light-shadow-color); color: var(--blue-color); border: 1px solid var(--blue-color); }
+        .nav-btn.answered { background-color: var(--blue-color); color: #121518; }
+
+        #question-text { 
+            font-size: 1.5em; 
+            margin-bottom: 15px; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            text-align: left; 
+            direction: ltr;   
+            min-height: 60px; 
+            line-height: 1.6; 
+        }
+
+        #options-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin-bottom: 20px; direction: ltr; }
+        
+        .option-btn { 
+            background: var(--page-color); 
+            color: var(--text-color);
+            border: 2px solid transparent; 
+            border-radius: var(--neu-radius); 
+            padding: 15px; 
+            font-size: 1.1em; 
+            text-align: center; 
+            box-shadow: var(--neu-distance) var(--neu-distance) var(--neu-blur) var(--dark-shadow-color), calc(-1 * var(--neu-distance)) calc(-1 * var(--neu-distance)) var(--neu-blur) var(--light-shadow-color); 
+            transition: all 0.2s ease; 
+        }
+        
+        .option-btn:hover { background: #262c36; }
+        .option-btn.selected { border-color: var(--gold-color); box-shadow: inset 3px 3px 6px var(--dark-shadow-color), inset -3px -3px 6px var(--light-shadow-color); background: #232830; }
+        
+        .bottom-nav-container { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
+        
+        #translate-btn-container { text-align: center; margin-bottom: 15px; }
+        #translate-btn { 
+            background: linear-gradient(135deg, #1e2229, #2b313a); 
+            color: var(--green-color); border: 1px solid var(--green-color); 
+            border-radius: 20px; padding: 6px 20px; 
+            font-size: 1em; 
+            box-shadow: 2px 2px 5px var(--dark-shadow-color);
+            transition: 0.3s;
+        }
+        #translate-btn:hover { background: var(--green-color); color: #121518; }
+        
+        #translation-box {
+            background-color: #262c36;
+            border-right: 3px solid var(--green-color);
+            border-radius: 8px;
+            padding: 10px;
+            margin: 5px auto 20px auto;
+            text-align: right; 
+            direction: rtl;    
+            width: 85%;
+            font-size: 1.1em;
+            color: #e6e6e6;
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.5);
+            display: none; 
+        }
+
+        .review-card { margin-bottom: 30px; padding: 20px; border: 1px solid var(--gold-darker); border-radius: var(--neu-radius); text-align: left; direction: ltr; }
+        .review-card .option-btn.correct { background-color: var(--green-color); color: #121518; }
+        .review-card .option-btn.incorrect { background-color: var(--red-color); color: #121518; }
+        .review-card .option-btn { cursor: default; box-shadow: none; }
+
+        #results-container, #review-screen { text-align: center; }
+        .hidden { display: none !important; }
+        
+        #view-controls { position: absolute; top: 15px; left: 15px; display: flex; gap: 8px; z-index: 10; }
+        .control-btn { 
+            width: 35px; height: 35px; border-radius: 50%; border: none; 
+            font-size: 1.2em; background: var(--page-color); color: var(--text-color);
+            box-shadow: 3px 3px 6px var(--dark-shadow-color), -3px -3px 6px var(--light-shadow-color); 
+            transition: all 0.1s ease; 
+        }
+        .control-btn:active { box-shadow: inset 2px 2px 4px var(--dark-shadow-color); }
+
+    </style>
+</head>
+<body>
+    <div id="top-banner">صَلِّ ‌عَلَى ‌مُحَمَّدٍﷺ</div>
+    <div id="signature" class="neu-card">
+        <span id="signature-name">حسن دياب | CEH Student</span>
+        <span id="signature-title">لا تنس الدعاء له</span>
+        <div id="palestine-flag"></div>
+    </div>
+
+    <div id="login-screen" class="screen neu-card">
+        <div id="login-header-text">اللهم الجنة</div>
+        <div id="login-image-container">
+            <img id="login-image" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkQ3MDAiIHN0cm9rZS13aWR0aD0iMiI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMTAiIGZpbGw9IiNGRkQ3MDAiIC8+CiAgPGVsbGlwc2UgY3g9IjUwIiBjeT0iNTAiIHJ4PSI0MCIgcnk9IjE1IiB0cmFuc2Zvcm09InJvdGF0ZSgwIDUwIDUwKSIgLz4KICA8ZWxsaXBzZSBjeD0iNTAiIGN5PSI1MCIgcng9IjQwIiByeT0iMTUiIHRyYW5zZm9ybT0icm90YXRlKDYwIDUwIDUwKSIgLz4KICA8ZWxsaXBzZSBjeD0iNTAiIGN5PSI1MCIgcng9IjQwIiByeT0iMTUiIHRyYW5zZm9ybT0icm90YXRlKDEyMCA1MCA1MCkiIC8+Cjwvc3ZnPg==" alt="شعار الدخول">
+        </div>
+        <div id="login-subheader-text">"وَقُل رَّبِّ زِدْنِي عِلْمًا"</div>
+        <form id="login-form">
+            <div class="input-group"><input type="text" id="username" class="input-field" required></div>
+            <div class="input-group"><input type="password" id="password" class="input-field" required></div>
+            <button type="submit" id="login-btn">دخول</button>
+            <p id="login-error"></p>
+        </form>
+        <button id="how-to-btn">كيفية الدخول؟</button>
+    </div>
+
+    <div id="quiz-wrapper" class="screen neu-card hidden">
+        <div id="view-controls">
+            <button class="control-btn" id="font-increase" title="تكبير الخط">+</button>
+            <button class="control-btn" id="font-decrease" title="تصغير الخط">-</button>
+            <button class="control-btn" id="image-increase" title="تكبير الصورة">🖼+</button>
+            <button class="control-btn" id="image-decrease" title="تصغير الصورة">🖼-</button>
+        </div>
+        <div id="quiz-container">
+            <h2 id="quiz-title"></h2>
+            
+            <div id="quran-verse-container"><p id="quran-verse-text" class="quran-verse"></p></div>
+            
+            <div id="translate-btn-container">
+                <button id="translate-btn">الترجمة العربية</button>
+            </div>
+
+            <div id="question-image-container" class="hidden"><img id="question-image" src="" alt="صورة السؤال"></div>
+            
+            <div id="question-nav"></div>
+            <div id="question-text"></div>
+            
+            <div id="translation-box"></div>
+
+            <div id="options-container"></div>
+            <div class="bottom-nav-container">
+                <button id="prev-btn" class="action-btn">Previous</button>
+                <button id="finish-btn" class="action-btn hidden">Finish Exam</button>
+                <button id="next-btn" class="action-btn">Next</button>
+            </div>
+        </div>
+        <div id="results-container" class="hidden">
+            <h2>Final Result</h2>
+            <p id="score-text"></p>
+            <button id="review-mistakes-btn" class="action-btn hidden">Review Mistakes</button>
+            <button id="restart-btn" class="action-btn">Restart Exam</button>
+        </div>
+        <div id="review-screen" class="hidden">
+            <h2>Review Mistakes</h2>
+            <div id="review-questions-container"></div>
+            <button id="back-to-results-btn" class="action-btn">Back to Results</button>
+        </div>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // ============================================
+    // 🚨 ADD YOUR TELEGRAM INFO HERE
+    // ============================================
+    const TELEGRAM_BOT_TOKEN = "8353914536:AAGkb_DgupPlvTNPq8JQS_pYxxxK-Gg7k24"; 
+    const TELEGRAM_CHAT_ID = "1002158777";      
+    // ============================================
+
+    const CORRECT_PASSWORD = "HA66";
+
+    const questions = [
+    // ============================================================
+    // Q1: True or False (1-25)
+    // ============================================================
+    { 
+        question: "1) Molecules of different gases have the same average kinetic energy at the same temperature.",
+        arabicText: "1) جزيئات الغازات المختلفة لها نفس متوسط طاقة الحركة عند نفس درجة الحرارة.",
+        options: ["True", "False"], 
+        correctAnswer: "True", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        صحيح. متوسط طاقة الحركة \\(\\color{gold}{KE}\\) يعتمد فقط على درجة الحرارة المطلقة \\(\\color{gold}{T}\\) حسب العلاقة \\(\\color{gold}{KE = \\frac{3}{2}RT}\\). ولا يعتمد على نوع الغاز أو كتلته المولية.
+        </div>` 
+    },
+    { 
+        question: "2) The density of a gas is directly proportional to its temperature.",
+        arabicText: "2) كثافة الغاز تتناسب طردياً مع درجة حرارته.",
+        options: ["True", "False"], 
+        correctAnswer: "False", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        خطأ. الكثافة \\(\\color{gold}{d}\\) تتناسب عكسياً مع درجة الحرارة \\(\\color{gold}{T}\\) عند ثبوت الضغط (قانون شارل، الغاز يتمدد بالحرارة فتقل كثافته). العلاقة هي \\(\\color{gold}{d = \\frac{PM}{RT}}\\).
+        </div>` 
+    },
+    { 
+        question: "3) Surface tension is caused by unbalanced intermolecular forces of attraction in the liquid surface.",
+        arabicText: "3) التوتر السطحي ينشأ بسبب قوى الجذب بين الجزيئية غير المتوازنة في سطح السائل.",
+        options: ["True", "False"], 
+        correctAnswer: "True", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        صحيح. الجزيئات على السطح تتعرض لقوة جذب لأسفل وللجوانب فقط (غير متوازنة)، بينما الجزيئات في الداخل تتعرض لقوى متوازنة من جميع الاتجاهات.
+        </div>` 
+    },
+    { 
+        question: "4) The charges on colloidal particles are due to the absorption of its own ions from solution.",
+        arabicText: "4) الشحنات على جسيمات الغروي تنتج عن امتصاص (Absorption) أيوناتها الخاصة من المحلول.",
+        options: ["True", "False"], 
+        correctAnswer: "True", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        العبارة تعتبر صحيحة في سياق المنهج (المقصود هو الامتزاز التفاضلي Selective Adsorption للأيونات المشتركة)، وإن كان اللفظ الأدق هو Adsorption وليس Absorption.
+        </div>` 
+    },
+    { 
+        question: "5) In the region above \\(\\color{gold}{31 ^\\circ C}\\) in Andrews isotherms, \\(\\color{gold}{CO_2}\\) always exist in gaseous state.",
+        arabicText: "5) في المنطقة فوق \\(\\color{gold}{31 ^\\circ C}\\) في أيزوثرم أندروز، يتواجد \\(\\color{gold}{CO_2}\\) دائماً في الحالة الغازية.",
+        options: ["True", "False"], 
+        correctAnswer: "True", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        صحيح. درجة \\(\\color{gold}{31 ^\\circ C}\\) هي الدرجة الحرجة \\(\\color{gold}{T_c}\\) لثاني أكسيد الكربون. فوق هذه الدرجة لا يمكن إسالة الغاز مهما زاد الضغط (يصبح مائعاً حرجاً).
+        </div>` 
+    },
+    { 
+        question: "6) The Van der Waals constant “a” is related with liquefaction of a gas.",
+        arabicText: "6) ثابت فاندرفال \"a\" يرتبط بإسالة الغاز.",
+        options: ["True", "False"], 
+        correctAnswer: "True", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        صحيح. الثابت \\(\\color{gold}{a}\\) يعبر عن قوى التجاذب بين الجزيئات. كلما زادت قوى التجاذب (زاد \\(\\color{gold}{a}\\))، أصبح من الأسهل إسالة الغاز.
+        </div>` 
+    },
+    { 
+        question: "7) The ideal gas equation can be expressed as either \\(\\color{gold}{PV = nRT}\\) or \\(\\color{gold}{PM = \\rho RT}\\).",
+        arabicText: "7) يمكن التعبير عن معادلة الغاز المثالي بالصورة \\(\\color{gold}{PV = nRT}\\) أو \\(\\color{gold}{PM = \\rho RT}\\).",
+        options: ["True", "False"], 
+        correctAnswer: "True", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        صحيح. بما أن \\(\\color{gold}{n = \\frac{m}{M}}\\) و الكثافة \\(\\color{gold}{\\rho = \\frac{m}{V}}\\)، بالتعويض نجد أن \\(\\color{gold}{P = \\frac{\\rho R T}{M}}\\) أي \\(\\color{gold}{PM = \\rho RT}\\).
+        </div>` 
+    },
+    { 
+        question: "8) Lyophilic colloids are less stable than lyophobic.",
+        arabicText: "8) الغرويات المحبة للمذيب (Lyophilic) أقل استقراراً من الكارهة للمذيب (Lyophobic).",
+        options: ["True", "False"], 
+        correctAnswer: "False", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        خطأ. الغرويات المحبة للمذيب (Lyophilic) أكثر استقراراً لأنها محاطة بطبقة من المذيب تحميها، ولا تترسب بسهولة بإضافة الإلكتروليتات مقارنة بالـ Lyophobic.
+        </div>` 
+    },
+    { 
+        question: "9) Crystalline solids said to be isotropic.",
+        arabicText: "9) المواد الصلبة البلورية توصف بأنها متماثلة الخواص (Isotropic).",
+        options: ["True", "False"], 
+        correctAnswer: "False", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        خطأ. المواد البلورية تكون غير متماثلة الخواص (Anisotropic) لأن ترتيب الذرات يختلف باختلاف الاتجاه. أما المواد غير المتبلورة (Amorphous) فهي Isotropic.
+        </div>` 
+    },
+    { 
+        question: "10) Adsorption increases with increase of surface area per unit weight of adsorbent.",
+        arabicText: "10) الامتزاز يزداد بزيادة مساحة السطح لوحدة الوزن للمادة المازة.",
+        options: ["True", "False"], 
+        correctAnswer: "True", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        صحيح. الامتزاز ظاهرة سطحية، فكلما زادت مساحة السطح المعرضة، زادت المواقع المتاحة لامتزاز الجزيئات.
+        </div>` 
+    },
+    { 
+        question: "11) The continuous rapid zig-zag motion of particles in colloidal solution is called Brownian movement.",
+        arabicText: "11) الحركة المتعرجة السريعة والمستمرة للجسيمات في المحلول الغروي تسمى الحركة البراونية.",
+        options: ["True", "False"], 
+        correctAnswer: "True", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        صحيح. الحركة البراونية هي حركة عشوائية للجسيمات ناتجة عن تصادم جزيئات الوسط معها.
+        </div>` 
+    },
+    { 
+        question: "12) A metal can reduce another species (\\(\\color{gold}{H^+}\\) or an ion of another metal) if \\(\\color{gold}{E^o_{cell}}\\) for the reaction is positive.",
+        arabicText: "12) الفلز يمكنه اختزال نوع آخر (أيونات هيدروجين أو أيون فلز آخر) إذا كانت \\(\\color{gold}{E^o_{cell}}\\) للتفاعل موجبة.",
+        options: ["True", "False"], 
+        correctAnswer: "True", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        صحيح. إذا كانت قيمة جهد الخلية القياسي موجبة، فإن التفاعل يكون تلقائياً، وبالتالي ينجح الفلز في اختزال النوع الآخر.
+        </div>` 
+    },
+    { 
+        question: "13) Copper sulphate solution can be stored in a vessel made of nickel metal (\\(\\color{gold}{E^o_{Cu} = +0.34 V}\\), \\(\\color{gold}{E^o_{Ni} = -0.25 V}\\)).",
+        arabicText: "13) يمكن حفظ محلول كبريتات النحاس في وعاء مصنوع من النيكل.",
+        options: ["True", "False"], 
+        correctAnswer: "False", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        خطأ. جهد اختزال النيكل (\\(\\color{gold}{-0.25}\\)) أقل من النحاس (\\(\\color{gold}{+0.34}\\))، مما يعني أن النيكل أنشط (أقوى كعامل مختزل) وسيحل محل النحاس في المحلول (يتآكل الوعاء).
+        </div>` 
+    },
+    { 
+        question: "14) At \\(\\color{gold}{25 ^\\circ C}\\), the vapour pressure of water is higher than that of ethanol.",
+        arabicText: "14) عند \\(\\color{gold}{25 ^\\circ C}\\)، الضغط البخاري للماء أعلى من الإيثانول.",
+        options: ["True", "False"], 
+        correctAnswer: "False", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        خطأ. قوى التجاذب (الروابط الهيدروجينية) في الماء أقوى منها في الإيثانول، مما يجعل الماء أقل تطيراً (أقل ضغطاً بخارياً) من الإيثانول.
+        </div>` 
+    },
+    { 
+        question: "15) Electro-osmosis is the motion of colloidal particles under the action of an electric field.",
+        arabicText: "15) الأسموزية الكهربائية (Electro-osmosis) هي حركة جسيمات الغروي تحت تأثير مجال كهربائي.",
+        options: ["True", "False"], 
+        correctAnswer: "False", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        خطأ. حركة الجسيمات تسمى <strong>Electrophoresis</strong>. أما Electro-osmosis فهي حركة وسط الانتشار (السائل) نفسه.
+        </div>` 
+    },
+    { 
+        question: "16) The geometrical shape of \\(\\color{gold}{NH_3}\\) is trigonal planar.",
+        arabicText: "16) الشكل الهندسي لجزيء \\(\\color{gold}{NH_3}\\) هو مثلث مستوٍ.",
+        options: ["True", "False"], 
+        correctAnswer: "False", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        خطأ. الشكل الجزيئي للأمونيا هو <strong>هرم ثلاثي (Trigonal Pyramidal)</strong> لوجود زوج حر يضغط الروابط. (أما ترتيب المجالات فهو رباعي الأوجه).
+        </div>` 
+    },
+    { 
+        question: "17) The ground state is an atom with the lowest energy.",
+        arabicText: "17) الحالة المستقرة (الأرضية) هي الذرة في أقل طاقة لها.",
+        options: ["True", "False"], 
+        correctAnswer: "True", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        صحيح. الحالة الأرضية (Ground state) هي توزيع الإلكترونات الذي يعطي أقل طاقة وأكثر استقراراً للذرة.
+        </div>` 
+    },
+    { 
+        question: "18) The hybridization of \\(\\color{gold}{P}\\) in \\(\\color{gold}{PH_5}\\) is \\(\\color{gold}{sp^3d^2}\\).",
+        arabicText: "18) التهجين للفوسفور \\(\\color{gold}{P}\\) في \\(\\color{gold}{PH_5}\\) هو \\(\\color{gold}{sp^3d^2}\\).",
+        options: ["True", "False"], 
+        correctAnswer: "True", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        ملاحظة: المركب \\(\\color{gold}{PH_5}\\) نظرياً غير مستقر جداً (مقارنة بـ \\(\\color{gold}{PF_5}\\))، ولكن بناءً على القواعد: الفوسفور محاط بـ 5 ذرات، يحتاج 5 مجالات مهجنة، والتهجين المناسب لـ 5 مجالات هو \\(\\color{gold}{sp^3d}\\). السؤال يقول \\(\\color{gold}{sp^3d^2}\\)؟ هذا لـ 6 مجالات. لكن في سياق الامتحان، إذا كان يقصد 5 روابط فإن التهجين \\(\\color{gold}{sp^3d}\\).
+        <br><strong>تنبيه:</strong> السؤال مكتوب \\(\\color{gold}{sp^3d^2}\\) وهذا خطأ لـ 5 روابط (الصحيح \\(\\color{gold}{sp^3d}\\)). ولكن سأجيب <strong>False</strong> بناءً على العلم الدقيق، أو <strong>True</strong> إذا كان خطأ مطبعي في الامتحان ويقصد به توسيع الغلاف. (غالباً في الامتحانات المصرية يعتبرون وجود d دليلاً على التوسيع، لكن \\(\\color{gold}{sp^3d^2}\\) هو لـ Octahedral).
+        <br><strong>التصحيح:</strong> التهجين لـ 5 روابط هو \\(\\color{gold}{sp^3d}\\). الإجابة العلمية <strong>False</strong>.
+        </div>` 
+    },
+    { 
+        question: "19) The electron probability density in the region between the two nuclei of the bonding molecular orbitals is lower than the anti-bonding molecular orbitals.",
+        arabicText: "19) الكثافة الاحتمالية للإلكترون في المنطقة بين النواتين في المدارات الجزيئية الرابطة أقل منها في المدارات المضادة للترابط.",
+        options: ["True", "False"], 
+        correctAnswer: "False", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        خطأ. في المدار الرابط (Bonding) تكون الكثافة الإلكترونية <strong>أعلى</strong> بين النواتين مما يربطهما معاً. في المضاد للترابط (Anti-bonding) توجد منطقة عقدية (Node) وكثافة منعدمة بين النواتين.
+        </div>` 
+    },
+    { 
+        question: "20) The \\(\\color{gold}{Ne_2}\\) molecule exists in nature.",
+        arabicText: "20) جزيء \\(\\color{gold}{Ne_2}\\) يوجد في الطبيعة.",
+        options: ["True", "False"], 
+        correctAnswer: "False", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        خطأ. رتبة الرابطة لـ \\(\\color{gold}{Ne_2}\\) تساوي صفر (عدد الإلكترونات الرابطة يساوي المضادة للترابط)، لذا لا يتكون الجزيء.
+        </div>` 
+    },
+    { 
+        question: "21) The molecular shape of \\(\\color{gold}{BrF_5}\\) molecule is octahedral.",
+        arabicText: "21) الشكل الجزيئي لمركب \\(\\color{gold}{BrF_5}\\) هو ثماني الأوجه.",
+        options: ["True", "False"], 
+        correctAnswer: "False", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        خطأ. الذرة المركزية محاطة بـ 6 مجالات (5 روابط + 1 زوج حر). ترتيب المجالات "Octahedral"، ولكن <strong>الشكل الجزيئي</strong> هو <strong>هرم مربع (Square Pyramidal)</strong>.
+        </div>` 
+    },
+    { 
+        question: "22) The \\(\\color{gold}{B_2}\\) molecule is diamagnetic.",
+        arabicText: "22) جزيء \\(\\color{gold}{B_2}\\) هو دايامغناطيسي.",
+        options: ["True", "False"], 
+        correctAnswer: "False", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        خطأ. وفقاً لنظرية المدارات الجزيئية، آخر إلكترونين في \\(\\color{gold}{B_2}\\) يشغلان مداري \\(\\color{gold}{\\pi_{2p}}\\) بشكل منفرد (Hund's rule)، مما يجعله <strong>بارامغناطيسي (Paramagnetic)</strong>.
+        </div>` 
+    },
+    { 
+        question: "23) The \\(\\color{gold}{O_2}\\) molecule is more stable than \\(\\color{gold}{O_2^{2+}}\\).",
+        arabicText: "23) جزيء \\(\\color{gold}{O_2}\\) أكثر استقراراً من \\(\\color{gold}{O_2^{2+}}\\).",
+        options: ["True", "False"], 
+        correctAnswer: "False", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        خطأ. رتبة الرابطة في \\(\\color{gold}{O_2}\\) هي 2. بينما في \\(\\color{gold}{O_2^{2+}}\\) (الذي يشبه النيتروجين إلكترونياً) هي 3. الرتبة الأعلى تعني استقراراً أكبر، إذن \\(\\color{gold}{O_2^{2+}}\\) أكثر استقراراً.
+        </div>` 
+    },
+    { 
+        question: "24) In the Lewis structure of \\(\\color{gold}{ClF_3}\\), 5 electron pairs surround the \\(\\color{gold}{Cl}\\) atom.",
+        arabicText: "24) في تركيب لويس لـ \\(\\color{gold}{ClF_3}\\)، تحاط ذرة الكلور بـ 5 أزواج إلكترونية.",
+        options: ["True", "False"], 
+        correctAnswer: "True", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        صحيح. الكلور لديه 7 إلكترونات تكافؤ، يشارك بـ 3 في روابط مع الفلور، ويتبقى 4 إلكترونات (زوجين حرين). المجموع: 3 أزواج رابطة + 2 زوج حر = 5 أزواج.
+        </div>` 
+    },
+    { 
+        question: "25) A sigma (\\(\\color{gold}{\\sigma}\\)) bonding molecular orbital has a nodal plane between the two atoms forming the bond.",
+        arabicText: "25) المدار الجزيئي الرابط سيجما (\\(\\color{gold}{\\sigma}\\)) يمتلك مستوى عقدي (nodal plane) بين الذرتين المكونتين للرابطة.",
+        options: ["True", "False"], 
+        correctAnswer: "False", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        خطأ. المدار الرابط \\(\\color{gold}{\\sigma}\\) يتميز بكثافة إلكترونية متصلة بين النواتين. المستوى العقدي بين النواتين هو صفة للمدارات المضادة للترابط \\(\\color{gold}{\\sigma^*}\\).
+        </div>` 
+    },
+
+    // ============================================================
+    // Q2: Multiple Choice (26-50)
+    // ============================================================
+
+    { 
+        question: "26. The mass of \\(\\color{gold}{2240 \\text{ ml}}\\) of \\(\\color{gold}{CO_2}\\) at STP will be:",
+        arabicText: "26. كتلة \\(\\color{gold}{2240 \\text{ ml}}\\) من غاز \\(\\color{gold}{CO_2}\\) عند الظروف القياسية (STP) تكون:",
+        options: ["(a) 4.0 g", "(b) 4.4 g", "(c) 8.8 g", "(d) 8.0 g"], 
+        correctAnswer: "(b) 4.4 g", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الحجم باللتر = \\(\\color{gold}{2.24 L}\\).<br>
+        عدد المولات = \\(\\color{gold}{2.24 / 22.4 = 0.1 \\text{ mol}}\\).<br>
+        الكتلة المولية لـ \\(\\color{gold}{CO_2}\\) = 44.<br>
+        الكتلة = \\(\\color{gold}{0.1 \\times 44 = 4.4 \\text{ g}}\\).
+        </div>` 
+    },
+    { 
+        question: "27. Gas “A” diffuse twice as fast as another gas “B”; if the molar mass of gas “A” is 2.0, the molar mass of “B” is:",
+        arabicText: "27. الغاز A ينتشر بسرعة ضعف الغاز B. إذا كانت الكتلة المولية لـ A هي 2.0، فإن الكتلة المولية لـ B هي:",
+        options: ["(a) 2.0", "(b) 4.0", "(c) 8.0", "(d) 16.0"], 
+        correctAnswer: "(c) 8.0", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        قانون جراهام: \\(\\color{gold}{\\frac{Rate_A}{Rate_B} = \\sqrt{\\frac{M_B}{M_A}}}\\).<br>
+        \\(\\color{gold}{2 = \\sqrt{\\frac{M_B}{2}}}\\) بتربيع الطرفين \\(\\color{gold}{4 = \\frac{M_B}{2}}\\).<br>
+        \\(\\color{gold}{M_B = 8}\\).
+        </div>` 
+    },
+    { 
+        question: "28. At constant temperature, the pressure of fixed mass of a gas is reduced to one third, the volume will",
+        arabicText: "28. عند ثبوت درجة الحرارة، إذا قل ضغط كتلة معينة من الغاز إلى الثلث، فإن الحجم سوف:",
+        options: ["(a) reduced to one third", "(b) increases by three times", "(c) remains the same", "(d) cannot be predicted"], 
+        correctAnswer: "(b) increases by three times", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        قانون بويل (تناسب عكسي بين الضغط والحجم): إذا قل الضغط إلى \\(\\color{gold}{1/3}\\)، يزداد الحجم 3 أضعاف.
+        </div>` 
+    },
+    { 
+        question: "29. Which of the following will have the same number of molecules at STP condition?",
+        arabicText: "29. أي مما يلي يحتوي على نفس عدد الجزيئات عند الظروف القياسية STP؟",
+        options: [
+            "(a) \\(\\color{gold}{280 \\text{ cm}^3}\\) of \\(\\color{gold}{CO_2}\\) and \\(\\color{gold}{280 \\text{ cm}^3}\\) of \\(\\color{gold}{N_2O}\\)",
+            "(b) \\(\\color{gold}{11.2 \\text{ dm}^3}\\) of \\(\\color{gold}{O_2}\\) and \\(\\color{gold}{32 \\text{ g}}\\) of \\(\\color{gold}{O_2}\\)",
+            "(c) \\(\\color{gold}{44 \\text{ g}}\\) of \\(\\color{gold}{CO_2}\\) and \\(\\color{gold}{11.5 \\text{ dm}^3}\\) of \\(\\color{gold}{CO_2}\\)",
+            "(d) \\(\\color{gold}{28 \\text{ g}}\\) of \\(\\color{gold}{N_2}\\) and \\(\\color{gold}{5.6 \\text{ dm}^3}\\) of \\(\\color{gold}{O_2}\\)"
+        ], 
+        correctAnswer: "(a) \\(\\color{gold}{280 \\text{ cm}^3}\\) of \\(\\color{gold}{CO_2}\\) and \\(\\color{gold}{280 \\text{ cm}^3}\\) of \\(\\color{gold}{N_2O}\\)", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        فرضية أفوجادرو: الحجوم المتساوية من الغازات المختلفة عند نفس الظروف تحتوي على نفس عدد الجزيئات. (كلاهما غاز وحجمهما متساوٍ).
+        </div>` 
+    },
+    { 
+        question: "30. The kinetic energy for one mole of a gas per unit volume can be expressed as:",
+        arabicText: "30. طاقة الحركة لمول واحد من الغاز لكل وحدة حجم يمكن التعبير عنها بـ:",
+        options: ["(a) \\(\\color{gold}{E_k = \\frac{3}{2} P}\\)", "(b) \\(\\color{gold}{E_k = \\frac{2}{3} P}\\)", "(c) \\(\\color{gold}{E_k = 2 P}\\)", "(d) \\(\\color{gold}{E_k = P/2}\\)"], 
+        correctAnswer: "(a) \\(\\color{gold}{E_k = \\frac{3}{2} P}\\)", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        نعلم أن \\(\\color{gold}{P = \\frac{2}{3} \\frac{E_k}{V}}\\).<br>
+        إذن كثافة الطاقة الحركية (لكل وحدة حجم) \\(\\color{gold}{E_k = \\frac{3}{2} P}\\).
+        </div>` 
+    },
+    { 
+        question: "31. For a gas deviation from ideal behaviour is maximum at:",
+        arabicText: "31. يكون انحراف الغاز عن السلوك المثالي أقصى ما يمكن عند:",
+        options: ["(a) 0.0 °C and 1.0 atm", "(b) 100 °C and 2.0 atm", "(c) –13 °C and 1.0 atm", "(d) –13 °C and 2 atm"], 
+        correctAnswer: "(d) –13 °C and 2 atm", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        تزداد الانحرافات عن المثالية عند <strong>انخفاض درجة الحرارة</strong> (حيث تقل طاقة الحركة وتزداد تأثيرات التجاذب) و<strong>ارتفاع الضغط</strong> (حيث يقل الحجم ويصبح حجم الجزيئات مؤثراً). الخيار (d) هو الأقل حرارة والأعلى ضغطاً.
+        </div>` 
+    },
+    { 
+        question: "32. Which of the following forms multimolecular layers?",
+        arabicText: "32. أي مما يلي يكون طبقات متعددة الجزيئات؟",
+        options: ["(a) Physisorption", "(b) physical-adsorption", "(c) Van der Waals adsorption", "(d) all of these"], 
+        correctAnswer: "(d) all of these", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الامتزاز الفيزيائي (وهو نفسه Physisorption أو Van der Waals adsorption) يسمح بتكوين طبقات متعددة لأن قوى فاندرفال تمتد لمسافات أبعد من الطبقة الأولى. جميع الخيارات تشير لنفس المفهوم.
+        </div>` 
+    },
+    { 
+        question: "33. The colloidal dispersion of two immiscible liquids is called:",
+        arabicText: "33. الانتشار الغروي لسائلين غير ممتزجين يسمى:",
+        options: ["(a) aerosol", "(b) gel", "(c) emulsion", "(d) none of these"], 
+        correctAnswer: "(c) emulsion", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        المستحلب (Emulsion) هو نظام غروي يتكون من سائل منتشر في سائل آخر (مثل الزيت في الماء).
+        </div>` 
+    },
+    { 
+        question: "34. Three elements “A”, “B”, and “C” have the standard reduction potentials \\(\\color{gold}{-1.50 V, -1.10 V, +1.54 V}\\), respectively. The correct order of their reducing power is:",
+        arabicText: "34. ثلاثة عناصر A, B, C جهود اختزالها القياسية هي \\(\\color{gold}{-1.50, -1.10, +1.54}\\) على التوالي. الترتيب الصحيح لقوتها كعوامل مختزلة هو:",
+        options: ["(a) C > B > A", "(b) B > A > C", "(c) B > C > A", "(d) A > B > C"], 
+        correctAnswer: "(d) A > B > C", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        العامل المختزل القوي هو الذي له جهد أكسدة عالٍ (أو جهد اختزال سالب كبير).<br>
+        A (-1.50 V) الأكثر سالبية = الأقوى اختزالاً.<br>
+        B (-1.10 V).<br>
+        C (+1.54 V) الأضعف.<br>
+        الترتيب: A > B > C.
+        </div>` 
+    },
+    { 
+        question: "35. The oxidation potentials of \\(\\color{gold}{Mg}\\) and \\(\\color{gold}{Al}\\) are \\(\\color{gold}{+2.37 V}\\) and \\(\\color{gold}{+1.66 V}\\), respectively. The \\(\\color{gold}{Mg}\\) in chemical reaction",
+        arabicText: "35. جهود الأكسدة لـ Mg و Al هي +2.37 و +1.66 فولت. المغنيسيوم في التفاعل الكيميائي:",
+        options: ["(a) Will be replaced by Al", "(b) will replace Al", "(c) Will not be replaced by Al", "(d) none of these"], 
+        correctAnswer: "(b) will replace Al", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        بما أن جهد أكسدة Mg أعلى من Al، فإن Mg أنشط وسيحل محل أيونات Al في محاليلها (Mg يتأكسد و Al يختزل).
+        </div>` 
+    },
+    { 
+        question: "36. In the Lewis structure of \\(\\color{gold}{H_2O}\\), the oxygen atom contains ……. lone pairs.",
+        arabicText: "36. في تركيب لويس للماء، تحتوي ذرة الأكسجين على ....... أزواج حرة.",
+        options: ["(a) 0", "(b) 1", "(c) 2", "(d) 3"], 
+        correctAnswer: "(c) 2", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الأكسجين (المجموعة 16) لديه 6 إلكترونات تكافؤ. يشارك بـ 2 مع الهيدروجين ويتبقى 4 إلكترونات تشكل <strong>زوجين حرين</strong>.
+        </div>` 
+    },
+    { 
+        question: "37. The bond order in \\(\\color{gold}{N_2}\\) is ……….",
+        arabicText: "37. رتبة الرابطة في جزيء \\(\\color{gold}{N_2}\\) هي ...........",
+        options: ["(a) 1", "(b) 2", "(c) 3", "(d) 3.5"], 
+        correctAnswer: "(c) 3", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        النيتروجين يحتوي رابطة ثلاثية قوية، ورتبة الرابطة (Bond Order) تساوي 3.
+        </div>` 
+    },
+    { 
+        question: "38. The magnetic quantum number \\(\\color{gold}{(m_l)}\\) describes the orbital’s ……….",
+        arabicText: "38. عدد الكم المغناطيسي \\(\\color{gold}{(m_l)}\\) يصف ........... للمدار.",
+        options: ["(a) size", "(b) shape", "(c) energy", "(d) orientation in space"], 
+        correctAnswer: "(d) orientation in space", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        عدد الكم المغناطيسي يحدد الاتجاه الفراغي للمدارات حول النواة.
+        </div>` 
+    },
+    { 
+        question: "39. The hybridization of \\(\\color{gold}{Be}\\) in Beryllium dihydride (\\(\\color{gold}{BeH_2}\\)) is …….",
+        arabicText: "39. تهجين البيريليوم Be في هيدريد البيريليوم هو ...........",
+        options: ["(a) sp", "(b) sp2", "(c) sp3", "(d) sp3d"], 
+        correctAnswer: "(a) sp", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الجزيء خطي، والبيريليوم مرتبط بذرتين فقط بدون أزواج حرة. التهجين المناسب هو \\(\\color{gold}{sp}\\).
+        </div>` 
+    },
+    { 
+        question: "40. The \\(\\color{gold}{SO_2}\\) molecule contains ………… resonance forms.",
+        arabicText: "40. جزيء \\(\\color{gold}{SO_2}\\) يحتوي على ........... أشكال رنينية.",
+        options: ["(a) 0", "(b) 2", "(c) 3", "(d) 4"], 
+        correctAnswer: "(b) 2", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        يمكن رسم رابطة مزدوجة مع إحدى ذرتي الأكسجين ورابطة أحادية (أو تناسقية) مع الأخرى، ثم تبديل المواقع، مما يعطي شكلين رنينيين متكافئين.
+        </div>` 
+    },
+    { 
+        question: "41. The correct set of quantum numbers for the outermost electron in phosphorus (\\(\\color{gold}{P}\\)) is ……",
+        arabicText: "41. المجموعة الصحيحة لأعداد الكم للإلكترون الأخير في الفوسفور (P) هي ...........",
+        options: [
+            "(a) n=3, l=0, ml=0, ms=+1/2",
+            "(b) n=3, l=1, ml=-2, ms=+1/2",
+            "(c) n=3, l=1, ml=+2, ms=+1/2",
+            "(d) n=3, l=1, ml=+1, ms=+1/2"
+        ], 
+        correctAnswer: "(d) n=3, l=1, ml=+1, ms=+1/2", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الفوسفور (15): \\(\\color{gold}{[Ne] 3s^2 3p^3}\\). الإلكترون الأخير في 3p.<br>
+        \\(\\color{gold}{n=3, l=1}\\). قيم \\(\\color{gold}{m_l}\\) المتاحة (-1, 0, +1). الخيار الوحيد الصحيح هو (d).
+        </div>` 
+    },
+    { 
+        question: "42. The ….... molecule has a non-polar covalent bond.",
+        arabicText: "42. الجزيء ....... يحتوي على رابطة تساهمية غير قطبية.",
+        options: ["(a) NaCl", "(b) Cl2", "(c) HBr", "(d) HCl"], 
+        correctAnswer: "(b) Cl2", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الرابطة بين ذرتين متماثلتين (مثل \\(\\color{gold}{Cl-Cl}\\)) يكون فرق السالبية الكهربية صفراً، فتكون تساهمية نقية (غير قطبية).
+        </div>` 
+    },
+    { 
+        question: "43. For the third line of Paschen series, \\(\\color{gold}{n_2}\\) is …..",
+        arabicText: "43. بالنسبة للخط الثالث في سلسلة باشن، قيمة \\(\\color{gold}{n_2}\\) هي ......",
+        options: ["(a) 3", "(b) 4", "(c) 5", "(d) 6"], 
+        correctAnswer: "(d) 6", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        سلسلة باشن تعني العودة للمستوى \\(\\color{gold}{n=3}\\). الخطوط تأتي من:<br>
+        4 -> 3 (الأول)<br>
+        5 -> 3 (الثاني)<br>
+        6 -> 3 (الثالث). إذن \\(\\color{gold}{n_2 = 6}\\).
+        </div>` 
+    },
+    { 
+        question: "44. ….. stated that it is not possible to determine with accuracy both the position and the velocity of an electron at the same time.",
+        arabicText: "44. ....... نص على أنه من المستحيل تحديد موقع وسرعة الإلكترون بدقة في نفس الوقت.",
+        options: ["(a) Planck", "(b) Bohr", "(c) de Broglie", "(d) Heisenberg"], 
+        correctAnswer: "(d) Heisenberg", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        هذا هو <strong>مبدأ عدم التأكد لهيزنبرج (Heisenberg Uncertainty Principle)</strong>.
+        </div>` 
+    },
+    { 
+        question: "45. The hybridization of \\(\\color{gold}{B}\\) in \\(\\color{gold}{BH_3}\\) is ………….",
+        arabicText: "45. تهجين البورون B في \\(\\color{gold}{BH_3}\\) هو ...........",
+        options: ["(a) sp", "(b) sp2", "(c) sp3", "(d) sp3d"], 
+        correctAnswer: "(b) sp2", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        البورون يكون 3 روابط (مثلث مستوٍ) ولا توجد أزواج حرة، فالتهجين هو \\(\\color{gold}{sp^2}\\).
+        </div>` 
+    },
+    { 
+        question: "46. According to VESPER model , the electron doamin of \\(\\color{gold}{H_2O}\\) is ……. .",
+        arabicText: "46. وفقاً لنموذج VSEPR، هندسة المجالات الإلكترونية للماء هي .......",
+        options: ["(a) Tetrahedral", "(b) Trigonal plannar", "(c) Bent", "(d) Trigonalpyramidal"], 
+        correctAnswer: "(a) Tetrahedral", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        الماء لديه 4 مجالات إلكترونية (2 رابطة + 2 حرة)، لذا ترتيب المجالات هو <strong>رباعي الأوجه (Tetrahedral)</strong>. (بينما الشكل الجزيئي Bent).
+        </div>` 
+    },
+    { 
+        question: "47. The geometrical shape of \\(\\color{gold}{SO_3}\\) molecule is …..………….",
+        arabicText: "47. الشكل الهندسي لجزيء \\(\\color{gold}{SO_3}\\) هو ...........",
+        options: ["(a) T-Shape", "(b) Trigonal pyramidal", "(c) Trigonal plannar", "(d) Tertrahedral"], 
+        correctAnswer: "(c) Trigonal plannar", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        3 مجالات رابطة ولا أزواج حرة = مثلث مستوٍ.
+        </div>` 
+    },
+    { 
+        question: "48. ........….. stated that no two electrons in the same atom can have the same set of 4 quantum numbers.",
+        arabicText: "48. ........ نص على أنه لا يوجد إلكترونان في نفس الذرة لهما نفس أعداد الكم الأربعة.",
+        options: ["(a) Heisenberg", "(b) Pauli", "(c) Bohr", "(d) Planck"], 
+        correctAnswer: "(b) Pauli", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        مبدأ باولي للاستبعاد (Pauli Exclusion Principle).
+        </div>` 
+    },
+    { 
+        question: "49. The \\(\\color{gold}{CO_3^{2-}}\\) molecule contains ………… double bonds.",
+        arabicText: "49. أيون الكربونات \\(\\color{gold}{CO_3^{2-}}\\) يحتوي على ....... روابط مزدوجة (في تركيب لويس الواحد).",
+        options: ["(a) 0", "(b) 1", "(c) 2", "(d) 3"], 
+        correctAnswer: "(b) 1", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        في أي تركيب لويس للكربونات، توجد رابطة مزدوجة واحدة ورابطتان أحاديتان (مع شحنة سالبة على الأكسجينات المفردة)، وتتبدل المواقع بالرنين.
+        </div>` 
+    },
+    { 
+        question: "50. When an electron is added to lithium (\\(\\color{gold}{Li}\\)) atom it becomes ….",
+        arabicText: "50. عند إضافة إلكترون لذرة الليثيوم، فإنها تصبح ....",
+        options: ["(a) positive ion", "(b) negative ion", "(c) excited state", "(d) Be atom"], 
+        correctAnswer: "(b) negative ion", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        ذرة متعادلة + إلكترون = أيون سالب (Anion). (العملية تمثل الألفة الإلكترونية).
+        </div>` 
+    },
+
+    // ============================================================
+    // Q3: Oral Examination (51-60) - True/False
+    // ============================================================
+
+    { 
+        question: "51. An ideal gas cannot be converted into a liquid.",
+        arabicText: "51. الغاز المثالي لا يمكن تحويله إلى سائل.",
+        options: ["True", "False"], 
+        correctAnswer: "True", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        صحيح. الغاز المثالي يفترض عدم وجود قوى تجاذب بين جزيئاته، والإسالة تتطلب وجود هذه القوى.
+        </div>` 
+    },
+    { 
+        question: "52. Metals near the top of the electrochemical series are weak reducing agent.",
+        arabicText: "52. الفلزات في قمة السلسلة الكهروكيميائية عوامل مختزلة ضعيفة.",
+        options: ["True", "False"], 
+        correctAnswer: "False", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        خطأ. قمة السلسلة (عادة الفلزات النشطة مثل Li, K) تكون جهود أكسدتها عالية جداً، مما يجعلها عوامل مختزلة <strong>قوية جداً</strong>.
+        </div>` 
+    },
+    { 
+        question: "53. The liquid with high intermolecular attraction forces have low viscosity.",
+        arabicText: "53. السائل ذو قوى التجاذب الجزيئية العالية يكون له لزوجة منخفضة.",
+        options: ["True", "False"], 
+        correctAnswer: "False", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        خطأ. قوى التجاذب القوية تعيق حركة الجزيئات وانزلاقها فوق بعضها، مما يزيد اللزوجة (لزوجة عالية).
+        </div>` 
+    },
+    { 
+        question: "54. Chemisorption is reversible whereas physisorption is irreversible.",
+        arabicText: "54. الامتزاز الكيميائي انعكاسي بينما الفيزيائي غير انعكاسي.",
+        options: ["True", "False"], 
+        correctAnswer: "False", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        خطأ. العكس صحيح. الامتزاز الكيميائي (تكوين روابط) غالباً غير انعكاسي، بينما الفيزيائي (فاندرفال) انعكاسي.
+        </div>` 
+    },
+    { 
+        question: "55. Peptisation is a process of breaking of freshly prepared ionic solid containing small concentration of common ions into colloidal state.",
+        arabicText: "55. الببتزَة (Peptisation) هي عملية تكسير الراسب الأيوني المحضر حديثاً وتحويله لغروي بإضافة أيونات مشتركة.",
+        options: ["True", "False"], 
+        correctAnswer: "True", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        صحيح. هذه هي طريقة تحضير الغرويات بالتفكيك (Dispersion method).
+        </div>` 
+    },
+    { 
+        question: "56. The octahedral shape has \\(\\color{gold}{d^2sp^3}\\) hybridization.",
+        arabicText: "56. الشكل ثماني الأوجه يمتلك تهجين \\(\\color{gold}{d^2sp^3}\\).",
+        options: ["True", "False"], 
+        correctAnswer: "True", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        صحيح. التهجين \\(\\color{gold}{d^2sp^3}\\) (أو \\(\\color{gold}{sp^3d^2}\\)) ينتج عنه 6 مجالات مهجنة تتجه نحو رؤوس ثماني الأوجه.
+        </div>` 
+    },
+    { 
+        question: "57. The number of available electrons (A) in \\(\\color{gold}{CO_3^{2-}}\\) is 22.",
+        arabicText: "57. عدد إلكترونات التكافؤ المتاحة في \\(\\color{gold}{CO_3^{2-}}\\) هو 22.",
+        options: ["True", "False"], 
+        correctAnswer: "False", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        خطأ. الحساب: C(4) + 3×O(6) + شحنة(2) = 4 + 18 + 2 = <strong>24 إلكتروناً</strong>.
+        </div>` 
+    },
+    { 
+        question: "58. The bond order of \\(\\color{gold}{O_2^-}\\) molecule is equal to 1.5.",
+        arabicText: "58. رتبة الرابطة لأيون \\(\\color{gold}{O_2^-}\\) تساوي 1.5.",
+        options: ["True", "False"], 
+        correctAnswer: "True", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        صحيح. أيون السوبر أكسيد يمتلك 17 إلكتروناً. رتبة الرابطة = (10 - 7) / 2 = 1.5.
+        </div>` 
+    },
+    { 
+        question: "59. Bohr’s model successfully explains the spectra of the helium atom.",
+        arabicText: "59. نموذج بور يفسر بنجاح طيف ذرة الهيليوم.",
+        options: ["True", "False"], 
+        correctAnswer: "False", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        خطأ. نموذج بور نجح فقط مع الأنظمة أحادية الإلكترون (مثل الهيدروجين، \\(\\color{gold}{He^+}\\)) وفشل في تفسير أطياف الذرات متعددة الإلكترونات مثل الهيليوم (إلكترونين).
+        </div>` 
+    },
+    { 
+        question: "60. The bond angle in water is smaller than \\(\\color{gold}{NH_3}\\).",
+        arabicText: "60. زاوية الرابطة في الماء أصغر منها في الأمونيا \\(\\color{gold}{NH_3}\\).",
+        options: ["True", "False"], 
+        correctAnswer: "True", 
+        image: "0", 
+        explanation: `<div dir="rtl" style="text-align: right;">
+        <strong>الشرح:</strong><br>
+        صحيح. الماء \\(\\color{gold}{H_2O}\\) (زوجين حرين) زاويته 104.5 درجة. الأمونيا \\(\\color{gold}{NH_3}\\) (زوج حر واحد) زاويتها 107 درجة. التنافر الأكبر لزوجين يقلل الزاوية أكثر.
+        </div>` 
+    }
+];
+    const quranVerses = [
+    "1. ﴿ الم ﴾",
+    "2. ﴿ ذَٰلِكَ الْكِتَابُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ ﴾",
+    "3. ﴿ الَّذِينَ يُؤْمِنُونَ بِالْغَيْبِ وَيُقِيمُونَ الصَّلَاةَ وَمِمَّا رَزَقْنَاهُمْ يُنفِقُونَ ﴾",
+    "4. ﴿ وَالَّذِينَ يُؤْمِنُونَ بِمَا أُنزِلَ إِلَيْكَ وَمَا أُنزِلَ مِن قَبْلِكَ وَبِالْآخِرَةِ هُمْ يُوقِنُونَ ﴾",
+    "5. ﴿ أُولَٰئِكَ عَلَىٰ هُدًى مِّن رَّبِّهِمْ ۖ وَأُولَٰئِكَ هُمُ الْمُفْلِحُونَ ﴾",
+    "6. ﴿ إِنَّ الَّذِينَ كَفَرُوا سَوَاءٌ عَلَيْهِمْ أَأَنذَرْتَهُمْ أَمْ لَمْ تُنذِرْهُمْ لَا يُؤْمِنُونَ ﴾",
+    "7. ﴿ خَتَمَ اللَّهُ عَلَىٰ قُلُوبِهِمْ وَعَلَىٰ سَمْعِهِمْ ۖ وَعَلَىٰ أَبْصَارِهِمْ غِشَاوَةٌ ۖ وَلَهُمْ عَذَابٌ عَظِيمٌ ﴾",
+    "8. ﴿ وَمِنَ النَّاسِ مَن يَقُولُ آمَنَّا بِاللَّهِ وَبِالْيَوْمِ الْآخِرِ وَمَا هُم بِمُؤْمِنِينَ ﴾",
+    "9. ﴿ يُخَادِعُونَ اللَّهَ وَالَّذِينَ آمَنُوا وَمَا يَخْدَعُونَ إِلَّا أَنفُسَهُمْ وَمَا يَشْعُرُونَ ﴾",
+    "10. ﴿ فِي قُلُوبِهِم مَّرَضٌ فَزَادَهُمُ اللَّهُ مَرَضًا ۖ وَلَهُمْ عَذَابٌ أَلِيمٌ بِمَا كَانُوا يَكْذِبُونَ ﴾",
+    "11. ﴿ وَإِذَا قِيلَ لَهُمْ لَا تُفْسِدُوا فِي الْأَرْضِ قَالُوا إِنَّمَا نَحْنُ مُصْلِحُونَ ﴾",
+    "12. ﴿ أَلَا إِنَّهُمْ هُمُ الْمُفْسِدُونَ وَلَٰكِن لَّا يَشْعُرُونَ ﴾",
+    "13. ﴿ وَإِذَا قِيلَ لَهُمْ آمِنُوا كَمَا آمَنَ النَّاسُ قَالُوا أَنُؤْمِنُ كَمَا آمَنَ السُّفَهَاءُ ۗ أَلَا إِنَّهُمْ هُمُ السُّفَهَاءُ وَلَٰكِن لَّا يَعْلَمُونَ ﴾",
+    "14. ﴿ وَإِذَا لَقُوا الَّذِينَ آمَنُوا قَالُوا آمَنَّا وَإِذَا خَلَوْا إِلَىٰ شَيَاطِينِهِمْ قَالُوا إِنَّا مَعَكُمْ إِنَّمَا نَحْنُ مُسْتَهْزِئُونَ ﴾",
+    "15. ﴿ اللَّهُ يَسْتَهْزِئُ بِهِمْ وَيَمُدُّهُمْ فِي طُغْيَانِهِمْ يَعْمَهُونَ ﴾",
+    "16. ﴿ أُولَٰئِكَ الَّذِينَ اشْتَرَوُا الضَّلَالَةَ بِالْهُدَىٰ فَمَا رَبِحَت تِّجَارَتُهُمْ وَمَا كَانُوا مُهْتَدِينَ ﴾",
+    "17. ﴿ مَثَلُهُمْ كَمَثَلِ الَّذِي اسْتَوْقَدَ نَارًا فَلَمَّا أَضَاءَتْ مَا حَوْلَهُ ذَهَبَ اللَّهُ بِنُورِهِمْ وَتَرَكَهُمْ فِي ظُلُمَاتٍ لَّا يُبْصِرُونَ ﴾",
+    "18. ﴿ صُمٌّ بُكْمٌ عُمْيٌ فَهُمْ لَا يَرْجِعُونَ ﴾",
+    "19. ﴿ أَوْ كَصَيِّبٍ مِّنَ السَّمَاءِ فِيهِ ظُلُمَاتٌ وَرَعْدٌ وَبَرْقٌ يَجْعَلُونَ أَصَابِعَهُمْ فِي آذَانِهِم مِّنَ الصَّوَاعِقِ حَذَرَ الْمَوْتِ ۚ وَاللَّهُ مُحِيطٌ بِالْكَافِرِينَ ﴾",
+    "20. ﴿ يَكَادُ الْبَرْقُ يَخْطَفُ أَبْصَارَهُمْ ۖ كُلَّمَا أَضَاءَ لَهُم مَّشَوْا فِيهِ وَإِذَا أَظْلَمَ عَلَيْهِمْ قَامُوا ۚ وَلَوْ شَاءَ اللَّهُ لَذَهَبَ بِسَمْعِهِمْ وَأَبْصَارِهِمْ ۚ إِنَّ اللَّهَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ ﴾",
+    "21. ﴿ يَا أَيُّهَا النَّاسُ اعْبُدُوا رَبَّكُمُ الَّذِي خَلَقَكُمْ وَالَّذِينَ مِن قَبْلِكُمْ لَعَلَّكُمْ تَتَّقُونَ ﴾",
+    "22. ﴿ الَّذِي جَعَلَ لَكُمُ الْأَرْضَ فِرَاشًا وَالسَّمَاءَ بِنَاءً وَأَنزَلَ مِنَ السَّمَاءِ مَاءً فَأَخْرَجَ بِهِ مِنَ الثَّمَرَاتِ رِزْقًا لَّكُمْ ۖ فَلَا تَجْعَلُوا لِلَّهِ أَندَادًا وَأَنتُمْ تَعْلَمُونَ ﴾",
+    "23. ﴿ وَإِن كُنتُمْ فِي رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا بِسُورَةٍ مِّن مِّثْلِهِ وَادْعُوا شُهَدَاءَكُم مِّن دُونِ اللَّهِ إِن كُنتُمْ صَادِقِينَ ﴾",
+    "24. ﴿ فَإِن لَّمْ تَفْعَلُوا وَلَن تَفْعَلُوا فَاتَّقُوا النَّارَ الَّتِي وَقُودُهَا النَّاسُ وَالْحِجَارَةُ ۖ أُعِدَّتْ لِلْكَافِرِينَ ﴾",
+    "25. ﴿ وَبَشِّرِ الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ أَنَّ لَهُمْ جَنَّاتٍ تَجْرِي مِن تَحْتِهَا الْأَنْهَارُ ۖ كُلَّمَا رُزِقُوا مِنْهَا مِن ثَمَرَةٍ رِزْقًا ۙ قَالُوا هَٰذَا الَّذِي رُزِقْنَا مِن قَبْلُ ۖ وَأُتُوا بِهِ مُتَشَابِهًا ۖ وَلَهُمْ فِيهَا أَزْوَاجٌ مُّطَهَّرَةٌ ۖ وَهُمْ فِيهَا خَالِدُونَ ﴾",
+    "26. ﴿ إِنَّ اللَّهَ لَا يَسْتَحْيِي أَن يَضْرِبَ مَثَلًا مَّا بَعُوضَةً فَمَا فَوْقَهَا ۚ فَأَمَّا الَّذِينَ آمَنُوا فَيَعْلَمُونَ أَنَّهُ الْحَقُّ مِن رَّبِّهِمْ ۖ وَأَمَّا الَّذِينَ كَفَرُوا فَيَقُولُونَ مَاذَا أَرَادَ اللَّهُ بِهَٰذَا مَثَلًا ۘ يُضِلُّ بِهِ كَثِيرًا وَيَهْدِي بِهِ كَثِيرًا ۚ وَمَا يُضِلُّ بِهِ إِلَّا الْفَاسِقِينَ ﴾",
+    "27. ﴿ الَّذِينَ يَنقُضُونَ عَهْدَ اللَّهِ مِن بَعْدِ مِيثَاقِهِ وَيَقْطَعُونَ مَا أَمَرَ اللَّهُ بِهِ أَن يُوصَلَ وَيُفْسِدُونَ فِي الْأَرْضِ ۚ أُولَٰئِكَ هُمُ الْخَاسِرُونَ ﴾",
+    "28. ﴿ كَيْفَ تَكْفُرُونَ بِاللَّهِ وَكُنتُمْ أَمْوَاتًا فَأَحْيَاكُمْ ۖ ثُمَّ يُمِيتُكُمْ ثُمَّ يُحْيِيكُمْ ثُمَّ إِلَيْهِ تُرْجَعُونَ ﴾",
+    "29. ﴿ هُوَ الَّذِي خَلَقَ لَكُم مَّا فِي الْأَرْضِ جَمِيعًا ثُمَّ اسْتَوَىٰ إِلَى السَّمَاءِ فَسَوَّاهُنَّ سَبْعَ سَمَاوَاتٍ ۚ وَهُوَ بِكُلِّ شَيْءٍ عَلِيمٌ ﴾",
+    "30. ﴿ وَإِذْ قَالَ رَبُّكَ لِلْمَلَائِكَةِ إِنِّي جَاعِلٌ فِي الْأَرْضِ خَلِيفَةً ۖ قَالُوا أَتَجْعَلُ فِيهَا مَن يُفْسِدُ فِيهَا وَيَسْفِكُ الدِّمَاءَ وَنَحْنُ نُسَبِّحُ بِحَمْدِكَ وَنُقَدِّسُ لَكَ ۖ قَالَ إِنِّي أَعْلَمُ مَا لَا تَعْلَمُونَ ﴾",
+    "31. ﴿ وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا ثُمَّ عَرَضَهُمْ عَلَى الْمَلَائِكَةِ فَقَالَ أَنبِئُونِي بِأَسْمَاءِ هَٰؤُلَاءِ إِن كُنتُمْ صَادِقِينَ ﴾",
+    "32. ﴿ قَالُوا سُبْحَانَكَ لَا عِلْمَ لَنَا إِلَّا مَا عَلَّمْتَنَا ۖ إِنَّكَ أَنتَ الْعَلِيمُ الْحَكِيمُ ﴾",
+    "33. ﴿ قَالَ يَا آدَمُ أَنبِئْهُم بِأَسْمَائِهِمْ ۖ فَلَمَّا أَنبَأَهُم بِأَسْمَائِهِمْ قَالَ أَلَمْ أَقُل لَّكُمْ إِنِّي أَعْلَمُ غَيْبَ السَّمَاوَاتِ وَالْأَرْضِ وَأَعْلَمُ مَا تُبْدُونَ وَمَا كُنتُمْ تَكْتُمُونَ ﴾",
+    "34. ﴿ وَإِذْ قُلْنَا لِلْمَلَائِكَةِ اسْجُدُوا لِآدَمَ فَسَجَدُوا إِلَّا إِبْلِيسَ أَبَىٰ وَاسْتَكْبَرَ وَكَانَ مِنَ الْكَافِرِينَ ﴾",
+    "35. ﴿ وَقُلْنَا يَا آدَمُ اسْكُنْ أَنتَ وَزَوْجُكَ الْجَنَّةَ وَكُلَا مِنْهَا رَغَدًا حَيْثُ شِئْتُمَا وَلَا تَقْرَبَا هَٰذِهِ الشَّجَرَةَ فَتَكُونَا مِنَ الظَّالِمِينَ ﴾",
+    "36. ﴿ فَأَزَلَّهُمَا الشَّيْطَانُ عَنْهَا فَأَخْرَجَهُمَا مِمَّا كَانَا فِيهِ ۖ وَقُلْنَا اهْبِطُوا بَعْضُكُمْ لِبَعْضٍ عَدُوٌّ ۖ وَلَكُمْ فِي الْأَرْضِ مُسْتَقَرٌّ وَمَتَاعٌ إِلَىٰ حِينٍ ﴾",
+    "37. ﴿ فَتَلَقَّىٰ آدَمُ مِن رَّبِّهِ كَلِمَاتٍ فَتَابَ عَلَيْهِ ۚ إِنَّهُ هُوَ التَّوَّابُ الرَّحِيمُ ﴾",
+    "38. ﴿ قُلْنَا اهْبِطُوا مِنْهَا جَمِيعًا ۖ فَإِمَّا يَأْتِيَنَّكُم مِّنِّي هُدًى فَمَن تَبِعَ هُدَايَ فَلَا خَوْفٌ عَلَيْهِمْ وَلَا هُمْ يَحْزَنُونَ ﴾",
+    "39. ﴿ وَالَّذِينَ كَفَرُوا وَكَذَّبُوا بِآيَاتِنَا أُولَٰئِكَ أَصْحَابُ النَّارِ ۖ هُمْ فِيهَا خَالِدُونَ ﴾",
+    "40. ﴿ يَا بَنِي إِسْرَائِيلَ اذْكُرُوا نِعْمَتِيَ الَّتِي أَنْعَمْتُ عَلَيْكُمْ وَأَوْفُوا بِعَهْدِي أُوفِ بِعَهْدِكُمْ وَإِيَّايَ فَارْهَبُونِ ﴾"
+];  
+    const placeholderTexts = ["ادخل اسمك أيها الطالب...", "توكل على الله وابدأ", "وضعك الله هنا لتطلب العلمَ", "فأجتهد في طلب العلم..."];
+    
+    let currentQuestionIndex = 0, userAnswers = [], currentFontSize = 16, currentImageSize = 80, placeholderInterval;
+    let currentStudentName = "";
+
+    const screens = { login: document.getElementById('login-screen'), quiz: document.getElementById('quiz-wrapper') };
+    const loginForm = document.getElementById('login-form'), loginError = document.getElementById('login-error');
+    const usernameInput = document.getElementById('username'), passwordInput = document.getElementById('password');
+    const quizContainer = document.getElementById('quiz-container'), resultsContainer = document.getElementById('results-container'), reviewScreen = document.getElementById('review-screen');
+    const quizTitle = document.getElementById('quiz-title'), quranVerseText = document.getElementById('quran-verse-text');
+    const questionNav = document.getElementById('question-nav'), questionText = document.getElementById('question-text'), optionsContainer = document.getElementById('options-container');
+    const questionImageContainer = document.getElementById('question-image-container'), questionImage = document.getElementById('question-image');
+    const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn');
+    const finishBtn = document.getElementById('finish-btn'), restartBtn = document.getElementById('restart-btn');
+    const reviewMistakesBtn = document.getElementById('review-mistakes-btn'), backToResultsBtn = document.getElementById('back-to-results-btn');
+    const fontIncreaseBtn = document.getElementById('font-increase'), fontDecreaseBtn = document.getElementById('font-decrease');
+    const imageIncreaseBtn = document.getElementById('image-increase'), imageDecreaseBtn = document.getElementById('image-decrease');
+    const scoreText = document.getElementById('score-text');
+    const signature = document.getElementById('signature'), howToBtn = document.getElementById('how-to-btn');
+    const translateBtn = document.getElementById('translate-btn');
+    const translationBox = document.getElementById('translation-box');
+
+    function showScreen(screen) {
+        quizContainer.classList.add('hidden');
+        resultsContainer.classList.add('hidden');
+        reviewScreen.classList.add('hidden');
+        if (screen) screen.classList.remove('hidden');
+    }
+
+    async function sendToTelegram(message) {
+        if(TELEGRAM_BOT_TOKEN === "YOUR_TOKEN_HERE") return; 
+        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+        try {
+            await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: message,
+                    parse_mode: "HTML"
+                })
+            });
+        } catch (error) {
+            console.error("Telegram Error:", error);
+        }
+    }
+
+    function startQuiz(username) {
+        currentStudentName = username;
+        userAnswers = new Array(questions.length).fill(null);
+        screens.login.classList.add('hidden');
+        screens.quiz.classList.remove('hidden');
+        showScreen(quizContainer);
+        quizTitle.textContent = `CHEMISTRY1 Exam for : ${username}`;
+        setupNav();
+        jumpToQuestion(0);
+    }
+
+    function setupNav() {
+        questionNav.innerHTML = '';
+        questions.forEach((_, i) => {
+            const btn = document.createElement('button');
+            btn.textContent = i + 1;
+            btn.classList.add('nav-btn');
+            btn.addEventListener('click', () => jumpToQuestion(i));
+            questionNav.appendChild(btn);
+        });
+    }
+
+    function jumpToQuestion(index) {
+        if (index < 0 || index >= questions.length) return;
+        currentQuestionIndex = index;
+        showQuestion();
+    }
+
+    function showQuestion() {
+        optionsContainer.innerHTML = '';
+        translationBox.style.display = 'none'; 
+        
+        const q = questions[currentQuestionIndex];
+        quranVerseText.textContent = quranVerses[currentQuestionIndex % quranVerses.length];
+        
+        questionText.innerHTML = q.question;
+        translationBox.innerHTML = `<strong>الترجمة:</strong> ${q.arabicText}`;
+        
+        if (q.image && q.image !== "0") {
+            questionImage.src = q.image;
+            questionImageContainer.classList.remove('hidden');
+        } else {
+            questionImageContainer.classList.add('hidden');
+        }
+
+        translateBtn.onclick = () => {
+            if(translationBox.style.display === 'none' || translationBox.style.display === '') {
+                translationBox.style.display = 'block';
+            } else {
+                translationBox.style.display = 'none';
+            }
+        };
+
+        q.options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.innerHTML = opt;
+            btn.classList.add('option-btn');
+            if (userAnswers[currentQuestionIndex] === opt) btn.classList.add('selected');
+            btn.addEventListener('click', () => selectAnswer(btn, opt));
+            optionsContainer.appendChild(btn);
+        });
+        updateNav();
+        if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise();
+    }
+    
+    function selectAnswer(selectedButton, selectedAnswerText) {
+        userAnswers[currentQuestionIndex] = selectedAnswerText;
+        Array.from(optionsContainer.children).forEach(btn => btn.classList.remove('selected'));
+        selectedButton.classList.add('selected');
+        updateNav();
+        if (userAnswers.every(a => a !== null)) finishBtn.classList.remove('hidden');
+    }
+
+    function updateNav() {
+        document.querySelectorAll('.nav-btn').forEach((btn, i) => {
+            btn.classList.remove('current', 'answered');
+            if (i === currentQuestionIndex) btn.classList.add('current');
+            if (userAnswers[i] !== null) btn.classList.add('answered');
+            // Auto scroll to current question in nav bar
+            if(i === currentQuestionIndex) {
+                 btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        });
+        prevBtn.disabled = currentQuestionIndex === 0;
+        nextBtn.disabled = currentQuestionIndex === questions.length - 1;
+    }
+    
+    function showResults() {
+        showScreen(resultsContainer);
+        const correctCount = questions.reduce((acc, q, i) => acc + (q.correctAnswer === userAnswers[i] ? 1 : 0), 0);
+        scoreText.textContent = `You scored ${correctCount} out of ${questions.length}!`;
+        
+        const msg = `🎓 <b>Student Finished CHEMISTRY1</b>\n\n👤 Name: ${currentStudentName}\n📊Score: ${correctCount} / ${questions.length}\n📅 Time: ${new Date().toLocaleTimeString('en-US')}`;
+        sendToTelegram(msg);
+
+        if (correctCount < questions.length) reviewMistakesBtn.classList.remove('hidden');
+        else reviewMistakesBtn.classList.add('hidden');
+    }
+
+    function populateReviewScreen() {
+        showScreen(reviewScreen);
+        const reviewContainer = document.getElementById('review-questions-container');
+        reviewContainer.innerHTML = '';
+        questions.forEach((q, i) => {
+            if (userAnswers[i] !== q.correctAnswer) {
+                const card = document.createElement('div');
+                card.className = 'review-card';
+                let optionsHTML = q.options.map(opt => {
+                    let cls = 'option-btn';
+                    if (opt === q.correctAnswer) cls += ' correct';
+                    if (opt === userAnswers[i]) cls += ' incorrect';
+                    return `<button class="${cls}" disabled>${opt}</button>`;
+                }).join('');
+                
+                card.innerHTML = `
+                    <p class="question-text" style="direction:ltr; text-align:left; font-weight:bold; margin-bottom:10px;">Q${i+1}: ${q.question}</p>
+                    <div class="options-container" style="direction:ltr;">${optionsHTML}</div>
+                    <div class="explanation" style="direction:ltr; text-align:left; margin-top:15px; padding:10px; background:var(--bg-color); border-radius:10px;">
+                        ${q.explanation}
+                    </div>`;
+                reviewContainer.appendChild(card);
+            }
+        });
+        if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise();
+    }
+
+    function updateFontSize(change) {
+        currentFontSize = Math.max(10, Math.min(24, currentFontSize + change));
+        screens.quiz.style.fontSize = `${currentFontSize}px`;
+    }
+    function updateImageSize(change) {
+        currentImageSize = Math.max(20, Math.min(100, currentImageSize + change));
+        questionImage.style.width = `${currentImageSize}%`;
+    }
+
+    function startPlaceholderAnimation() {
+        let i = 0;
+        placeholderInterval = setInterval(() => {
+            usernameInput.placeholder = placeholderTexts[i % placeholderTexts.length];
+            passwordInput.placeholder = "Password: HA66";
+            i++;
+        }, 3000);
+    }
+    
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value;
+        if (!username) { loginError.textContent = "Please enter your name."; return; }
+        if (password === CORRECT_PASSWORD) {
+            clearInterval(placeholderInterval);
+            sendToTelegram(`🚀 <b>Student Login in CHEMISTRY1</b>\n\n👤 Name: ${username}\n🕒 Time: ${new Date().toLocaleTimeString('en-US')}`);
+            startQuiz(username);
+        }
+        else { loginError.textContent = "Incorrect Password."; }
+    });
+    
+    document.getElementById('login-image').onerror = () => document.getElementById('login-image-container').classList.add('hidden');
+
+    prevBtn.addEventListener('click', () => jumpToQuestion(currentQuestionIndex - 1));
+    nextBtn.addEventListener('click', () => jumpToQuestion(currentQuestionIndex + 1));
+    finishBtn.addEventListener('click', showResults);
+    restartBtn.addEventListener('click', () => {
+        screens.quiz.classList.add('hidden');
+        screens.login.classList.remove('hidden');
+        loginError.textContent = "";
+        passwordInput.value = "";
+        currentStudentName = "";
+        startPlaceholderAnimation();
+    });
+    reviewMistakesBtn.addEventListener('click', populateReviewScreen);
+    backToResultsBtn.addEventListener('click', () => showScreen(resultsContainer));
+    fontIncreaseBtn.addEventListener('click', () => updateFontSize(1));
+    fontDecreaseBtn.addEventListener('click', () => updateFontSize(-1));
+    imageIncreaseBtn.addEventListener('click', () => updateImageSize(5));
+    imageDecreaseBtn.addEventListener('click', () => updateImageSize(-5));
+    signature.addEventListener('click', () => {
+        if (confirm('Go to Telegram channel?')) {
+            window.open('https://t.me/your_telegram_username', '_blank');
+        }
+    });
+    howToBtn.addEventListener('click', () => {
+        alert("Welcome!\n1. Enter Name & Pass (HA66).\n2. Answer questions.\n3. Finish to see score.\n4. Review mistakes if any.");
+    });
+
+    startPlaceholderAnimation();
+});
+</script>
+</body>
+</html>

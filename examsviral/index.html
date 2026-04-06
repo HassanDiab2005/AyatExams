@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=400, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=450, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>الامتحانات المتوفرة</title>
     <!-- خط تجوال -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
@@ -35,9 +35,9 @@
             min-height: 100vh;
         }
 
-        /* حاوية التطبيق الثابتة بعرض 400 */
+        /* حاوية التطبيق الثابتة بعرض 450 */
         .container {
-            width: 400px;
+            width: 450px;
             min-height: 100vh;
             background-color: var(--app-bg);
             padding: 15px;
@@ -57,7 +57,7 @@
         }
 
         header h1 {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             margin-bottom: 10px;
             font-weight: 900;
         }
@@ -65,28 +65,16 @@
         /* تنسيق الدعاء */
         .prayer-box {
             background-color: rgba(255, 255, 255, 0.15);
-            padding: 10px;
+            padding: 12px;
             border-radius: 10px;
             margin: 15px auto 10px;
             border: 1px solid rgba(255,255,255,0.2);
         }
 
         .prayer-box h3 {
-            font-size: 0.95rem;
+            font-size: 1rem;
             line-height: 1.5;
             color: #fff;
-        }
-
-        /* تنسيق صندوق التحدي */
-        .challenge-note {
-            background-color: #fff3cd;
-            color: #856404;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            margin-top: 10px;
-            border-right: 4px solid #ffc107;
-            text-align: right;
         }
 
         /* أدوات التحكم (البحث والفلاتر) */
@@ -108,7 +96,7 @@
 
         .search-wrapper i {
             position: absolute;
-            right: 15px; /* يمين لأن الاتجاه RTL */
+            right: 15px; 
             top: 50%;
             transform: translateY(-50%);
             color: #9ca3af;
@@ -133,7 +121,7 @@
             padding: 10px;
             border: 1px solid #e5e7eb;
             border-radius: 8px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             outline: none;
             transition: 0.3s;
             background-color: #f9fafb;
@@ -148,21 +136,21 @@
         /* البطاقات (بطاقتين في الصف) */
         .exams-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* بطاقتين متساويتين */
-            gap: 12px;
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 15px;
             padding-bottom: 20px;
         }
 
         .exam-card {
             background-color: var(--card-bg);
             border-radius: 12px;
-            padding: 15px 10px;
+            padding: 18px 12px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.04);
             transition: all 0.3s ease;
             border: 1px solid #f0f0f0;
             display: flex;
             flex-direction: column;
-            align-items: center; /* توسيط المحتوى لأن البطاقة صغيرة */
+            align-items: center; 
             text-align: center;
             position: relative;
         }
@@ -174,38 +162,38 @@
         }
 
         .icon-box {
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             background-color: #eff6ff;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--primary-color);
-            font-size: 1.2rem;
-            margin-bottom: 10px;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
         }
 
         .exam-info h3 {
             color: #111827;
-            font-size: 0.95rem;
-            margin-bottom: 8px;
-            line-height: 1.3;
-            min-height: 36px; /* توحيد الارتفاع لو الأسماء أطوالها مختلفة */
+            font-size: 1rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            min-height: 42px; 
         }
 
         .badges {
             display: flex;
-            flex-direction: column; /* الأوسمة تحت بعضها */
-            gap: 4px;
+            flex-direction: column; 
+            gap: 6px;
             margin-bottom: 15px;
             width: 100%;
         }
 
         .badge {
-            font-size: 0.65rem;
-            padding: 4px 2px;
-            border-radius: 4px;
+            font-size: 0.75rem;
+            padding: 5px 3px;
+            border-radius: 5px;
             background-color: #f3f4f6;
             color: #4b5563;
             width: 100%;
@@ -216,14 +204,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
+            gap: 6px;
             width: 100%;
             background-color: var(--primary-color);
             color: white;
             text-decoration: none;
-            padding: 8px;
+            padding: 10px;
             border-radius: 8px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: bold;
             transition: 0.3s;
         }
@@ -239,7 +227,7 @@
             color: #9ca3af;
             background: #fff;
             border-radius: 12px;
-            font-size: 0.9rem;
+            font-size: 1rem;
         }
 
     </style>
@@ -253,7 +241,6 @@
         <div class="prayer-box">
             <h3>دعواتكم بعمرةٍ مع من نحب.. فبها ننجو ❤️</h3>
         </div>
-
     </header>
 
     <!-- أدوات التحكم -->
@@ -303,7 +290,6 @@
     const facultyFilter = document.getElementById('facultyFilter');
     const levelFilter = document.getElementById('levelFilter');
 
-    // دالة لتطبيع النصوص العربية (إهمال الفرق بين أ إ آ ا) لتحسين البحث
     function normalizeArabic(text) {
         return text.replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
     }
@@ -343,7 +329,6 @@
             const card = document.createElement('div');
             card.className = 'exam-card';
             
-            // تحديد أيقونة بناء على نوع المادة (اختياري)
             let iconClass = 'fa-file-lines';
             if(exam.name.includes('كيمياء')) iconClass = 'fa-flask';
             if(exam.name.includes('زولوجي') || exam.name.includes('بوتاني')) iconClass = 'fa-leaf';
@@ -377,11 +362,9 @@
 
         const filtered = examsData.filter(exam => {
             const normalizedName = normalizeArabic(exam.name.toLowerCase());
-            
             const matchName = normalizedName.includes(searchText);
             const matchFaculty = selectedFaculty === 'all' || exam.faculty === selectedFaculty;
             const matchLevel = selectedLevel === 'all' || exam.level === selectedLevel;
-
             return matchName && matchFaculty && matchLevel;
         });
 

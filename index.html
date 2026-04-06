@@ -2,8 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=400, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>آيات بينات</title>
+    <meta name="viewport" content="width=500, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>آيات بينات - الامتحانات</title>
 
     <!-- الخطوط -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&family=Amiri:wght@700&family=Readex+Pro:wght@400;700&display=swap" rel="stylesheet">
@@ -17,9 +17,9 @@
             --light-shadow: #ffffff;
             --dark-shadow: #a3b1c6;
             --text-color: #5b6574;
-            --primary-accent: #ff6b81; /* لون القلب */
-            --highlight-color: #ffd700; /* لون التظليل */
-            --telegram-color: #2AABEE; /* لون تليجرام */
+            --primary-accent: #ff6b81; 
+            --highlight-color: #ffd700; 
+            --primary-color: #2563eb;
             --card-radius: 20px;
         }
 
@@ -28,7 +28,7 @@
         html, body {
             width: 100%;
             min-height: 100vh;
-            background-color: #cfd8e3; /* خلفية أغمق قليلاً خارج التطبيق */
+            background-color: #cfd8e3; 
             font-family: 'Tajawal', sans-serif;
             color: var(--text-color);
             display: flex;
@@ -36,14 +36,14 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* حاوية التطبيق (شاشة الهاتف - 400px) */
+        /* حاوية التطبيق الثابتة بعرض 500px */
         #app-container {
-            width: 400px;
+            width: 500px;
             min-height: 100vh;
             background-color: var(--bg-color);
             position: relative;
             overflow-x: hidden;
-            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+            box-shadow: 0 0 30px rgba(0,0,0,0.15);
         }
 
         /* ================= شاشة البداية وحركة العنوان ================= */
@@ -55,13 +55,12 @@
             text-align: center;
             width: 100%;
             z-index: 100;
-            transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1); /* حركة سلسة للأعلى */
+            transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1); 
         }
 
-        /* عندما يتحرك العنوان للأعلى */
         #animated-header.move-up {
-            top: 40px;
-            transform: translate(-50%, 0) scale(0.85); /* يصغر حجمه قليلاً في الأعلى */
+            top: 35px;
+            transform: translate(-50%, 0) scale(0.85); 
         }
 
         .brand-title {
@@ -74,7 +73,6 @@
             display: inline-block;
         }
 
-        /* تأثير التظليل الأصفر */
         .brand-title.highlighted {
             animation: highlight-wipe 0.8s ease-out forwards;
         }
@@ -84,7 +82,6 @@
             100% { background: linear-gradient(90deg, transparent 50%, var(--highlight-color) 50%); background-size: 200% 100%; background-position: left; color: #000;}
         }
 
-        /* أنيميشن القلب */
         #heart-animation {
             width: 100px;
             height: 100px;
@@ -94,36 +91,23 @@
             transform: scale(0.5);
         }
 
-        #heart-animation.show {
-            opacity: 1;
-            transform: scale(1);
-        }
+        #heart-animation.show { opacity: 1; transform: scale(1); }
 
-        /* إخفاء القلب بعد الصعود */
         #animated-header.move-up #heart-animation {
-            opacity: 0;
-            transform: scale(0);
-            height: 0;
-            margin: 0;
+            opacity: 0; transform: scale(0); height: 0; margin: 0;
         }
 
         #heart-animation svg { width: 100%; height: 100%; overflow: visible; }
         .heart-path {
-            fill: none;
-            stroke: var(--primary-accent);
-            stroke-width: 5;
-            stroke-linecap: round;
-            stroke-dasharray: 200;
-            stroke-dashoffset: 200;
+            fill: none; stroke: var(--primary-accent); stroke-width: 5;
+            stroke-linecap: round; stroke-dasharray: 200; stroke-dashoffset: 200;
         }
-        #heart-animation.show .heart-path {
-            animation: drawHeart 1.5s ease-out forwards;
-        }
+        #heart-animation.show .heart-path { animation: drawHeart 1.5s ease-out forwards; }
         @keyframes drawHeart { to { stroke-dashoffset: 0; fill: rgba(255, 107, 129, 0.2); } }
 
         /* ================= المحتوى الرئيسي ================= */
         #main-content {
-            padding: 120px 20px 30px; /* مسافة علوية لترك مكان للعنوان */
+            padding: 110px 25px 30px; 
             opacity: 0;
             pointer-events: none;
             transform: translateY(20px);
@@ -132,12 +116,10 @@
         }
 
         #main-content.visible {
-            opacity: 1;
-            pointer-events: auto;
-            transform: translateY(0);
+            opacity: 1; pointer-events: auto; transform: translateY(0);
         }
 
-        /* البطاقة العلوية (الدعاء / النص) */
+        /* البطاقة العلوية */
         .header-card {
             width: 100%;
             padding: 20px;
@@ -156,20 +138,58 @@
             margin-bottom: 10px;
         }
 
-        .header-card p {
+        .challenge-note {
+            background-color: transparent;
+            color: #d35400;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            border-right: 4px solid var(--highlight-color);
+            text-align: right;
+            box-shadow: inset 3px 3px 6px var(--dark-shadow), inset -3px -3px 6px var(--light-shadow);
+        }
+
+        /* أدوات البحث والفلترة (Neumorphism) */
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .filters-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 12px;
             font-size: 0.95rem;
-            line-height: 1.6;
-            font-weight: 700;
+            outline: none;
+            background: var(--bg-color);
+            color: var(--text-color);
+            box-shadow: inset 4px 4px 8px var(--dark-shadow), inset -4px -4px 8px var(--light-shadow);
+            transition: 0.3s;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus {
+            box-shadow: inset 6px 6px 12px var(--dark-shadow), inset -6px -6px 12px var(--light-shadow);
+            color: var(--primary-color);
         }
 
         /* شبكة البطاقات (2 في كل صف) */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            gap: 20px;
         }
 
-        /* تصميم البطاقات العامة */
+        /* تصميم بطاقة الامتحان المتغيرة */
         .card {
             background: var(--bg-color);
             border-radius: var(--card-radius);
@@ -183,6 +203,7 @@
             align-items: center;
             justify-content: center;
             transition: all 0.2s ease;
+            position: relative;
         }
 
         .card:hover {
@@ -198,27 +219,42 @@
         .card-icon {
             font-size: 2.2rem;
             margin-bottom: 12px;
-            color: var(--text-color);
+            color: var(--primary-color);
             transition: color 0.3s;
         }
 
         .card h2 {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 700;
-            font-family: 'Readex Pro', sans-serif;
+            line-height: 1.4;
+            margin-bottom: 8px;
+            min-height: 40px; /* لتوحيد أطوال الكروت */
         }
 
-        /* تلوين أيقونات معينة عند المرور عليها */
-        .telegram-card:hover .card-icon, .telegram-card:hover h2 { color: var(--telegram-color); }
-        .exam-card:hover .card-icon, .exam-card:hover h2 { color: #ff9f43; }
-        .youtube-card:hover .card-icon, .youtube-card:hover h2 { color: #ee5253; }
-        .books-card:hover .card-icon, .books-card:hover h2 { color: #1dd1a1; }
+        .badges {
+            display: flex;
+            gap: 5px;
+            font-size: 0.7rem;
+            opacity: 0.8;
+            background: transparent;
+            box-shadow: inset 2px 2px 5px var(--dark-shadow), inset -2px -2px 5px var(--light-shadow);
+            padding: 5px 10px;
+            border-radius: 8px;
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 30px;
+            color: var(--text-color);
+            font-weight: bold;
+        }
 
     </style>
 </head>
 <body>
 
-    <!-- حاوية التطبيق الثابتة بعرض 400px -->
+    <!-- حاوية التطبيق الثابتة بعرض 500px -->
     <div id="app-container">
         
         <!-- الهيدر المتحرك (آيات بينات + القلب) -->
@@ -226,7 +262,6 @@
             <h1 class="brand-title" id="brand-text">آيات بينات</h1>
             
             <div id="heart-animation">
-                <!-- رسمة القلب SVG -->
                 <svg viewBox="0 0 100 100">
                     <path class="heart-path" d="M 50,30 C 50,30 40,10 20,10 C 0,10 0,40 0,40 C 0,60 50,90 50,90 C 50,90 100,60 100,40 C 100,40 100,10 80,10 C 60,10 50,30 50,30 Z"></path>
                 </svg>
@@ -239,66 +274,159 @@
             <!-- رسالة / دعاء علوي -->
             <div class="header-card">
                 <div class="salah">صَلِّ عَلَى مُحَمَّدٍﷺ</div>
-                <p>منصة تعليمية تهدف لتبسيط العلوم وتقديم محتوى أكاديمي متميز.</p>
+                <p>دعواتكم بعمرةٍ مع من نحب.. فبها ننجو ❤️</p>
+                <div class="challenge-note">
+                    <i class="fas fa-lightbulb"></i>
+                    <strong>سؤال:</strong> كيف وضعت الصورة في السؤال 27 في امتحان زولوجي 1 بدون وجود ملف للصورة؟ 😉
+                </div>
             </div>
 
-            <!-- شبكة البطاقات (2 في الصف) -->
-            <div class="cards-grid">
+            <!-- أدوات البحث والفلترة -->
+            <div class="controls">
+                <input type="text" id="searchInput" placeholder="ابحث عن اسم المادة (مثال: كيمياء، زولوجي)...">
                 
-                <!-- بطاقة الامتحانات -->
-                <a href="#" class="card exam-card">
-                    <i class="fas fa-laptop-code card-icon"></i>
-                    <h2>الامتحانات</h2>
-                </a>
-
-                <!-- بطاقة تليجرام -->
-                <a href="#" class="card telegram-card">
-                    <i class="fab fa-telegram-plane card-icon"></i>
-                    <h2>قناتنا</h2>
-                </a>
-
-                <!-- بطاقة المحاضرات -->
-                <a href="#" class="card youtube-card">
-                    <i class="fab fa-youtube card-icon"></i>
-                    <h2>المحاضرات</h2>
-                </a>
-
-                <!-- بطاقة المذكرات -->
-                <a href="#" class="card books-card">
-                    <i class="fas fa-book-open card-icon"></i>
-                    <h2>المذكرات</h2>
-                </a>
-
+                <div class="filters-row">
+                    <select id="facultyFilter">
+                        <option value="all">كل الكليات</option>
+                    </select>
+                    <select id="levelFilter">
+                        <option value="all">كل الفرق</option>
+                    </select>
+                </div>
             </div>
+
+            <!-- شبكة البطاقات للامتحانات -->
+            <div id="examsContainer" class="cards-grid"></div>
 
         </div>
 
     </div>
 
-    <!-- كود الجافاسكربت لتنظيم الحركات -->
+    <!-- كود الجافاسكربت -->
     <script>
+        // ==========================================
+        // 1. قاعدة البيانات الخاصة بالامتحانات (مستعادة كما كانت)
+        // ==========================================
+        const examsData = [
+            { name: "زولوجي 1 (تحدي برمجة)", faculty: "علوم", level: "الفرقة الأولى", file: "1SCI/ZOO.html" },
+            { name: "بوتاني 1", faculty: "علوم", level: "الفرقة الأولى", file: "1SCI/Botany1.html" },
+            { name: "كيمياء 1 (عام)", faculty: "علوم", level: "الفرقة الأولى", file: "1SCI/chemeic.html" },
+            { name: "كيمياء 1 (2021)", faculty: "علوم", level: "الفرقة الأولى", file: "1SCI/chemeic2021.html" },
+            { name: "كيمياء 1 (2023)", faculty: "علوم", level: "الفرقة الأولى", file: "1SCI/chemeic2023.html" },
+            { name: "English 1", faculty: "علوم", level: "الفرقة الأولى", file: "1SCI/english1.html" },
+            { name: "رياضيات 1 (2024)", faculty: "علوم", level: "الفرقة الأولى", file: "1SCI/math2024.html" },
+            { name: "زولوجي 1 (2024)", faculty: "علوم", level: "الفرقة الأولى", file: "1SCI/ZOO2024.html" },
+            { name: "زولوجي 1 (2023)", faculty: "علوم", level: "الفرقة الأولى", file: "1SCI/ZOO2023.html" },
+            { name: "زولوجي 1 (ترم ثاني)", faculty: "علوم", level: "الفرقة الأولى", file: "1SCI/ZOO2023SECONDTerm.html" }
+        ];
+
+        // ==========================================
+        // 2. منطق الأنيميشن (شاشة البداية)
+        // ==========================================
         document.addEventListener('DOMContentLoaded', () => {
             const brandText = document.getElementById('brand-text');
             const heartAnim = document.getElementById('heart-animation');
             const header = document.getElementById('animated-header');
             const mainContent = document.getElementById('main-content');
 
-            // 1. تظليل النص باللون الأصفر بعد نصف ثانية
+            setTimeout(() => { brandText.classList.add('highlighted'); }, 500);
+            setTimeout(() => { heartAnim.classList.add('show'); }, 1000);
             setTimeout(() => {
-                brandText.classList.add('highlighted');
-            }, 500);
-
-            // 2. إظهار رسمة القلب بعد ثانية
-            setTimeout(() => {
-                heartAnim.classList.add('show');
-            }, 1000);
-
-            // 3. رفع العنوان للأعلى وإظهار المحتوى بعد اكتمال رسم القلب (3.5 ثواني)
-            setTimeout(() => {
-                header.classList.add('move-up'); // رفع العنوان وإخفاء القلب
-                mainContent.classList.add('visible'); // إظهار البطاقات
+                header.classList.add('move-up'); 
+                mainContent.classList.add('visible'); 
             }, 3500);
         });
+
+        // ==========================================
+        // 3. منطق البحث وعرض الامتحانات
+        // ==========================================
+        const container = document.getElementById('examsContainer');
+        const searchInput = document.getElementById('searchInput');
+        const facultyFilter = document.getElementById('facultyFilter');
+        const levelFilter = document.getElementById('levelFilter');
+
+        function normalizeArabic(text) {
+            return text.replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
+        }
+
+        function populateFilters() {
+            const faculties = [...new Set(examsData.map(item => item.faculty))];
+            faculties.forEach(fac => {
+                const option = document.createElement('option');
+                option.value = fac; option.textContent = fac;
+                facultyFilter.appendChild(option);
+            });
+
+            const levels = [...new Set(examsData.map(item => item.level))];
+            levels.sort();
+            levels.forEach(lvl => {
+                const option = document.createElement('option');
+                option.value = lvl; option.textContent = lvl;
+                levelFilter.appendChild(option);
+            });
+        }
+
+        function displayExams(data) {
+            container.innerHTML = '';
+
+            if (data.length === 0) {
+                container.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 10px; color: var(--primary-accent);"></i>
+                        <p>لا توجد امتحانات تطابق بحثك</p>
+                    </div>`;
+                return;
+            }
+
+            data.forEach(exam => {
+                const card = document.createElement('a');
+                card.className = 'card exam-card';
+                card.href = exam.file; // استعادة الرابط الخاص بكل امتحان
+                card.target = "_blank"; // لفتح الامتحان في صفحة جديدة
+                
+                // تحديد أيقونة بناء على نوع المادة
+                let iconClass = 'fa-file-lines';
+                if(exam.name.includes('كيمياء')) iconClass = 'fa-flask';
+                if(exam.name.includes('زولوجي') || exam.name.includes('بوتاني')) iconClass = 'fa-leaf';
+                if(exam.name.includes('رياضيات')) iconClass = 'fa-calculator';
+                if(exam.name.includes('English')) iconClass = 'fa-language';
+
+                // محتوى الكارت
+                card.innerHTML = `
+                    <i class="fas ${iconClass} card-icon"></i>
+                    <h2>${exam.name}</h2>
+                    <div class="badges">
+                        <span>${exam.faculty}</span> - <span>${exam.level.replace('الفرقة ', '')}</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterData() {
+            const searchText = normalizeArabic(searchInput.value.toLowerCase());
+            const selectedFaculty = facultyFilter.value;
+            const selectedLevel = levelFilter.value;
+
+            const filtered = examsData.filter(exam => {
+                const normalizedName = normalizeArabic(exam.name.toLowerCase());
+                const matchName = normalizedName.includes(searchText);
+                const matchFaculty = selectedFaculty === 'all' || exam.faculty === selectedFaculty;
+                const matchLevel = selectedLevel === 'all' || exam.level === selectedLevel;
+                return matchName && matchFaculty && matchLevel;
+            });
+
+            displayExams(filtered);
+        }
+
+        searchInput.addEventListener('input', filterData);
+        facultyFilter.addEventListener('change', filterData);
+        levelFilter.addEventListener('change', filterData);
+
+        // تشغيل الوظائف عند بدء الصفحة
+        populateFilters();
+        displayExams(examsData);
+
     </script>
 </body>
 </html>

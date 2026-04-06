@@ -2,8 +2,11 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=400">
     <title>ZOO</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,348 +32,341 @@
             
             --neu-blur: 12px;
             --neu-distance: 6px;
-            --neu-radius: 15px;
+            --neu-radius: 12px;
             --transition-speed: 0.3s;
             
-            --bg-color: #121518;
-            --page-color: #1e2229;
-            --text-color: #c9d1d9;
+            --bg-color: #f0f0f3; 
+            --page-color: #f0f0f3;
+            --text-color: #333333; 
             
-            --gold-color: #ffd700;
-            --gold-darker: #e6a72a;
-            --red-color: #ff7b72;
-            --blue-color: #58a6ff;
-            --green-color: #56d364;
-            --purple-color: #bc8cff;
+            /* تم تغيير الألوان الصفراء إلى درجات الأزرق الملكي الاحترافي */
+            --theme-color: #333333;  /* الأزرق الأساسي بدلاً من الذهبي */
+            --theme-dark: #2548a1;   /* أزرق غامق للحدود والعناوين */
             
-            --light-shadow-color: rgba(43, 49, 58, 0.9);
-            --dark-shadow-color: #0b0d10;
+            --red-color: #ff4757;
+            --blue-color: #1e90ff;
+            --green-color: #27ae60; 
+            --purple-color: #9b59b6;
+            
+            --light-shadow-color: #fffff1;
+            --dark-shadow-color: #d1d9e6;
         }
+
+        * { font-family: var(--font-main) !important; }
+        .quran-verse { font-family: var(--font-quran) !important; }
+        .signature-font { font-family: var(--font-signature) !important; }
+        .title-font { font-family: var(--font-title) !important; }
 
         html { scroll-behavior: smooth; }
+        
         body { 
             background-color: var(--bg-color); 
-            background-image: radial-gradient(circle, #2a303a, #121518);
-            margin: 0; padding: 20px; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; min-height: 100vh; 
-            font-family: var(--font-main); 
-        }
-        
-        h1, h2, h3, p, div, span, input { color: var(--text-color); }
-        
-        button { 
-            cursor: pointer; 
-            font-family: var(--font-main);
-            border: none;
-            outline: none;
-            color: var(--text-color);
-            background-color: var(--page-color);
+            margin: 0 auto; 
+            display: flex; flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            min-height: 100vh; 
+            width: 400px; 
+            color: var(--text-color); 
+            overflow-x: hidden; 
+            padding: 40px 0; 
+            box-sizing: border-box;
         }
 
+        /* تنسيق المعادلات باللون الأخضر كما طلبت سابقاً */
         mjx-container, .MathJax { 
-            color: var(--gold-color) !important;
-            background-color: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 215, 0, 0.2);
+            color: #ff0000 !important;
+            background-color: #333333; 
+            border: 1px solid rgba(39, 174, 96, 0.2); 
             border-radius: 6px;
-            padding: 2px 6px;
-            margin: 0 4px;
-            direction: ltr !important;        
-            unicode-bidi: isolate !important; 
-            display: inline-block !important; 
-            pointer-events: none !important;
-            user-select: none !important;
+            padding: 2px 6px; margin: 0 2px; direction: ltr !important;        
+            unicode-bidi: isolate !important; display: inline-block !important; 
+            pointer-events: none !important; user-select: none !important;
+            font-family: inherit !important;
+            font-weight: bold;
         }
         
         .neu-card { 
             background-color: var(--page-color); border-radius: var(--neu-radius); 
-            padding: 25px 35px; 
+            padding: 20px; 
             box-shadow: var(--neu-distance) var(--neu-distance) var(--neu-blur) var(--dark-shadow-color), calc(-1 * var(--neu-distance)) calc(-1 * var(--neu-distance)) var(--neu-blur) var(--light-shadow-color); 
-            transition: all var(--transition-speed) ease; position: relative;
         }
 
-        .screen { width: 100%; max-width: 800px; }
+        .screen { 
+            width: 370px !important; 
+            margin: 10px 0 !important; 
+        }
         
         #top-banner {
-            position: fixed; top: 0; left: 50%; transform: translateX(-50%);
-            background-color: var(--page-color); padding: 5px 30px;
-            border-bottom-left-radius: var(--neu-radius); border-bottom-right-radius: var(--neu-radius);
-            font-family: var(--font-quran); font-size: 1.2em; color: var(--gold-darker);
-            box-shadow: 0px 4px 10px var(--dark-shadow-color); z-index: 1001;
+            background-color: var(--page-color); padding: 10px 25px; 
+            border-radius: var(--neu-radius);
+            font-size: 1.1em; color: var(--theme-dark); /* تغيير اللون هنا */
+            box-shadow: var(--neu-distance) var(--neu-distance) var(--neu-blur) var(--dark-shadow-color), calc(-1 * var(--neu-distance)) calc(-1 * var(--neu-distance)) var(--neu-blur) var(--light-shadow-color);
+            margin-bottom: 10px !important; 
+            text-align: center; font-weight: bold;
+            width: 370px; box-sizing: border-box;
         }
         
+        #bottom-bar {
+            width: 370px; 
+            margin-top: 10px !important; 
+            display: flex; justify-content: space-between; align-items: center; gap: 10px;
+        }
+
+        .problem-btn {
+            background: var(--page-color); color: var(--red-color); 
+            border-radius: 10px; 
+            padding: 8px 12px; font-size: 0.85em; font-weight: bold; border: none; outline: none;
+            box-shadow: 4px 4px 8px var(--dark-shadow-color), -4px -4px 8px var(--light-shadow-color);
+            transition: 0.2s;
+        }
+        .problem-btn:active { box-shadow: inset 2px 2px 5px var(--dark-shadow-color); }
+
         #signature {
-            position: fixed; bottom: 20px; right: 20px; padding: 10px;
-            cursor: pointer; z-index: 1001; text-align: center;
-            background: linear-gradient(135deg, #000, #4d4d4d);
-            border: 1px solid var(--gold-color);
-        }
-        #signature-name { font-family: var(--font-signature); font-size: 1.2em; display: block; }
-        #signature-title { font-size: 0.8em; opacity: 0.8; display: block; }
-        #palestine-flag {
-            width: 100%; height: 5px; display: block; margin-top: 8px;
-            background: linear-gradient(90deg, #000 25%, #fff 25%, #fff 50%, #009639 50%, #009639 75%, #d10a10 75%);
-            animation: color-flow 4s linear infinite;
-        }
-        @keyframes color-flow {
-            0% { filter: hue-rotate(0deg) saturate(1); }
-            50% { filter: hue-rotate(90deg) saturate(2); }
-            100% { filter: hue-rotate(0deg) saturate(1); }
-        }
-
-        #login-screen { padding-top: 50px; text-align: center; }
-        #login-header-text { font-family: var(--font-title); font-size: 2.5em; color: var(--gold-darker); margin-bottom: 20px; }
-        #login-image-container { margin-bottom: 10px; }
-        #login-image { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--gold-darker); box-shadow: 0 0 15px var(--gold-color); object-fit: cover; background: #fff; }
-        
-        .input-group { margin-bottom: 20px; position: relative; }
-        .input-field { width: 80%; padding: 12px 20px; background: var(--bg-color); border: none; border-radius: 50px; text-align: center; color: var(--text-color); font-size: 1.1em; box-shadow: inset 4px 4px 8px var(--dark-shadow-color), inset -4px -4px 8px var(--light-shadow-color); animation: pulse-border 5s infinite; }
-        
-        .action-btn, #login-btn, #restart-btn, #review-mistakes-btn, #back-to-results-btn, #how-to-btn {
-            background-color: var(--blue-color); 
-            color: #121518;
-            border-radius: 50px; 
-            padding: 12px 35px; 
-            font-size: 1.2em; 
-            font-weight: bold;
-            box-shadow: var(--neu-distance) var(--neu-distance) var(--neu-blur) var(--dark-shadow-color); 
-            transition: all 0.2s ease;
-            margin: 10px;
+            flex-grow: 1; padding: 8px; text-align: center; border: 1px solid var(--theme-color); cursor: pointer; position: relative; overflow: hidden;
+            border-radius: 10px; 
+            background: var(--page-color);
+            box-shadow: 4px 4px 8px var(--dark-shadow-color), -4px -4px 8px var(--light-shadow-color);
         }
         
-        #how-to-btn {
-            background-color: var(--page-color);
-            color: var(--text-color);
-            border: 1px solid var(--gold-color);
-            font-size: 1em;
-            padding: 8px 20px;
+        /* تأثير التوقيع - تركت اللون الذهبي هنا فقط لأنه يعطي فخامة للاسم، إذا أردت تغييره أخبرني */
+        .shiny-glass-text {
+            font-size: 1.1em; display: block; font-weight: bold;
+            background: linear-gradient(120deg, #8b6508 0%, #333333 40%, #ffffff 50%, #333333 60%, #8b6508 100%);
+            background-size: 200% auto; color: transparent;
+            -webkit-background-clip: text; background-clip: text;
+            animation: shineText 3s linear infinite; text-shadow: 0px 2px 4px rgba(0,0,0,0.1);
         }
-
-        #finish-btn, #restart-btn, #review-mistakes-btn { background-color: var(--purple-color); color: #121518; }
-        #prev-btn { background-color: var(--page-color); color: var(--text-color); border: 1px solid var(--blue-color); }
+        @keyframes shineText { to { background-position: 200% center; } }
         
-        .action-btn:hover, #login-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
-        .action-btn:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(1); background-color: var(--page-color); color: #555; }
+        #click-here-text { font-size: 0.6em; color: var(--blue-color); display: block; margin-center: 2px; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
 
-        #login-error { color: var(--red-color); margin-top: 15px; min-height: 20px; }
+        #loading-screen { text-align: center; padding: 30px 10px; }
+        .loader-container { width: 100%; background: #ddd; border-radius: 20px; margin-top: 20px; overflow: hidden; box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2); }
+        .loader-bar { height: 15px; background: linear-gradient(90deg, var(--blue-color), var(--green-color)); width: 0%; transition: width 0.1s linear; }
 
-        #quiz-container h2 { font-family: var(--font-title); font-size: 2em; text-align: center; color: var(--gold-darker); margin-top: 0; margin-bottom: 20px; }
+        #login-screen { padding-top: 15px; text-align: center; }
+        #login-image { width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--theme-color); box-shadow: 0 0 10px rgba(0,0,0,0.1); object-fit: cover; background: #fff; margin-bottom: 5px;}
+        .input-group { margin-bottom: 15px; position: relative; width: 100%; display: flex; justify-content: center;}
+        
+        .input-field { 
+            width: 90%; padding: 10px 20px; border-radius: 50px; text-align: center; color: var(--text-color); font-size: 1em; font-weight: bold;
+            background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8); box-shadow: 0 4px 15px rgba(0,0,0,0.05), inset 0 0 10px rgba(255,255,255,0.7); transition: all 0.3s ease;
+        }
+        .input-field:focus { background: rgba(255, 255, 255, 0.6); outline: none; box-shadow: 0 4px 15px rgba(0,0,0,0.1), inset 0 0 15px rgba(255,255,255,1); }
+        
+        .action-btn {
+            background-color: var(--page-color); color: var(--theme-color); border-radius: 50px; padding: 10px 20px; font-size: 1em; font-weight: bold; border: none; outline: none;
+            box-shadow: var(--neu-distance) var(--neu-distance) var(--neu-blur) var(--dark-shadow-color), calc(-1 * var(--neu-distance)) calc(-1 * var(--neu-distance)) var(--neu-blur) var(--light-shadow-color); 
+            transition: all 0.2s ease; margin: 5px auto; display: block;
+        }
+        .action-btn:active { box-shadow: inset 4px 4px 8px var(--dark-shadow-color), inset -4px -4px 8px var(--light-shadow-color); }
+        .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        #login-error { color: var(--red-color); margin-top: 10px; min-height: 18px; font-weight: bold; font-size: 0.9em;}
+
+        #quiz-container h2 { font-size: 1.5em; text-align: center; color: var(--theme-dark); margin-top: 0; margin-bottom: 15px; }
         
         #quran-verse-container { 
-            padding: 8px 15px;
-            margin-bottom: 10px; 
-            border-radius: var(--neu-radius); 
-            border: 1px solid var(--gold-darker);
+            padding: 6px 12px; margin-bottom: 10px; border-radius: var(--neu-radius); border: 1px solid var(--theme-color);
             box-shadow: inset 2px 2px 4px var(--dark-shadow-color), inset -2px -2px 4px var(--light-shadow-color); 
-            text-align: center; 
-            width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .quran-verse { 
-            font-family: var(--font-quran); 
-            font-size: 1.1em;
-            color: var(--gold-color); 
-            line-height: 1.4; 
-            margin: 0;
+            text-align: center; width: fit-content; margin-left: auto; margin-right: auto;
         }
         
-        #question-image-container { margin-bottom: 20px; text-align: center; }
-        #question-image { max-width: 200px; max-height: 200px; border-radius: 10px; box-shadow: var(--neu-distance) var(--neu-distance) var(--neu-blur) var(--dark-shadow-color); background: #fff; padding: 5px; }
-
-        /* ======================================================== */
-        /* START OF EDIT FOR HORIZONTAL QUESTION NAV */
-        /* ======================================================== */
         #question-nav { 
-            display: flex; 
-            justify-content: flex-start; /* Start from the left (or right due to RTL) */
-            gap: 10px; 
-            flex-wrap: nowrap; /* Prevent wrapping to new line */
-            overflow-x: auto;  /* Enable horizontal scrolling */
-            padding-bottom: 20px; 
-            margin-bottom: 20px; 
-            border-bottom: 1px dashed var(--gold-color); 
-            /* Optional: Hide scrollbar for cleaner look */
-            scrollbar-width: thin;
-            scrollbar-color: var(--gold-color) var(--page-color);
+            display: flex; justify-content: flex-start; gap: 8px; flex-wrap: nowrap; overflow-x: auto; 
+            padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px dashed var(--theme-color); 
+            scrollbar-width: none; 
         }
-        
-        /* For Webkit browsers (Chrome, Safari) scrollbar styling */
-        #question-nav::-webkit-scrollbar { height: 8px; }
-        #question-nav::-webkit-scrollbar-track { background: var(--page-color); border-radius: 4px; }
-        #question-nav::-webkit-scrollbar-thumb { background-color: var(--gold-color); border-radius: 4px; }
+        #question-nav::-webkit-scrollbar { display: none; }
 
         .nav-btn { 
-            /* Ensure buttons don't shrink */
-            flex: 0 0 auto; 
-            width: 40px; 
-            height: 40px; 
-            border-radius: 50%; 
-            font-size: 1.1em; 
-            font-weight: bold; 
-            background: var(--page-color); 
-            color: var(--text-color); 
-            box-shadow: var(--neu-distance) var(--neu-distance) var(--neu-blur) var(--dark-shadow-color), calc(-1 * var(--neu-distance)) calc(-1 * var(--neu-distance)) var(--neu-blur) var(--light-shadow-color); 
-            transition: all 0.2s ease; 
+            flex: 0 0 auto; width: 30px; height: 30px; border-radius: 50%; font-size: 0.9em; font-weight: bold; border:none;
+            background: var(--page-color); color: var(--text-color); 
+            box-shadow: 3px 3px 6px var(--dark-shadow-color), -3px -3px 6px var(--light-shadow-color); 
         }
-        /* ======================================================== */
-        /* END OF EDIT FOR HORIZONTAL QUESTION NAV */
-        /* ======================================================== */
+        .nav-btn.current { box-shadow: inset 2px 2px 5px var(--dark-shadow-color), inset -2px -2px 5px var(--light-shadow-color); color: var(--theme-color); border: 1px solid var(--theme-color); }
+        .nav-btn.answered { background-color: var(--theme-color); color: #fff; }
 
-        .nav-btn.current { box-shadow: inset 4px 4px 8px var(--dark-shadow-color), inset -4px -4px 8px var(--light-shadow-color); color: var(--blue-color); border: 1px solid var(--blue-color); }
-        .nav-btn.answered { background-color: var(--blue-color); color: #121518; }
+        #question-text { font-size: 1.1em; margin-bottom: 10px; text-align: left; direction: ltr; color: #2c3e50; font-weight: bold; min-height: 40px; }
 
-        #question-text { 
-            font-size: 1.5em; 
-            margin-bottom: 15px; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            text-align: left; 
-            direction: ltr;   
-            min-height: 60px; 
-            line-height: 1.6; 
-        }
-
-        #options-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin-bottom: 20px; direction: ltr; }
+        #options-container { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; direction: ltr; }
         
         .option-btn { 
-            background: var(--page-color); 
-            color: var(--text-color);
-            border: 2px solid transparent; 
-            border-radius: var(--neu-radius); 
-            padding: 15px; 
-            font-size: 1.1em; 
-            text-align: center; 
-            box-shadow: var(--neu-distance) var(--neu-distance) var(--neu-blur) var(--dark-shadow-color), calc(-1 * var(--neu-distance)) calc(-1 * var(--neu-distance)) var(--neu-blur) var(--light-shadow-color); 
-            transition: all 0.2s ease; 
+            background: var(--page-color); color: var(--text-color); border: 2px solid transparent; border-radius: var(--neu-radius); padding: 10px; font-size: 1em; text-align: left; 
+            box-shadow: 4px 4px 8px var(--dark-shadow-color), -4px -4px 8px var(--light-shadow-color); font-weight: bold; transition: 0.3s;
         }
         
-        .option-btn:hover { background: #262c36; }
-        .option-btn.selected { border-color: var(--gold-color); box-shadow: inset 3px 3px 6px var(--dark-shadow-color), inset -3px -3px 6px var(--light-shadow-color); background: #232830; }
-        
-        .bottom-nav-container { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
-        
-        #translate-btn-container { text-align: center; margin-bottom: 15px; }
-        #translate-btn { 
-            background: linear-gradient(135deg, #1e2229, #2b313a); 
-            color: var(--green-color); border: 1px solid var(--green-color); 
-            border-radius: 20px; padding: 6px 20px; 
-            font-size: 1em; 
-            box-shadow: 2px 2px 5px var(--dark-shadow-color);
-            transition: 0.3s;
+        .option-btn.correct { background-color: var(--green-color) !important; color: #fff !important; box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2) !important; border-color: transparent !important;}
+        .option-btn.wrong { background-color: var(--red-color) !important; color: #fff !important; box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2) !important; border-color: transparent !important;}
+        .option-btn:disabled { cursor: not-allowed; opacity: 0.8;}
+
+        #instant-explanation {
+            background: rgba(255,255,255,0.6); border: 1px solid var(--theme-color); border-radius: 10px; padding: 10px;
+            margin-bottom: 15px; direction: ltr; font-size: 0.9em; box-shadow: inset 2px 2px 5px rgba(0,0,0,0.05);
+            display: none; transform: translateY(-10px); opacity: 0; transition: all 0.5s ease;
         }
-        #translate-btn:hover { background: var(--green-color); color: #121518; }
+        #instant-explanation.show { transform: translateY(0); opacity: 1; display: block; }
         
-        #translation-box {
-            background-color: #262c36;
-            border-right: 3px solid var(--green-color);
-            border-radius: 8px;
-            padding: 10px;
-            margin: 5px auto 20px auto;
-            text-align: right; 
-            direction: rtl;    
-            width: 85%;
-            font-size: 1.1em;
-            color: #e6e6e6;
-            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.5);
-            display: none; 
+        .bottom-nav-container { display: flex; justify-content: space-between; margin-top: 15px; }
+        .bottom-nav-container .action-btn { margin: 0; padding: 8px 15px; font-size: 0.9em; }
+
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(5px);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 9999; opacity: 0; pointer-events: none; transition: 0.3s;
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        
+        .modal-box {
+            background: var(--page-color); width: 340px; padding: 20px; border-radius: 20px;
+            box-shadow: 10px 10px 30px rgba(0,0,0,0.3), -10px -10px 30px rgba(255,255,255,0.8), inset 2px 2px 5px rgba(255,255,255,0.5);
+            transform: scale(0.7) translateY(50px) rotateX(-20deg); opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+        }
+        .modal-overlay.active .modal-box { transform: scale(1) translateY(0) rotateX(0); opacity: 1; }
+        
+        .modal-title { font-family: var(--font-title); color: var(--theme-dark); margin-bottom: 15px; font-size: 1.5em;}
+        .modal-textarea { width: 100%; height: 80px; border-radius: 10px; border: none; padding: 10px; margin-bottom: 15px; box-shadow: inset 3px 3px 6px var(--dark-shadow-color), inset -3px -3px 6px var(--light-shadow-color); background: var(--bg-color); outline: none; resize: none; font-family: inherit;}
+        
+        .modal-btn-group { display: flex; gap: 10px; justify-content: center; }
+        .modal-btn { flex: 1; padding: 8px; border-radius: 15px; border: none; font-weight: bold; box-shadow: 3px 3px 6px var(--dark-shadow-color), -3px -3px 6px var(--light-shadow-color); background: var(--page-color); transition: 0.2s;}
+        .modal-btn:active { box-shadow: inset 2px 2px 4px var(--dark-shadow-color); }
+        .btn-confirm { color: var(--green-color); }
+        .btn-cancel { color: var(--red-color); }
+
+        .selectable-text {
+            background: #fff; padding: 10px; border-radius: 10px; font-weight: bold; color: var(--blue-color);
+            user-select: all;
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.1); margin-bottom: 15px; border: 1px dashed var(--blue-color);
         }
 
-        .review-card { margin-bottom: 30px; padding: 20px; border: 1px solid var(--gold-darker); border-radius: var(--neu-radius); text-align: left; direction: ltr; }
-        .review-card .option-btn.correct { background-color: var(--green-color); color: #121518; }
-        .review-card .option-btn.incorrect { background-color: var(--red-color); color: #121518; }
-        .review-card .option-btn { cursor: default; box-shadow: none; }
-
-        #results-container, #review-screen { text-align: center; }
         .hidden { display: none !important; }
-        
-        #view-controls { position: absolute; top: 15px; left: 15px; display: flex; gap: 8px; z-index: 10; }
-        .control-btn { 
-            width: 35px; height: 35px; border-radius: 50%; border: none; 
-            font-size: 1.2em; background: var(--page-color); color: var(--text-color);
-            box-shadow: 3px 3px 6px var(--dark-shadow-color), -3px -3px 6px var(--light-shadow-color); 
-            transition: all 0.1s ease; 
-        }
-        .control-btn:active { box-shadow: inset 2px 2px 4px var(--dark-shadow-color); }
 
-    </style>
+</style>
 </head>
 <body>
+
     <div id="top-banner">صَلِّ ‌عَلَى ‌مُحَمَّدٍﷺ</div>
-    <div id="signature" class="neu-card">
-        <span id="signature-name">حسن دياب | CEH Student</span>
-        <span id="signature-title">لا تنس الدعاء له</span>
-        <div id="palestine-flag"></div>
+
+    <!-- شاشة التحميل الوهمية لتجهيز المكاتب -->
+    <div id="loading-screen" class="screen neu-card hidden">
+        <h2 class="title-font" style="color: var(--blue-color);">جاري تجهيز بيئة الاختبار...</h2>
+        <p>يتم الآن تحميل المعادلات والخطوط لضمان السرعة</p>
+        <div class="loader-container">
+            <div id="loader-bar" class="loader-bar"></div>
+        </div>
     </div>
 
+    <!-- شاشة الدخول -->
     <div id="login-screen" class="screen neu-card">
-        <div id="login-header-text">اللهم الجنة</div>
+        <div id="login-header-text" class="title-font">اللهم الجنة</div>
         <div id="login-image-container">
-            <img id="login-image" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkQ3MDAiIHN0cm9rZS13aWR0aD0iMiI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMTAiIGZpbGw9IiNGRkQ3MDAiIC8+CiAgPGVsbGlwc2UgY3g9IjUwIiBjeT0iNTAiIHJ4PSI0MCIgcnk9IjE1IiB0cmFuc2Zvcm09InJvdGF0ZSgwIDUwIDUwKSIgLz4KICA8ZWxsaXBzZSBjeD0iNTAiIGN5PSI1MCIgcng9IjQwIiByeT0iMTUiIHRyYW5zZm9ybT0icm90YXRlKDYwIDUwIDUwKSIgLz4KICA8ZWxsaXBzZSBjeD0iNTAiIGN5PSI1MCIgcng9IjQwIiByeT0iMTUiIHRyYW5zZm9ybT0icm90YXRlKDEyMCA1MCA1MCkiIC8+Cjwvc3ZnPg==" alt="شعار الدخول">
+            <img id="login-image" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkQ3MDAiIHN0cm9rZS13aWR0aD0iMiI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMTAiIGZpbGw9IiNGRkQ3MDAiIC8+CiAgPGVsbGlwc2UgY3g9IjUwIiBjeT0iNTAiIHJ4PSI0MCIgcnk9IjE1IiB0cmFuc2Zvcm09InJvdGF0ZSgwIDUwIDUwKSIgLz4KICA8ZWxsaXBzZSBjeD0iNTAiIGN5PSI1MCIgcng9IjQwIiByeT0iMTUiIHRyYW5zZm9ybT0icm90YXRlKDYwIDUwIDUwKSIgLz4KICA8ZWxsaXBzZSBjeD0iNTAiIGN5PSI1MCIgcng9IjQwIiByeT0iMTUiIHRyYW5zZm9ybT0icm90YXRlKDEyMCA1MCA1MCkiIC8+Cjwvc3ZnPg==">
         </div>
-        <div id="login-subheader-text">"وَقُل رَّبِّ زِدْنِي عِلْمًا"</div>
         <form id="login-form">
-            <div class="input-group"><input type="text" id="username" class="input-field" required></div>
-            <div class="input-group"><input type="password" id="password" class="input-field" required></div>
-            <button type="submit" id="login-btn">دخول</button>
+            <div class="input-group">
+                <input type="text" id="username" class="input-field" placeholder="اكتب اسمك هنا..." required autocomplete="off">
+            </div>
+            <button type="submit" class="action-btn" style="width: 80%;"><i class="fas fa-sign-in-alt"></i> دخول</button>
             <p id="login-error"></p>
         </form>
-        <button id="how-to-btn">كيفية الدخول؟</button>
+        <button id="how-to-btn" class="action-btn" style="background:transparent; box-shadow:none; text-decoration:underline;"><i class="fas fa-info-circle"></i> كيف أبدأ؟</button>
     </div>
 
+    <!-- شاشة الامتحان -->
     <div id="quiz-wrapper" class="screen neu-card hidden">
-        <div id="view-controls">
-            <button class="control-btn" id="font-increase" title="تكبير الخط">+</button>
-            <button class="control-btn" id="font-decrease" title="تصغير الخط">-</button>
-            <button class="control-btn" id="image-increase" title="تكبير الصورة">🖼+</button>
-            <button class="control-btn" id="image-decrease" title="تصغير الصورة">🖼-</button>
-        </div>
         <div id="quiz-container">
-            <h2 id="quiz-title"></h2>
-            
+            <h2 id="quiz-title" class="title-font"></h2>
             <div id="quran-verse-container"><p id="quran-verse-text" class="quran-verse"></p></div>
-            
-            <div id="translate-btn-container">
-                <button id="translate-btn">الترجمة العربية</button>
-            </div>
-
-            <div id="question-image-container" class="hidden"><img id="question-image" src="" alt="صورة السؤال"></div>
-            
             <div id="question-nav"></div>
-            <div id="question-text"></div>
             
-            <div id="translation-box"></div>
-
+            <div id="question-text"></div>
             <div id="options-container"></div>
+            
+            <!-- صندوق التصحيح الفوري -->
+            <div id="instant-explanation"></div>
+
             <div class="bottom-nav-container">
-                <button id="prev-btn" class="action-btn">Previous</button>
-                <button id="finish-btn" class="action-btn hidden">Finish Exam</button>
-                <button id="next-btn" class="action-btn">Next</button>
+                <button id="prev-btn" class="action-btn"><i class="fas fa-arrow-left"></i> السابق</button>
+                <button id="finish-btn" class="action-btn hidden"><i class="fas fa-check-circle"></i> إنهاء</button>
+                <button id="next-btn" class="action-btn">التالي <i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
         <div id="results-container" class="hidden">
-            <h2>Final Result</h2>
-            <p id="score-text"></p>
-            <button id="review-mistakes-btn" class="action-btn hidden">Review Mistakes</button>
-            <button id="restart-btn" class="action-btn">Restart Exam</button>
-        </div>
-        <div id="review-screen" class="hidden">
-            <h2>Review Mistakes</h2>
-            <div id="review-questions-container"></div>
-            <button id="back-to-results-btn" class="action-btn">Back to Results</button>
+            <h2 class="title-font">النتيجة النهائية</h2>
+            <p id="score-text" class="fs-4 fw-bold"></p>
+            <button id="restart-btn" class="action-btn mt-3"><i class="fas fa-redo"></i> إنهاء ومغادرة</button>
         </div>
     </div>
+
+    <!-- الشريط السفلي (التوقيع + زر المشكلة) -->
+    <div id="bottom-bar">
+        <button class="problem-btn" onclick="openModal('problem-overlay')">
+            <i class="fas fa-exclamation-triangle"></i> هل هناك مشكلة؟
+        </button>
+        
+        <div id="signature" onclick="openModal('telegram-overlay')">
+            <span id="signature-name" class="signature-font shiny-glass-text">حسن دياب</span>
+            <span id="click-here-text">⟵ اضغط هنا للتواصل ⟶</span>
+            <div id="palestine-flag"></div>
+        </div>
+    </div>
+
+    <!-- ================= Modals 3D ================= -->
+    
+    <!-- نافذة الإبلاغ عن مشكلة -->
+    <div id="problem-overlay" class="modal-overlay">
+        <div class="modal-box">
+            <h3 class="modal-title"><i class="fas fa-bug"></i> الإبلاغ عن مشكلة</h3>
+            <p style="font-size: 0.9em; margin-bottom: 10px;">سيتم إرسال رسالتك مباشرة للمطور.</p>
+            <textarea id="problem-text" class="modal-textarea" placeholder="اكتب مشكلتك هنا بوضوح..."></textarea>
+            <div class="modal-btn-group">
+                <button class="modal-btn btn-confirm" onclick="sendProblem()"><i class="fas fa-paper-plane"></i> إرسال</button>
+                <button class="modal-btn btn-cancel" onclick="closeModal('problem-overlay')"><i class="fas fa-times"></i> إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة التليجرام -->
+    <div id="telegram-overlay" class="modal-overlay">
+        <div class="modal-box">
+            <h3 class="modal-title"><i class="fab fa-telegram"></i> التواصل عبر تليجرام</h3>
+            <p style="font-size: 0.9em;">هل تريد الانتقال إلى قناة/حساب التليجرام الخاص بي؟</p>
+            <p style="font-size: 0.8em; color: #666;">يمكنك نسخ المعرف أدناه:</p>
+            <div class="selectable-text">SCI_students</div>
+            <div class="modal-btn-group">
+                <button class="modal-btn btn-confirm" onclick="window.open('https://t.me/https://t.me/SCI_students', '_blank')"><i class="fas fa-external-link-alt"></i> انتقال للتطبيق</button>
+                <button class="modal-btn btn-cancel" onclick="closeModal('telegram-overlay')"><i class="fas fa-times"></i> إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة التنبيهات (مثل كيف أبدأ) -->
+    <div id="alert-overlay" class="modal-overlay">
+        <div class="modal-box">
+            <h3 class="modal-title" id="alert-title"><i class="fas fa-info-circle"></i> تنبيه</h3>
+            <p id="alert-message" style="line-height: 1.6;"></p>
+            <button class="modal-btn btn-confirm" style="width: 100%; margin-top: 10px;" onclick="closeModal('alert-overlay')">حسناً فهمت</button>
+        </div>
+    </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     // ============================================
-    // 🚨 ADD YOUR TELEGRAM INFO HERE
+    // 🚨 Telegram Config
     // ============================================
     const TELEGRAM_BOT_TOKEN = "8353914536:AAGkb_DgupPlvTNPq8JQS_pYxxxK-Gg7k24"; 
     const TELEGRAM_CHAT_ID = "1002158777";      
     // ============================================
 
-    const CORRECT_PASSWORD = "HA66";
-
-const questions = [
+    const questions = [
     // ============================================================
     // Q1: Choose the best single correct answer (1-60)
     // ============================================================
@@ -1321,73 +1317,99 @@ const questions = [
     "38. ﴿ قُلْنَا اهْبِطُوا مِنْهَا جَمِيعًا ۖ فَإِمَّا يَأْتِيَنَّكُم مِّنِّي هُدًى فَمَن تَبِعَ هُدَايَ فَلَا خَوْفٌ عَلَيْهِمْ وَلَا هُمْ يَحْزَنُونَ ﴾",
     "39. ﴿ وَالَّذِينَ كَفَرُوا وَكَذَّبُوا بِآيَاتِنَا أُولَٰئِكَ أَصْحَابُ النَّارِ ۖ هُمْ فِيهَا خَالِدُونَ ﴾",
     "40. ﴿ يَا بَنِي إِسْرَائِيلَ اذْكُرُوا نِعْمَتِيَ الَّتِي أَنْعَمْتُ عَلَيْكُمْ وَأَوْفُوا بِعَهْدِي أُوفِ بِعَهْدِكُمْ وَإِيَّايَ فَارْهَبُونِ ﴾"
-];  
-    const placeholderTexts = ["ادخل اسمك أيها الطالب...", "توكل على الله وابدأ", "وضعك الله هنا لتطلب العلمَ", "فأجتهد في طلب العلم..."];
-    
-    let currentQuestionIndex = 0, userAnswers = [], currentFontSize = 16, currentImageSize = 80, placeholderInterval;
-    let currentStudentName = "";
+];    
+    let currentQuestionIndex = 0, userAnswers = [];
+    let currentStudentName = "طالب غير مسجل"; // قيمة افتراضية
 
-    const screens = { login: document.getElementById('login-screen'), quiz: document.getElementById('quiz-wrapper') };
-    const loginForm = document.getElementById('login-form'), loginError = document.getElementById('login-error');
-    const usernameInput = document.getElementById('username'), passwordInput = document.getElementById('password');
-    const quizContainer = document.getElementById('quiz-container'), resultsContainer = document.getElementById('results-container'), reviewScreen = document.getElementById('review-screen');
-    const quizTitle = document.getElementById('quiz-title'), quranVerseText = document.getElementById('quran-verse-text');
-    const questionNav = document.getElementById('question-nav'), questionText = document.getElementById('question-text'), optionsContainer = document.getElementById('options-container');
-    const questionImageContainer = document.getElementById('question-image-container'), questionImage = document.getElementById('question-image');
-    const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn');
-    const finishBtn = document.getElementById('finish-btn'), restartBtn = document.getElementById('restart-btn');
-    const reviewMistakesBtn = document.getElementById('review-mistakes-btn'), backToResultsBtn = document.getElementById('back-to-results-btn');
-    const fontIncreaseBtn = document.getElementById('font-increase'), fontDecreaseBtn = document.getElementById('font-decrease');
-    const imageIncreaseBtn = document.getElementById('image-increase'), imageDecreaseBtn = document.getElementById('image-decrease');
-    const scoreText = document.getElementById('score-text');
-    const signature = document.getElementById('signature'), howToBtn = document.getElementById('how-to-btn');
-    const translateBtn = document.getElementById('translate-btn');
-    const translationBox = document.getElementById('translation-box');
+    const screens = { 
+        login: document.getElementById('login-screen'), 
+        load: document.getElementById('loading-screen'),
+        quiz: document.getElementById('quiz-wrapper') 
+    };
 
-    function showScreen(screen) {
-        quizContainer.classList.add('hidden');
-        resultsContainer.classList.add('hidden');
-        reviewScreen.classList.add('hidden');
-        if (screen) screen.classList.remove('hidden');
+    // Modal Logic
+    window.openModal = function(id) { document.getElementById(id).classList.add('active'); }
+    window.closeModal = function(id) { document.getElementById(id).classList.remove('active'); }
+
+    window.showAlert = function(title, message) {
+        document.getElementById('alert-title').innerHTML = title;
+        document.getElementById('alert-message').innerHTML = message;
+        openModal('alert-overlay');
     }
 
     async function sendToTelegram(message) {
         if(TELEGRAM_BOT_TOKEN === "YOUR_TOKEN_HERE") return; 
         const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-        try {
-            await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: TELEGRAM_CHAT_ID,
-                    text: message,
-                    parse_mode: "HTML"
-                })
-            });
-        } catch (error) {
-            console.error("Telegram Error:", error);
-        }
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: message, parse_mode: "HTML" })
+        }).catch(err => console.log(err));
     }
 
-    function startQuiz(username) {
+    window.sendProblem = function() {
+        const text = document.getElementById('problem-text').value.trim();
+        if(!text) { showAlert('خطأ', 'الرجاء كتابة المشكلة أولاً.'); return; }
+        
+        const msg = `⚠️ <b>تقرير مشكلة جديدة</b>\n\n👤 الطالب: ${currentStudentName}\n📝 المشكلة: ${text}`;
+        sendToTelegram(msg);
+        
+        document.getElementById('problem-text').value = '';
+        closeModal('problem-overlay');
+        showAlert('<i class="fas fa-check-circle" style="color:green;"></i> تم الإرسال', 'تم إرسال رسالتك للمطور بنجاح. شكراً لك!');
+    }
+
+    // Login & Loading Logic
+    document.getElementById('login-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = document.getElementById('username').value.trim();
+        if (!username) return;
+
         currentStudentName = username;
-        userAnswers = new Array(questions.length).fill(null);
+        sendToTelegram(`🚀 <b>طالب جديد بدأ ZOO</b>\n\n👤 الاسم: ${username}\n🕒 الوقت: ${new Date().toLocaleTimeString('ar-EG')}`);
+        
         screens.login.classList.add('hidden');
+        screens.load.classList.remove('hidden');
+
+        // Progress Bar Animation
+        let progress = 0;
+        const bar = document.getElementById('loader-bar');
+        const interval = setInterval(() => {
+            progress += 5;
+            bar.style.width = progress + '%';
+            if(progress >= 100) {
+                clearInterval(interval);
+                // تجهيز MathJax
+                if (window.MathJax?.typesetPromise) {
+                    MathJax.typesetPromise().then(() => {
+                        setTimeout(() => startQuiz(username), 500);
+                    });
+                } else {
+                    setTimeout(() => startQuiz(username), 500);
+                }
+            }
+        }, 100); // إجمالي التحميل حوالي 2 ثانية
+    });
+
+    function startQuiz(username) {
+        userAnswers = new Array(questions.length).fill(null);
+        screens.load.classList.add('hidden');
         screens.quiz.classList.remove('hidden');
-        showScreen(quizContainer);
-        quizTitle.textContent = `ZOO1 Exam for : ${username}`;
+        document.getElementById('quiz-container').classList.remove('hidden');
+        document.getElementById('quiz-title').textContent = username;
         setupNav();
         jumpToQuestion(0);
     }
 
     function setupNav() {
-        questionNav.innerHTML = '';
+        const nav = document.getElementById('question-nav');
+        nav.innerHTML = '';
         questions.forEach((_, i) => {
             const btn = document.createElement('button');
             btn.textContent = i + 1;
             btn.classList.add('nav-btn');
-            btn.addEventListener('click', () => jumpToQuestion(i));
-            questionNav.appendChild(btn);
+            btn.onclick = () => jumpToQuestion(i);
+            nav.appendChild(btn);
         });
     }
 
@@ -1398,48 +1420,67 @@ const questions = [
     }
 
     function showQuestion() {
-        optionsContainer.innerHTML = '';
-        translationBox.style.display = 'none'; 
-        
         const q = questions[currentQuestionIndex];
-        quranVerseText.textContent = quranVerses[currentQuestionIndex % quranVerses.length];
+        document.getElementById('quran-verse-text').textContent = quranVerses[currentQuestionIndex % quranVerses.length];
+        document.getElementById('question-text').innerHTML = q.question;
         
-        questionText.innerHTML = q.question;
-        translationBox.innerHTML = `<strong>الترجمة:</strong> ${q.arabicText}`;
+        const expDiv = document.getElementById('instant-explanation');
+        expDiv.classList.remove('show'); // إخفاء الشرح عند فتح سؤال جديد
         
-        if (q.image && q.image !== "0") {
-            questionImage.src = q.image;
-            questionImageContainer.classList.remove('hidden');
-        } else {
-            questionImageContainer.classList.add('hidden');
-        }
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
 
-        translateBtn.onclick = () => {
-            if(translationBox.style.display === 'none' || translationBox.style.display === '') {
-                translationBox.style.display = 'block';
-            } else {
-                translationBox.style.display = 'none';
-            }
-        };
+        const hasAnswered = userAnswers[currentQuestionIndex] !== null;
 
         q.options.forEach(opt => {
             const btn = document.createElement('button');
             btn.innerHTML = opt;
             btn.classList.add('option-btn');
-            if (userAnswers[currentQuestionIndex] === opt) btn.classList.add('selected');
-            btn.addEventListener('click', () => selectAnswer(btn, opt));
+            
+            if (hasAnswered) {
+                btn.disabled = true;
+                // إظهار التصحيح إذا كان مجاباً مسبقاً
+                if (opt === q.correctAnswer) btn.classList.add('correct');
+                else if (opt === userAnswers[currentQuestionIndex]) btn.classList.add('wrong');
+            } else {
+                btn.onclick = () => selectAnswer(btn, opt);
+            }
             optionsContainer.appendChild(btn);
         });
+
+        if (hasAnswered) showExplanation(q.explanation);
+
         updateNav();
         if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise();
     }
     
-    function selectAnswer(selectedButton, selectedAnswerText) {
-        userAnswers[currentQuestionIndex] = selectedAnswerText;
-        Array.from(optionsContainer.children).forEach(btn => btn.classList.remove('selected'));
-        selectedButton.classList.add('selected');
+    function selectAnswer(selectedBtn, selectedText) {
+        userAnswers[currentQuestionIndex] = selectedText;
+        const q = questions[currentQuestionIndex];
+        
+        // قفل كل الأزرار وتلوينها
+        Array.from(document.getElementById('options-container').children).forEach(btn => {
+            btn.disabled = true;
+            if (btn.innerHTML === q.correctAnswer) {
+                btn.classList.add('correct');
+            } else if (btn === selectedBtn) {
+                btn.classList.add('wrong');
+            }
+        });
+
+        showExplanation(q.explanation);
         updateNav();
-        if (userAnswers.every(a => a !== null)) finishBtn.classList.remove('hidden');
+
+        if (userAnswers.every(a => a !== null)) {
+            document.getElementById('finish-btn').classList.remove('hidden');
+        }
+    }
+
+    function showExplanation(htmlContent) {
+        const expDiv = document.getElementById('instant-explanation');
+        expDiv.innerHTML = htmlContent;
+        expDiv.classList.add('show');
+        if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise();
     }
 
     function updateNav() {
@@ -1447,114 +1488,34 @@ const questions = [
             btn.classList.remove('current', 'answered');
             if (i === currentQuestionIndex) btn.classList.add('current');
             if (userAnswers[i] !== null) btn.classList.add('answered');
-            // Auto scroll to current question in nav bar
-            if(i === currentQuestionIndex) {
-                 btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-            }
+            if(i === currentQuestionIndex) btn.scrollIntoView({ behavior: 'smooth', inline: 'center' });
         });
-        prevBtn.disabled = currentQuestionIndex === 0;
-        nextBtn.disabled = currentQuestionIndex === questions.length - 1;
-    }
-    
-    function showResults() {
-        showScreen(resultsContainer);
-        const correctCount = questions.reduce((acc, q, i) => acc + (q.correctAnswer === userAnswers[i] ? 1 : 0), 0);
-        scoreText.textContent = `You scored ${correctCount} out of ${questions.length}!`;
         
-        const msg = `🎓 <b>Student Finished ZOO1</b>\n\n👤 Name: ${currentStudentName}\n📊Score: ${correctCount} / ${questions.length}\n📅 Time: ${new Date().toLocaleTimeString('en-US')}`;
-        sendToTelegram(msg);
-
-        if (correctCount < questions.length) reviewMistakesBtn.classList.remove('hidden');
-        else reviewMistakesBtn.classList.add('hidden');
-    }
-
-    function populateReviewScreen() {
-        showScreen(reviewScreen);
-        const reviewContainer = document.getElementById('review-questions-container');
-        reviewContainer.innerHTML = '';
-        questions.forEach((q, i) => {
-            if (userAnswers[i] !== q.correctAnswer) {
-                const card = document.createElement('div');
-                card.className = 'review-card';
-                let optionsHTML = q.options.map(opt => {
-                    let cls = 'option-btn';
-                    if (opt === q.correctAnswer) cls += ' correct';
-                    if (opt === userAnswers[i]) cls += ' incorrect';
-                    return `<button class="${cls}" disabled>${opt}</button>`;
-                }).join('');
-                
-                card.innerHTML = `
-                    <p class="question-text" style="direction:ltr; text-align:left; font-weight:bold; margin-bottom:10px;">Q${i+1}: ${q.question}</p>
-                    <div class="options-container" style="direction:ltr;">${optionsHTML}</div>
-                    <div class="explanation" style="direction:ltr; text-align:left; margin-top:15px; padding:10px; background:var(--bg-color); border-radius:10px;">
-                        ${q.explanation}
-                    </div>`;
-                reviewContainer.appendChild(card);
-            }
-        });
-        if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise();
-    }
-
-    function updateFontSize(change) {
-        currentFontSize = Math.max(10, Math.min(24, currentFontSize + change));
-        screens.quiz.style.fontSize = `${currentFontSize}px`;
-    }
-    function updateImageSize(change) {
-        currentImageSize = Math.max(20, Math.min(100, currentImageSize + change));
-        questionImage.style.width = `${currentImageSize}%`;
-    }
-
-    function startPlaceholderAnimation() {
-        let i = 0;
-        placeholderInterval = setInterval(() => {
-            usernameInput.placeholder = placeholderTexts[i % placeholderTexts.length];
-            passwordInput.placeholder = "Password: HA66";
-            i++;
-        }, 3000);
+        document.getElementById('prev-btn').disabled = currentQuestionIndex === 0;
+        document.getElementById('next-btn').disabled = currentQuestionIndex === questions.length - 1;
     }
     
-    loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const username = usernameInput.value.trim();
-        const password = passwordInput.value;
-        if (!username) { loginError.textContent = "Please enter your name."; return; }
-        if (password === CORRECT_PASSWORD) {
-            clearInterval(placeholderInterval);
-            sendToTelegram(`🚀 <b>Student Login in ZOO1</b>\n\n👤 Name: ${username}\n🕒 Time: ${new Date().toLocaleTimeString('en-US')}`);
-            startQuiz(username);
-        }
-        else { loginError.textContent = "Incorrect Password."; }
-    });
-    
-    document.getElementById('login-image').onerror = () => document.getElementById('login-image-container').classList.add('hidden');
-
-    prevBtn.addEventListener('click', () => jumpToQuestion(currentQuestionIndex - 1));
-    nextBtn.addEventListener('click', () => jumpToQuestion(currentQuestionIndex + 1));
-    finishBtn.addEventListener('click', showResults);
-    restartBtn.addEventListener('click', () => {
-        screens.quiz.classList.add('hidden');
-        screens.login.classList.remove('hidden');
-        loginError.textContent = "";
-        passwordInput.value = "";
-        currentStudentName = "";
-        startPlaceholderAnimation();
-    });
-    reviewMistakesBtn.addEventListener('click', populateReviewScreen);
-    backToResultsBtn.addEventListener('click', () => showScreen(resultsContainer));
-    fontIncreaseBtn.addEventListener('click', () => updateFontSize(1));
-    fontDecreaseBtn.addEventListener('click', () => updateFontSize(-1));
-    imageIncreaseBtn.addEventListener('click', () => updateImageSize(5));
-    imageDecreaseBtn.addEventListener('click', () => updateImageSize(-5));
-    signature.addEventListener('click', () => {
-        if (confirm('Go to Telegram channel?')) {
-            window.open('https://t.me/your_telegram_username', '_blank');
-        }
-    });
-    howToBtn.addEventListener('click', () => {
-        alert("Welcome!\n1. Enter Name & Pass (HA66).\n2. Answer questions.\n3. Finish to see score.\n4. Review mistakes if any.");
+    document.getElementById('finish-btn').addEventListener('click', () => {
+        document.getElementById('quiz-container').classList.add('hidden');
+        document.getElementById('results-container').classList.remove('hidden');
+        
+        const correctCount = questions.reduce((acc, q, i) => acc + (q.correctAnswer === userAnswers[i] ? 1 : 0), 0);
+        document.getElementById('score-text').textContent = `أجبت ${correctCount} بشكل صحيح من أصل ${questions.length}!`;
+        
+        sendToTelegram(`🎓 <b>تم إنهاء المذاكرة</b>\n\n👤 الطالب: ${currentStudentName}\n📊 النتيجة: ${correctCount} / ${questions.length}`);
     });
 
-    startPlaceholderAnimation();
+    document.getElementById('restart-btn').addEventListener('click', () => {
+        location.reload(); // إعادة تحميل الصفحة للبدء من جديد بنظافة
+    });
+
+    document.getElementById('prev-btn').addEventListener('click', () => jumpToQuestion(currentQuestionIndex - 1));
+    document.getElementById('next-btn').addEventListener('click', () => jumpToQuestion(currentQuestionIndex + 1));
+
+    document.getElementById('how-to-btn').addEventListener('click', () => {
+        showAlert('<i class="fas fa-info-circle"></i> تعليمات', 'أدخل اسمك في الصندوق الزجاجي ثم اضغط دخول. بمجرد اختيارك للإجابة سيتم تصحيحها فوراً ليظهر الشرح، لضمان أقصى استفادة أثناء المذاكرة.');
+    });
+
 });
 </script>
 </body>

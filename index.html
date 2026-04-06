@@ -2,75 +2,70 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=500, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>آيات بينات - الامتحانات</title>
-
+    <meta name="viewport" content="width=400, user-scalable=no">
+    <title>آيات بينات</title>
+    
     <!-- الخطوط -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&family=Amiri:wght@700&family=Readex+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Amiri:wght@700&family=Readex+Pro:wght@400;700&display=swap" rel="stylesheet">
     <!-- الأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* ================= إعدادات أساسية ================= */
         :root {
             --bg-color: #e0e5ec;
             --light-shadow: #ffffff;
             --dark-shadow: #a3b1c6;
             --text-color: #5b6574;
-            --primary-accent: #ff6b81; 
-            --highlight-color: #ffd700; 
-            --primary-color: #2563eb;
-            --card-radius: 20px;
+            --primary-accent: #ff6b81;
+            --highlight-color: #ffd700;
+            --telegram-color: #2AABEE;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
 
-        html, body {
-            width: 100%;
-            min-height: 100vh;
-            background-color: #cfd8e3; 
-            font-family: 'Tajawal', sans-serif;
-            color: var(--text-color);
+        body {
+            background-color: #cfd8e3; /* خلفية المحيط */
             display: flex;
             justify-content: center;
-            -webkit-tap-highlight-color: transparent;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* حاوية التطبيق الثابتة بعرض 500px */
-        #app-container {
-            width: 500px;
-            min-height: 100vh;
+        /* حاوية التطبيق الثابتة */
+        #app-wrapper {
+            width: 400px;
             background-color: var(--bg-color);
             position: relative;
-            overflow-x: hidden;
-            box-shadow: 0 0 30px rgba(0,0,0,0.15);
+            min-height: 100vh;
+            box-shadow: 0 0 50px rgba(0,0,0,0.1);
         }
 
-        /* ================= شاشة البداية وحركة العنوان ================= */
-        #animated-header {
+        /* ================= شاشة التحميل والشعار المتحرك ================= */
+        #splash-container {
             position: absolute;
-            top: 40%;
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            text-align: center;
             width: 100%;
-            z-index: 100;
-            transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            text-align: center;
+            z-index: 1000;
+            transition: all 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
 
-        #animated-header.move-up {
-            top: 35px;
-            transform: translate(-50%, 0) scale(0.85); 
+        /* وضعية العنوان بعد الانتهاء (الهيدر) */
+        #splash-container.move-up {
+            top: 60px;
+            transform: translate(-50%, 0) scale(0.8);
         }
 
         .brand-title {
             font-family: 'Amiri', serif;
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 700;
             color: var(--text-color);
-            position: relative;
-            padding: 5px 10px;
             display: inline-block;
+            position: relative;
+            padding: 0 10px;
         }
 
         .brand-title.highlighted {
@@ -82,351 +77,195 @@
             100% { background: linear-gradient(90deg, transparent 50%, var(--highlight-color) 50%); background-size: 200% 100%; background-position: left; color: #000;}
         }
 
-        #heart-animation {
+        #heart-anim {
             width: 100px;
             height: 100px;
-            margin: 10px auto 0;
+            margin: 10px auto;
             opacity: 0;
-            transition: opacity 0.5s ease-in, transform 0.5s;
-            transform: scale(0.5);
+            transition: 0.5s;
         }
 
-        #heart-animation.show { opacity: 1; transform: scale(1); }
+        #heart-anim.show { opacity: 1; }
+        #heart-anim svg { width: 100%; height: 100%; }
 
-        #animated-header.move-up #heart-animation {
-            opacity: 0; transform: scale(0); height: 0; margin: 0;
-        }
-
-        #heart-animation svg { width: 100%; height: 100%; overflow: visible; }
         .heart-path {
-            fill: none; stroke: var(--primary-accent); stroke-width: 5;
-            stroke-linecap: round; stroke-dasharray: 200; stroke-dashoffset: 200;
+            fill: none;
+            stroke: var(--primary-accent);
+            stroke-width: 5;
+            stroke-linecap: round;
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
         }
-        #heart-animation.show .heart-path { animation: drawHeart 1.5s ease-out forwards; }
-        @keyframes drawHeart { to { stroke-dashoffset: 0; fill: rgba(255, 107, 129, 0.2); } }
+
+        .show .heart-path {
+            animation: draw 1.5s ease-out forwards;
+        }
+
+        @keyframes draw { to { stroke-dashoffset: 0; fill: rgba(255, 107, 129, 0.1); } }
+
+        /* إخفاء القلب عند صعود العنوان */
+        .move-up #heart-anim {
+            opacity: 0;
+            height: 0;
+            margin: 0;
+        }
 
         /* ================= المحتوى الرئيسي ================= */
         #main-content {
-            padding: 110px 25px 30px; 
+            padding: 140px 20px 40px;
             opacity: 0;
+            transform: translateY(30px);
+            transition: 1s ease-out;
             pointer-events: none;
-            transform: translateY(20px);
-            transition: all 0.8s ease-out;
-            transition-delay: 0.3s;
         }
 
         #main-content.visible {
-            opacity: 1; pointer-events: auto; transform: translateY(0);
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
         }
 
-        /* البطاقة العلوية */
+        /* البطاقة العلوية (الدعاء) */
         .header-card {
             width: 100%;
             padding: 20px;
-            border-radius: var(--card-radius);
+            border-radius: 20px;
             background: var(--bg-color);
             box-shadow: 8px 8px 16px var(--dark-shadow), -8px -8px 16px var(--light-shadow);
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
-        .header-card .salah {
+        .salah-text {
             font-family: 'Amiri', serif;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: var(--primary-accent);
             margin-bottom: 10px;
         }
 
-        .challenge-note {
-            background-color: transparent;
-            color: #d35400;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            margin-top: 10px;
-            border-right: 4px solid var(--highlight-color);
-            text-align: right;
-            box-shadow: inset 3px 3px 6px var(--dark-shadow), inset -3px -3px 6px var(--light-shadow);
-        }
-
-        /* أدوات البحث والفلترة (Neumorphism) */
-        .controls {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .filters-row {
-            display: flex;
-            gap: 15px;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 12px 15px;
-            border: none;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            outline: none;
-            background: var(--bg-color);
-            color: var(--text-color);
-            box-shadow: inset 4px 4px 8px var(--dark-shadow), inset -4px -4px 8px var(--light-shadow);
-            transition: 0.3s;
-            font-family: inherit;
-        }
-
-        input:focus, select:focus {
-            box-shadow: inset 6px 6px 12px var(--dark-shadow), inset -6px -6px 12px var(--light-shadow);
-            color: var(--primary-color);
-        }
-
         /* شبكة البطاقات (2 في كل صف) */
-        .cards-grid {
+        .grid-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
         }
 
-        /* تصميم بطاقة الامتحان المتغيرة */
-        .card {
+        .neu-card {
             background: var(--bg-color);
-            border-radius: var(--card-radius);
-            padding: 20px 10px;
-            box-shadow: 6px 6px 12px var(--dark-shadow), -6px -6px 12px var(--light-shadow);
-            text-decoration: none;
-            color: var(--text-color);
-            text-align: center;
+            border-radius: 25px;
+            padding: 25px 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s ease;
-            position: relative;
+            text-decoration: none;
+            color: var(--text-color);
+            box-shadow: 7px 7px 14px var(--dark-shadow), -7px -7px 14px var(--light-shadow);
+            transition: 0.3s;
         }
 
-        .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 8px 8px 15px var(--dark-shadow), -8px -8px 15px var(--light-shadow);
-        }
-
-        .card:active {
+        .neu-card:active {
             box-shadow: inset 5px 5px 10px var(--dark-shadow), inset -5px -5px 10px var(--light-shadow);
-            transform: translateY(0);
+            transform: scale(0.96);
         }
 
         .card-icon {
             font-size: 2.2rem;
             margin-bottom: 12px;
-            color: var(--primary-color);
-            transition: color 0.3s;
-        }
-
-        .card h2 {
-            font-size: 0.95rem;
-            font-weight: 700;
-            line-height: 1.4;
-            margin-bottom: 8px;
-            min-height: 40px; /* لتوحيد أطوال الكروت */
-        }
-
-        .badges {
-            display: flex;
-            gap: 5px;
-            font-size: 0.7rem;
-            opacity: 0.8;
-            background: transparent;
-            box-shadow: inset 2px 2px 5px var(--dark-shadow), inset -2px -2px 5px var(--light-shadow);
-            padding: 5px 10px;
-            border-radius: 8px;
-        }
-
-        .no-results {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 30px;
             color: var(--text-color);
-            font-weight: bold;
         }
+
+        .neu-card h2 {
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'Readex Pro', sans-serif;
+        }
+
+        /* تلوين الأيقونات حسب النوع */
+        .telegram .card-icon { color: var(--telegram-color); }
+        .exams .card-icon { color: #ff9f43; }
+        .youtube .card-icon { color: #ee5253; }
+        .books .card-icon { color: #1dd1a1; }
 
     </style>
 </head>
 <body>
 
-    <!-- حاوية التطبيق الثابتة بعرض 500px -->
-    <div id="app-container">
+    <div id="app-wrapper">
         
-        <!-- الهيدر المتحرك (آيات بينات + القلب) -->
-        <div id="animated-header">
-            <h1 class="brand-title" id="brand-text">آيات بينات</h1>
-            
-            <div id="heart-animation">
+        <!-- القسم المتحرك (Splash to Header) -->
+        <div id="splash-container">
+            <h1 class="brand-title" id="brand-name">آيات بينات</h1>
+            <div id="heart-anim">
                 <svg viewBox="0 0 100 100">
                     <path class="heart-path" d="M 50,30 C 50,30 40,10 20,10 C 0,10 0,40 0,40 C 0,60 50,90 50,90 C 50,90 100,60 100,40 C 100,40 100,10 80,10 C 60,10 50,30 50,30 Z"></path>
                 </svg>
             </div>
         </div>
 
-        <!-- المحتوى الرئيسي (يظهر بعد صعود الهيدر) -->
+        <!-- المحتوى الرئيسي -->
         <div id="main-content">
             
-            <!-- رسالة / دعاء علوي -->
             <div class="header-card">
-                <div class="salah">صَلِّ عَلَى مُحَمَّدٍﷺ</div>
-                <p>دعواتكم بعمرةٍ مع من نحب.. فبها ننجو ❤️</p>
-                <div class="challenge-note">
-                    <i class="fas fa-lightbulb"></i>
-                    <strong>سؤال:</strong> كيف وضعت الصورة في السؤال 27 في امتحان زولوجي 1 بدون وجود ملف للصورة؟ 😉
-                </div>
+                <div class="salah-text">صَلِّ عَلَى مُحَمَّدٍﷺ</div>
+                <p style="font-size: 0.9rem; font-weight: 700; line-height: 1.6;">
+                    منصة آيات بينات التعليمية لتبسيط العلوم الأكاديمية ونشر المعرفة.
+                </p>
             </div>
 
-            <!-- أدوات البحث والفلترة -->
-            <div class="controls">
-                <input type="text" id="searchInput" placeholder="ابحث عن اسم المادة (مثال: كيمياء، زولوجي)...">
+            <div class="grid-container">
                 
-                <div class="filters-row">
-                    <select id="facultyFilter">
-                        <option value="all">كل الكليات</option>
-                    </select>
-                    <select id="levelFilter">
-                        <option value="all">كل الفرق</option>
-                    </select>
-                </div>
-            </div>
+                <a href="#" class="neu-card exams">
+                    <i class="fas fa-file-signature card-icon"></i>
+                    <h2>الامتحانات</h2>
+                </a>
 
-            <!-- شبكة البطاقات للامتحانات -->
-            <div id="examsContainer" class="cards-grid"></div>
+                <a href="#" class="neu-card telegram">
+                    <i class="fab fa-telegram-plane card-icon"></i>
+                    <h2>قناتنا</h2>
+                </a>
+
+                <a href="#" class="neu-card youtube">
+                    <i class="fab fa-youtube card-icon"></i>
+                    <h2>المحاضرات</h2>
+                </a>
+
+                <a href="#" class="neu-card books">
+                    <i class="fas fa-book-open card-icon"></i>
+                    <h2>المذكرات</h2>
+                </a>
+
+            </div>
 
         </div>
 
     </div>
 
-    <!-- كود الجافاسكربت -->
     <script>
-        // ==========================================
-        // 1. قاعدة البيانات الخاصة بالامتحانات (مستعادة كما كانت)
-        // ==========================================
-        const examsData = [
-            { name: "زولوجي 1 (تحدي برمجة)", faculty: "علوم", level: "الفرقة الأولى", file: "1SCI/ZOO.html" },
-            { name: "بوتاني 1", faculty: "علوم", level: "الفرقة الأولى", file: "1SCI/Botany1.html" },
-            { name: "كيمياء 1 (عام)", faculty: "علوم", level: "الفرقة الأولى", file: "1SCI/chemeic.html" },
-            { name: "كيمياء 1 (2021)", faculty: "علوم", level: "الفرقة الأولى", file: "1SCI/chemeic2021.html" },
-            { name: "كيمياء 1 (2023)", faculty: "علوم", level: "الفرقة الأولى", file: "1SCI/chemeic2023.html" },
-            { name: "English 1", faculty: "علوم", level: "الفرقة الأولى", file: "1SCI/english1.html" },
-            { name: "رياضيات 1 (2024)", faculty: "علوم", level: "الفرقة الأولى", file: "1SCI/math2024.html" },
-            { name: "زولوجي 1 (2024)", faculty: "علوم", level: "الفرقة الأولى", file: "1SCI/ZOO2024.html" },
-            { name: "زولوجي 1 (2023)", faculty: "علوم", level: "الفرقة الأولى", file: "1SCI/ZOO2023.html" },
-            { name: "زولوجي 1 (ترم ثاني)", faculty: "علوم", level: "الفرقة الأولى", file: "1SCI/ZOO2023SECONDTerm.html" }
-        ];
-
-        // ==========================================
-        // 2. منطق الأنيميشن (شاشة البداية)
-        // ==========================================
         document.addEventListener('DOMContentLoaded', () => {
-            const brandText = document.getElementById('brand-text');
-            const heartAnim = document.getElementById('heart-animation');
-            const header = document.getElementById('animated-header');
-            const mainContent = document.getElementById('main-content');
+            const splash = document.getElementById('splash-container');
+            const brand = document.getElementById('brand-name');
+            const heart = document.getElementById('heart-anim');
+            const content = document.getElementById('main-content');
 
-            setTimeout(() => { brandText.classList.add('highlighted'); }, 500);
-            setTimeout(() => { heartAnim.classList.add('show'); }, 1000);
+            // 1. تظليل النص بالأصفر
             setTimeout(() => {
-                header.classList.add('move-up'); 
-                mainContent.classList.add('visible'); 
+                brand.classList.add('highlighted');
+            }, 600);
+
+            // 2. إظهار ورسم القلب
+            setTimeout(() => {
+                heart.classList.add('show');
+            }, 1200);
+
+            // 3. الحركة الكبرى: صعود العنوان وظهور المحتوى
+            setTimeout(() => {
+                splash.classList.add('move-up'); // العنوان يصعد للأعلى
+                content.classList.add('visible'); // المحتوى يظهر من الأسفل
             }, 3500);
         });
-
-        // ==========================================
-        // 3. منطق البحث وعرض الامتحانات
-        // ==========================================
-        const container = document.getElementById('examsContainer');
-        const searchInput = document.getElementById('searchInput');
-        const facultyFilter = document.getElementById('facultyFilter');
-        const levelFilter = document.getElementById('levelFilter');
-
-        function normalizeArabic(text) {
-            return text.replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
-        }
-
-        function populateFilters() {
-            const faculties = [...new Set(examsData.map(item => item.faculty))];
-            faculties.forEach(fac => {
-                const option = document.createElement('option');
-                option.value = fac; option.textContent = fac;
-                facultyFilter.appendChild(option);
-            });
-
-            const levels = [...new Set(examsData.map(item => item.level))];
-            levels.sort();
-            levels.forEach(lvl => {
-                const option = document.createElement('option');
-                option.value = lvl; option.textContent = lvl;
-                levelFilter.appendChild(option);
-            });
-        }
-
-        function displayExams(data) {
-            container.innerHTML = '';
-
-            if (data.length === 0) {
-                container.innerHTML = `
-                    <div class="no-results">
-                        <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 10px; color: var(--primary-accent);"></i>
-                        <p>لا توجد امتحانات تطابق بحثك</p>
-                    </div>`;
-                return;
-            }
-
-            data.forEach(exam => {
-                const card = document.createElement('a');
-                card.className = 'card exam-card';
-                card.href = exam.file; // استعادة الرابط الخاص بكل امتحان
-                card.target = "_blank"; // لفتح الامتحان في صفحة جديدة
-                
-                // تحديد أيقونة بناء على نوع المادة
-                let iconClass = 'fa-file-lines';
-                if(exam.name.includes('كيمياء')) iconClass = 'fa-flask';
-                if(exam.name.includes('زولوجي') || exam.name.includes('بوتاني')) iconClass = 'fa-leaf';
-                if(exam.name.includes('رياضيات')) iconClass = 'fa-calculator';
-                if(exam.name.includes('English')) iconClass = 'fa-language';
-
-                // محتوى الكارت
-                card.innerHTML = `
-                    <i class="fas ${iconClass} card-icon"></i>
-                    <h2>${exam.name}</h2>
-                    <div class="badges">
-                        <span>${exam.faculty}</span> - <span>${exam.level.replace('الفرقة ', '')}</span>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function filterData() {
-            const searchText = normalizeArabic(searchInput.value.toLowerCase());
-            const selectedFaculty = facultyFilter.value;
-            const selectedLevel = levelFilter.value;
-
-            const filtered = examsData.filter(exam => {
-                const normalizedName = normalizeArabic(exam.name.toLowerCase());
-                const matchName = normalizedName.includes(searchText);
-                const matchFaculty = selectedFaculty === 'all' || exam.faculty === selectedFaculty;
-                const matchLevel = selectedLevel === 'all' || exam.level === selectedLevel;
-                return matchName && matchFaculty && matchLevel;
-            });
-
-            displayExams(filtered);
-        }
-
-        searchInput.addEventListener('input', filterData);
-        facultyFilter.addEventListener('change', filterData);
-        levelFilter.addEventListener('change', filterData);
-
-        // تشغيل الوظائف عند بدء الصفحة
-        populateFilters();
-        displayExams(examsData);
-
     </script>
+
 </body>
 </html>
